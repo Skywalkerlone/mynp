@@ -1,26 +1,88 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+body {
+  @apply bg-white text-black dark:bg-black dark:text-white transition-colors duration-500;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
+/* Other animations and styles below */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+/* Animation for marquee */
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 }
 
+/* Shine animation */
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+.animate-shine {
+  animation: shine 2.5s infinite;
+}
+
+/* Glassmorphism button */
+/* Add your glassmorphism styles here */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  @apply bg-white text-black dark:bg-black dark:text-white transition-colors duration-500;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+.project-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

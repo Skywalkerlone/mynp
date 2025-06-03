@@ -1,19 +1,35 @@
-'use client'
-import { useState, useEffect } from 'react'
+// pages/index.js
 import Navbar from '../components/Navbar'
+import Home from '../components/Home'
+import Services from '../components/Services'
+import Marquee from '../components/Marquee'
+import Web from '../components/Web'
+import Gallery from '../components/Gallery'
+import About from '../components/About'
+import Contact from '../components/Contact'
+import SocialMedia from '../components/SocialMedia'
+import Footer from '../components/Footer'
+import Resume from '../components/Resume'
 
-
-export default function Page() {
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode)
-  }, [darkMode])
-
+export default function Index({ darkMode, setDarkMode }) {
   return (
-    <main className="bg-gradient-to-b from-sky-100 to-blue-200 dark:from-blue-800 dark:to-black text-black dark:text-white transition-colors duration-500">
+    <>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-    
-    </main>
+      <SocialMedia />
+      <main>
+        <Home />
+        <SocialMedia />
+        <Services />
+        <Marquee />
+        <Web />
+        <Gallery />
+        <Resume />
+        <About />
+
+        <Contact />
+        
+      </main>
+      <Footer />
+    </>
   )
 }
