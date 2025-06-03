@@ -67,7 +67,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
           className="flex items-center gap-3 cursor-pointer select-none"
         >
           <Image
-            src="/images/Logo.png"
+            src="/images/logo.png"
             alt="Logo"
             width={40}
             height={40}
