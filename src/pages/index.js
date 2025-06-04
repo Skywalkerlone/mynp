@@ -11,6 +11,7 @@ import SocialMedia from '../components/SocialMedia'
 import Footer from '../components/Footer'
 import Resume from '../components/Resume'
 
+
 export default function Index({ darkMode, setDarkMode }) {
   return (
     <>

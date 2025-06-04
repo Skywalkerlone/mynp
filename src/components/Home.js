@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 export default function HomeSection() {
-  const name = 'IDAEWOR SAMUEL .E PROVIDENCE.'
+  const nameLine1 = 'IDAEWOR SAMUEL'
+  const nameLine2 = '.E PROVIDENCE.'
   const [showWelcome, setShowWelcome] = useState(true)
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full px-4 sm:px-6 py-12 bg-fixed flex items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
+      className="relative min-h-screen w-full right-0 px-4 sm:px-6 py-12 bg-fixed flex items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
       style={{
         backgroundImage: 'url("/images/ff.png")',
       }}
@@ -66,8 +67,12 @@ export default function HomeSection() {
         className="z-10 text-center max-w-2xl px-4 sm:px-6"
       >
         <p className="mt-4 text-base sm:text-lg">My name is...</p>
-        <h1 className="typewriter text-2xl sm:text-3xl md:text-4xl my-6 font-bold text-blue-200">
-          {name}
+
+        <h1
+          className="typewriter font-bold text-blue-200 whitespace-pre-line break-words text-center"
+          style={{ fontSize: 'clamp(1.5rem, 6vw, 2.5rem)' }}
+        >
+          {`${nameLine1}\n${nameLine2}`}
         </h1>
 
         <motion.p
@@ -119,10 +124,9 @@ export default function HomeSection() {
       <style jsx>{`
         .typewriter {
           overflow: hidden;
-          white-space: nowrap;
           border-right: 2px solid #fff;
-          width: fit-content;
           animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+          word-break: break-word;
         }
 
         @keyframes typing {
