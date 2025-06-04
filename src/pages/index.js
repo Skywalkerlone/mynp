@@ -11,25 +11,25 @@ import SocialMedia from '../components/SocialMedia'
 import Footer from '../components/Footer'
 import Resume from '../components/Resume'
 
-
 export default function Index({ darkMode, setDarkMode }) {
   return (
     <>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <SocialMedia />
+      {/* Consider placing SocialMedia either here or inside main, not both */}
+      {/* <SocialMedia /> */}
+ <SocialMedia />
       <main>
-        <Home />
-        <SocialMedia />
+        <Home darkMode={darkMode} />
+       
         <Services />
         <Marquee />
         <Web />
         <Gallery />
         <Resume />
         <About />
-
         <Contact />
-        
       </main>
+
       <Footer />
     </>
   )
