@@ -16,7 +16,7 @@ const artImages = [
 // Blender 3D images array (unchanged)
 const blenderImages = ['0002.png', 'b.png', 'cookie.png', 'gy.png','gyi.png', 'hm.png', 'st.png', 'this.png',
    'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png','Screenshot 2024-12-12 120228.png.png', 'pef.png', 
-   'Screenshot 2024-12-08 074234.png.png', 'this.png']
+   'Screenshot 2024-12-08 074234.png.png','0001.png', 'this.png']
 
 export default function Gallery() {
   const sliderRef = useRef(null)
@@ -39,6 +39,10 @@ export default function Gallery() {
         className="text-3xl font-bold text-center mb-12"
       >
         <span className="text-blue-200">Artistic</span> Portfolio
+        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl m-5 mx-auto text-center">
+  I specialize in a wide range of creative services including book covers, illustrations, comics, animations, storytelling, graphic design, 3D modeling, and product design. Whether you're looking to bring characters to life, visualize a product, or tell a compelling story through visuals, my gallery showcases the depth and diversity of my work.
+</p>
+
       </motion.h2>
 
       {/* Art Gallery Grid */}

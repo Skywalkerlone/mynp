@@ -66,6 +66,7 @@ export default function Contact() {
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 Have questions, ideas, or want to collaborate? Use the form on the right to send me a message. I am here to listen and help!
               </p>
+              <p className="text-gray-700 m-4 dark:text-gray-300 leading-relaxed">+234 8117820918</p>
             </div>
           </motion.div>
 
