@@ -98,8 +98,8 @@ export default function Resume() {
         </motion.h2>
 
         <motion.a
-          href="/images/IDAEWOR_SAMUEL_PROVIDENCE_Resume.pdf"
-          download="IDAEWOR_SAMUEL_PROVIDENCE_Resume.pdf"
+          href="/images/IDAEWOR S.E PROVIDENCE.CV.docx."
+          download="IDAEWOR S.E PROVIDENCE.CV.docx"
           className="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-4 rounded shadow-lg transition-transform"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
