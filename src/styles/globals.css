@@ -86,3 +86,10 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+@media (max-width: 640px) {
+  .typewriter {
+    font-size: 125%; 
+
+    /* or 0.875rem, adjust as needed */
+  }
+}

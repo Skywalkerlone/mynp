@@ -38,28 +38,31 @@ const projects = [
 ]
 
 function ProjectCard({ project, index }) {
+
   return (
     <motion.div
       initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="project-card flex flex-col md:flex-row items-center md:items-start md:gap-8 bg-slate-100 dark:bg-slate-800 rounded-xl shadow-lg p-6 md:p-8"
+      className="project-card flex flex-col md:flex-row items-center gap-6 bg-slate-100 dark:bg-slate-800 rounded-xl shadow-lg p-5 md:p-8 w-full overflow-hidden"
     >
-      <div className="w-full md:w-1/2 flex-shrink-0">
+      <div className="w-full md:w-1/2 flex justify-center">
         <Image
           src={`/webb/${project.image}`}
           alt={`Screenshot of ${project.title}`}
           width={400}
           height={250}
-          className="rounded-md object-cover w-full h-auto"
-          priority={index < 2} // prioritize first 2 images for performance
+          className="rounded-md object-cover w-full max-w-xs sm:max-w-sm md:max-w-md"
+          priority={index < 2}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
-      <div className="mt-6 md:mt-0 md:w-1/2 flex flex-col justify-center">
-        <h3 className="text-2xl font-semibold mb-3 md:mb-4">{project.title}</h3>
-        <p className="text-base text-gray-700 dark:text-gray-300 mb-5 leading-relaxed">{project.description}</p>
+      <div className="w-full md:w-1/2">
+        <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
+        <p className="text-base text-gray-700 dark:text-gray-300 mb-5 leading-relaxed">
+          {project.description}
+        </p>
         <a
           href={project.link}
           target="_blank"
@@ -76,18 +79,21 @@ function ProjectCard({ project, index }) {
 
 export default function Web() {
   return (
-    <section id="web" className="py-16 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <section
+      id="web"
+      className="py-16 bg-white dark:bg-slate-900 text-slate-900 dark:text-white w-full overflow-hidden"
+    >
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold text-center mb-12 px-4 md:px-0 max-w-4xl mx-auto"
+        className="text-3xl font-bold text-center mb-12 px-4 max-w-4xl mx-auto"
       >
         <span className="text-blue-200">Technical</span> Portfolio
       </motion.h2>
 
-      <div className="space-y-12 px-4 max-w-6xl mx-auto">
+      <div className="space-y-12 px-4 max-w-6xl mx-auto w-full">
         {projects.map((project, index) => (
           <ProjectCard key={index} project={project} index={index} />
         ))}
