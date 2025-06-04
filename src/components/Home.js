@@ -36,7 +36,7 @@ export default function HomeSection() {
       </AnimatePresence>
 
       {/* BACKGROUND OVERLAY */}
-      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/70 transition duration-700 z-0" />
+      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/90 transition duration-700 z-0" />
 
       {/* AURA RINGS */}
       <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] rounded-full border-4 border-blue-400 blur-xl animate-spin-slow z-0" />

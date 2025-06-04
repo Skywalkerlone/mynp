@@ -62,7 +62,7 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <div className="bg-white dark:bg-slate-900 p-10 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <h3 className="text-3xl font-semibold mb-5">Reach Out</h3>
+              <h3 className="text-3xl font-semibold mb-5">Reach Out!</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 Have questions, ideas, or want to collaborate? Use the form on the right to send me a message. I am here to listen and help!
               </p>

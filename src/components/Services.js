@@ -81,7 +81,7 @@ export default function Services() {
       className="relative py-20 px-6 bg-gradient-to-b from-white to-blue-100 dark:from-blue-900 dark:to-slate-900 text-gray-800 dark:text-white overflow-hidden"
     >
       {/* Background wave */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">
         <svg
           className="absolute top-0 left-0 w-full h-auto"
           viewBox="0 0 1440 320"
@@ -114,6 +114,41 @@ export default function Services() {
             ease: 'easeInOut',
           }}
           className="absolute bottom-0 right-0 w-60 h-60 bg-purple-300/20 rounded-full blur-3xl z-0"
+        />
+
+        {/* New aura blobs */}
+        <motion.div
+          className="absolute rounded-full bg-gradient-to-tr from-blue-400 to-indigo-600 opacity-30 blur-3xl"
+          style={{ width: 180, height: 180, top: '20%', left: '15%' }}
+          animate={{
+            x: [0, 20, 0],
+            y: [0, -15, 0],
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute rounded-full bg-gradient-to-br from-purple-500 to-pink-500 opacity-25 blur-2xl"
+          style={{ width: 220, height: 220, top: '50%', left: '60%' }}
+          animate={{
+            x: [0, -15, 0],
+            y: [0, 20, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.25, 0.45, 0.25],
+          }}
+          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute rounded-full bg-gradient-to-l from-teal-400 to-cyan-500 opacity-20 blur-3xl"
+          style={{ width: 200, height: 200, top: '70%', left: '30%' }}
+          animate={{
+            x: [0, 10, 0],
+            y: [0, 10, 0],
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         />
       </div>
 
@@ -223,22 +258,34 @@ export default function Services() {
 
       {/* Shine animation */}
       <style jsx>{`
-        @keyframes shine {
-          0% {
-            transform: translateX(-100%) skewX(-12deg);
-            opacity: 0;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            transform: translateX(200%) skewX(-12deg);
-            opacity: 0;
-          }
-        }
-        .animate-shine {
-          animation: shine 1.5s ease-in-out infinite;
-        }
+      
+     
+@layer utilities {
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+  }
+
+  @keyframes aura {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(20px, -20px) scale(1.1);
+      opacity: 0.5;
+    }
+  }
+
+  .animate-aura {
+    animation: aura 15s ease-in-out infinite;
+  }
+
+  .animate-aura-delay {
+    animation: aura 20s ease-in-out infinite;
+    animation-delay: 5s;
+  }
+}
       `}</style>
     </section>
   )
