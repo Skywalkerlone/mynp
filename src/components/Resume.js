@@ -96,16 +96,16 @@ export default function Resume() {
         <motion.h2 className="text-4xl font-bold mb-8 text-sky-700 dark:text-sky-400">
           Download My Resume
         </motion.h2>
+<motion.a
+  href="/images/IDAEWORPROVIDENCE-CV.docx"
+  download="IDAEWORSAMUEL.docx"
+  className="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-4 rounded shadow-lg transition-transform"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  Download CV
+</motion.a>
 
-        <motion.a
-          href="/images/IDAEWOR S.E PROVIDENCE.CV.docx."
-          download="IDAEWOR S.E PROVIDENCE.CV.docx"
-          className="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-4 rounded shadow-lg transition-transform"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Download CV
-        </motion.a>
 
         <p className="mt-6 text-gray-600 dark:text-gray-300 max-w-md mx-auto">
           Click the button above to download my latest resume in PDF format. Feel free to reach out if you would like more information!
