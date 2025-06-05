@@ -55,7 +55,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 50 }}
-    className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-black/50 backdrop-blur-md border-b border-black/10 dark:border-white/10 text-black dark:text-white shadow-lg"
+    className="fixed top-0 left-0 w-full z-50 bg-white/80 comet-border dark:bg-black/50 backdrop-blur-md border-b border-black/10 dark:border-white/10 text-black dark:text-white shadow-lg"
 
 
     >
