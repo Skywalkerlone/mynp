@@ -10,6 +10,8 @@ import Contact from '../components/Contact'
 import SocialMedia from '../components/SocialMedia'
 import Footer from '../components/Footer'
 import Resume from '../components/Resume'
+import EducationalPortfolio from '../components/EducationalPortfolio'
+import SocialMediaExpertise from '../components/SocialMediaExpertise'
 
 export default function Index({ darkMode, setDarkMode }) {
   return (
@@ -25,6 +27,8 @@ export default function Index({ darkMode, setDarkMode }) {
         <Marquee />
         <Web />
         <Gallery />
+        <SocialMediaExpertise />
+         <EducationalPortfolio />
         <Resume />
         <About />
         <Contact />

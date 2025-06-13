@@ -38,7 +38,7 @@ export default function GraphicGallery() {
   }, [])
 
   return (
-    <section className="p-6">
+    <section className="p-6" id='graphic'>
       <h2 className="text-4xl font-bold mb-14 text-center "><span className="text-blue-200">Graphic</span> Gallery</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {images.map((img, idx) => (

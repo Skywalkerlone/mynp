@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaSun, FaMoon, FaBars, FaTimes, FaPaintBrush, FaCode,
-  FaHome, FaBriefcase, FaUser, FaEnvelope
+  FaHome, FaBriefcase, FaUser, FaEnvelope,
+  FaIcicles,
+  FaGifts
 } from 'react-icons/fa'
 import { MdArrowDropDown } from 'react-icons/md'
 import Link from 'next/link'
@@ -41,9 +43,12 @@ export default function Navbar({ darkMode, setDarkMode }) {
     {
       name: 'Portfolio',
       icon: <FaPaintBrush />,
-      submenu: [
-        { name: 'Artistic Services', icon: <FaPaintBrush />, href: '#gallery' },
+      submenu: [ 
         { name: 'Technical Services', icon: <FaCode />, href: '#web' },
+        { name: 'Artistic Services', icon: <FaPaintBrush />, href: '#gallery' },
+        // { name: 'Graphic Gallery'}, icon: <FaIcicles />, href: '#gallery' }
+        { name: 'Graphic Gallery', icon: <FaGifts />, href: '#graphic' }
+       
       ],
     },
     { name: 'About', icon: <FaUser />, href: '#about' },

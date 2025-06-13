@@ -124,6 +124,13 @@ body {
   }
 }
 
+
+
+
+
+
+
+
 .comet-border {
   position: fixed;
 }
@@ -135,10 +142,10 @@ body {
   left: -10%;
   height: 1px;
   width: 30%;
-  background: linear-gradient(120deg, transparent, #91abffbd ,  #a4b9ff);
+  background: linear-gradient(120deg, transparent, #becdffe5 ,  #abbeff);
   animation: cometMove 2.5s linear infinite;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.9;
   filter: blur(1px);
 }
 

@@ -114,7 +114,7 @@ export default function Web() {
       >
         <Link href="#services">
           <button
-            className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md p-4 md:p-6 shadow-lg border border-white/30 text-white rounded-xl hover:scale-105 transition-transform duration-300"
+            className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md p-3 md:p-3 shadow-lg border border-white/30 text-white rounded-lg hover:scale-105 transition-transform duration-300"
             aria-label="Back to Technical Services"
           >
             Back to Technical Services

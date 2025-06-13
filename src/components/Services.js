@@ -60,7 +60,7 @@ export default function Services() {
         'Post creation and scheduling',
         'Paid ADs',
       ],
-      link: '#gallery',
+      link: '#sm',
     },
     {
       title: 'Educational Services',
@@ -78,7 +78,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-20 px-6 bg-gradient-to-b from-white to-blue-100 dark:from-blue-900 dark:to-slate-900 text-gray-800 dark:text-white overflow-hidden"
+      className="relative py-20 px-6 bg-gradient-to-b  aura-scary from-white to-blue-100 dark:from-blue-900 dark:to-slate-900 text-gray-800 dark:text-white overflow-hidden"
     >
       {/* Background wave */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">

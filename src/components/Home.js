@@ -39,8 +39,8 @@ export default function HomeSection() {
       <div className="absolute inset-0 bg-black/40 group-hover:bg-black/90 transition duration-700 z-0" />
 
       {/* AURA RINGS */}
-      <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] rounded-full border-4 border-blue-400 blur-xl animate-spin-slow z-0" />
-      <div className="absolute w-[300px] h-[200px] sm:w-[400px] sm:h-[300px] md:w-[600px] md:h-[400px] rounded-full border-2 border-pink-500 blur-xl animate-pulse z-0" />
+      <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] rounded-full border-4 border-blue-700 blur-xl animate-spin-slow z-0" />
+      <div className="absolute w-[300px] h-[200px] sm:w-[400px] sm:h-[300px] md:w-[600px] md:h-[400px] rounded-full border-2 border-pink-600 blur-xl animate-pulse z-0" />
 
       {/* SPARKLE PARTICLES */}
       <div className="absolute w-full h-full overflow-hidden z-0 pointer-events-none">
