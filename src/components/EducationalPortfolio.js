@@ -10,7 +10,7 @@ const BarChart = dynamic(
     const recharts = await import("recharts");
     return () => {
       const subjects = [
-        { subject: "Mathematics", level: 95 },
+        { subject: "Mathematics", level: 75 },
         { subject: "Physics", level: 90 },
         { subject: "Chemistry", level: 85 },
         { subject: "Sciences", level: 88 },
@@ -37,7 +37,7 @@ const BarChart = dynamic(
 
       return (
         <div className="w-full h-96 mb-12 bg-white/10 backdrop-blur rounded-xl shadow-lg p-4 border border-blue-400">
-          <h3 className="text-xl font-semibold text-white text-center mb-4">
+          <h3 className="text-xl font-semibold text-white text-center mb-9">
             Teaching Strength by Subject
           </h3>
           <recharts.ResponsiveContainer width="100%" height="100%">
@@ -133,7 +133,7 @@ const EducationalPortfolio = () => {
             {programs.map((program, index) => (
               <div
                 key={index}
-                className="p-6 rounded-xl bg-white/10 backdrop-blur-md text-white text-center shadow-xl transform hover:scale-105 transition-all duration-300 border border-white/10 comet-border"
+                className="p-7 m-2 rounded-sm bg-white/10 backdrop-blur-md text-white text-center shadow-xl transform hover:scale-102 transition-all duration-300 border border-white/10 comet-border"
               >
                 <h4 className="text-xl font-medium">{program}</h4>
               </div>

@@ -109,7 +109,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                         className="absolute top-8 left-0 bg-white dark:bg-black text-black dark:text-white rounded shadow-md py-2 w-56 z-50 overflow-hidden"
                       >
                         {submenu.map(({ name, href, icon }) => (
-                          <li key={name} className="px-4 py-2 hover:bg-black/10 dark:hover:bg-white/10">
+                          <li key={name} className="px-4 py-2  hover:bg-black/10 hover:text-blue-500 dark:hover:bg-white/10">
                             <Link href={href} className="flex items-center gap-2" onClick={() => setPortfolioOpen(false)}>
                               {icon} {name}
                             </Link>
