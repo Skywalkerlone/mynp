@@ -1,25 +1,53 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function HomeSection() {
   const name = 'IDAEWOR SAMUEL .E PROVIDENCE.'
-  const [showWelcome, setShowWelcome] = useState(true)
+  const [isPageReady, setIsPageReady] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(false)
 
+  // Load Spline Viewer script
   useEffect(() => {
-    const timer = setTimeout(() => setShowWelcome(false), 3000)
-    return () => clearTimeout(timer)
+    const script = document.createElement('script')
+    script.type = 'module'
+    script.src = 'https://unpkg.com/@splinetool/viewer@1.10.16/build/spline-viewer.js'
+    script.async = true
+    document.body.appendChild(script)
+  }, [])
+
+  // Lazy loading and welcome timing
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsPageReady(true)
+      setShowWelcome(true)
+
+      const welcomeTimeout = setTimeout(() => {
+        setShowWelcome(false)
+      }, 2500)
+
+      return () => clearTimeout(welcomeTimeout)
+    }, 3000)
+
+    return () => clearTimeout(timeout)
   }, [])
 
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full px-4 sm:px-6 py-12 bg-fixed flex items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
+      className="relative min-h-screen w-full px-4 sm:px-6 py-8 bg-fixed flex items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
       style={{
         backgroundImage: 'url("/images/ff.png")',
       }}
     >
+      {/* FULL PAGE LOADER */}
+      {!isPageReady && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+
       {/* WELCOME POPUP */}
       <AnimatePresence>
         {showWelcome && (
@@ -59,61 +87,72 @@ export default function HomeSection() {
       </div>
 
       {/* MAIN CONTENT */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="z-10 text-center max-w-2xl px-4 sm:px-6"
-      >
-        <p className="mt-4 text-base sm:text-lg">My name is...</p>
-        <h1 className="typewriter text-lg sm:text-2xl md:text-3xl lg:text-4xl my-6 font-bold text-blue-200">
-  {name}
-</h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-1 text-white/90 text-base sm:text-lg"
-        >
-          If you are looking for a{' '}
-          <span className="text-blue-300">Digital Artist</span>,{' '}
-          <span className="text-blue-300">Graphic Designer</span>,{' '}
-          <span className="text-blue-300">App</span> or{' '}
-          <span className="text-blue-300">Website Developer</span> (Front-end/Back-end),{' '}
-          <span className="text-blue-300">Video Editor</span>,{' '}
-          <span className="text-blue-300">2D</span> or{' '}
-          <span className="text-blue-300">3D product designer</span> and{' '}
-          <span className="text-blue-300">animator</span>, or{' '}
-          <span className="text-blue-300">Tutorials</span> or{' '}
-          <span className="text-blue-300">Facilitator</span>, then you have come to the right place.
-        </motion.p>
-
-        {/* BUTTONS */}
+      {isPageReady && (
         <motion.div
-          className="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="z-10 text-center max-w-2xl px-4 sm:px-6 pt-2 mt-[-250px]"
         >
-          <a
-            href="#services"
-            className="relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded text-lg shadow-lg font-semibold transition duration-300"
-          >
-            Get Started
-            <span className="absolute top-0 left-[-75%] w-20 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform skew-x-[-25deg] animate-shine" />
-          </a>
+          {/* Spline Viewer */}
+          <div className="mx-auto mb-2 flex justify-center items-center" style={{ marginTop: '-1rem' }}>
+            <spline-viewer
+              loading-anim-type="spinner-small-dark"
+              url="https://prod.spline.design/zHC0bnx32wj-Sxs9/scene.splinecode"
+              style={{ width: '280px', height: '280px' }}
+            />
+          </div>
 
-          <a
-            href="https://www.redbubble.com/people/ESAIART/shop?asc=u"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md px-5 py-2 shadow-lg border border-white/30 text-white rounded hover:bg-white/20 hover:border-white transition duration-300 font-semibold"
+          <p className="mt-1 text-base sm:text-lg">My name is...</p>
+          <h1 className="typewriter text-lg sm:text-2xl md:text-3xl lg:text-4xl my-6 font-bold text-blue-200">
+            {name}
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="mt-1 text-white/90 text-base sm:text-lg"
           >
-            Visit Shop
-          </a>
+            If you are looking for a{' '}
+            <span className="text-blue-300">Digital Artist</span>,{' '}
+            <span className="text-blue-300">Graphic Designer</span>,{' '}
+            <span className="text-blue-300">App</span> or{' '}
+            <span className="text-blue-300">Website Developer</span> (Front-end/Back-end),{' '}
+            <span className="text-blue-300">Video Editor</span>,{' '}
+            <span className="text-blue-300">2D</span> or{' '}
+            <span className="text-blue-300">3D product designer</span> and{' '}
+            <span className="text-blue-300">animator</span>, or{' '}
+            <span className="text-blue-300">Tutorials</span> or{' '}
+            <span className="text-blue-300">Facilitator</span>, then you have come to the right place.
+          </motion.p>
+
+          {/* BUTTONS */}
+          <motion.div
+            className="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <a
+              href="#services"
+              className="relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded text-lg shadow-lg font-semibold transition duration-300"
+            >
+              Get Started
+              <span className="absolute top-0 left-[-75%] w-20 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform skew-x-[-25deg] animate-shine" />
+            </a>
+
+            <a
+              href="https://www.redbubble.com/people/ESAIART/shop?asc=u"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md px-5 py-2 shadow-lg border border-white/30 text-white rounded hover:bg-white/20 hover:border-white transition duration-300 font-semibold"
+            >
+              Visit Shop
+            </a>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
 
       {/* STYLES */}
       <style jsx>{`
