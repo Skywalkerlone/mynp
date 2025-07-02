@@ -112,10 +112,12 @@ export default function About() {
               <span className="font-medium text-sky-700 dark:text-sky-300">design</span> and{' '}
               <span className="font-medium text-sky-700 dark:text-sky-300">code</span> to solve real-world problems creatively.
             </p>
-
             <p className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md p-6 text-md text-gray-900 dark:text-gray-300">
-              As the creative force behind <strong>E_sai_Art (The Skywalker)</strong>, I offer book covers, illustrations, comic art, animation, 3D modeling, and product design — fusing imagination with function.
-            </p>
+  I'm a versatile developer and digital artist blending creativity with code. I specialize in frontend and backend development, mobile app development, video editing, and 3D modeling. I also offer book covers, illustrations, comic art, animation, and product design — fusing imagination with function to deliver unique, high-impact solutions.
+        </p>
+
+
+            
 
             <p className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md p-6 shadow-lg border border-white/30 text-md text-gray-800 dark:text-gray-300">
               My artistic alias — <span className="font-semibold italic text-blue-600 dark:text-blue-300">E_sai_Art (The Skywalker)</span> — reflects a journey of storytelling, growth, and creative reinvention.

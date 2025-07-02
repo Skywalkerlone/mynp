@@ -170,7 +170,7 @@ export default function Services() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-md mb-12 text-gray-600 dark:text-gray-300"
         >
-          Unlock powerful solutions through artistry, technology, and education—crafted to elevate your vision.
+          I provide powerful solutions through artistry, technology, and education—crafted to elevate your vision, you think it and i make it real.
         </motion.p>
 
         {/* Service Cards */}
@@ -204,22 +204,22 @@ export default function Services() {
                   },
                 }}
                 // Added flex-col and flex + push button down with mt-auto
-                className="border border-blue-200 dark:border-white/50 bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition duration-300 backdrop-blur-md relative flex flex-col"
+                className="border-r-2 border-b-2 dark:border-white/20 bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition duration-300 backdrop-blur-md relative flex flex-col"
               >
                 <h3 className="text-xl font-semibold mb-3  text-blue-300 dark:text-blue-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-3">
+                <p className="text-gray-700 dark:text-gray-300 mb-3 ">
                   {service.description}
                 </p>
-                <ul className="list-disc pl-5 mb-4 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                <ul className="list-disc pl-5 mb-4 text-sm text-gray-600 dark:text-gray-400 space-y-2">
                   {service.list.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
                 </ul>
                 <Link
                   href={service.link}
-                  className="block relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all font-semibold mt-auto"
+                  className="block relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all font-semibold mt-auto hover:border-r-2 border-red-200"
                 >
                   View Portfolio
                   <span
@@ -245,7 +245,7 @@ export default function Services() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.3 }}
-              className="bg-blue-100 dark:bg-blue-600  otext-blue-900 dark:text-white p-4 rounded-xl"
+              className="bg-blue-100 dark:bg-blue-800  text-blue-900 dark:text-white p-4 rounded-xl"
             >
               <p className="text-3xl font-bold">
                 <CountUp target={stat.value} />

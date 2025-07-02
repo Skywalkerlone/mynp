@@ -89,7 +89,7 @@ export default function Resume() {
       >
         {/* Shiny Gradient */}
         <span
-          className="absolute top-0 left-[-70%] w-[280px] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform skew-x-[-35deg] animate-shine pointer-events-none"
+          className="absolute top-0 left-[-70%] w-[280px] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform skew-x-[-35deg] animate-shine pointer-events-none py-10"
           aria-hidden="true"
         />
 

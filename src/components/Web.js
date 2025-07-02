@@ -39,14 +39,14 @@ const projects = [
 
 function ProjectCard({ project, index }) {
   return (
-    <div className="relative group rounded-xl overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-500/20 via-purple-500/10 to-pink-500/20 blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 rounded-xl" />
+    <div className="relative group rounded-xl overflow-hidden ">
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-500/50 via-purple-800/20 to-pink-500/20 blur-2xl opacity-80 group-hover:opacity-80 transition-opacity duration-500 rounded-lg" />
       <motion.div
         initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative z-10 flex flex-col md:flex-row items-center gap-6 bg-white/10 dark:bg-slate-800/60 rounded-xl shadow-2xl p-5 md:p-8 w-full overflow-hidden border border-white/10 backdrop-blur-md hover:shadow-blue-400/30 transition-shadow duration-500"
+        className="relative z-10 flex flex-col md:flex-row items-center gap-6 bg-white/10 dark:bg-slate-800/60 rounded-xl shadow-2xl p-5 md:p-8 w-full overflow-hidden border-r-4  border-b-2  border-white/10 backdrop-blur-md hover:shadow-blue-400/30 transition-shadow duration-500"
       >
         <div className="w-full md:w-1/2 flex justify-center">
           <Image

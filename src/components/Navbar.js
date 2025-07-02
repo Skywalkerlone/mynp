@@ -60,7 +60,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 50 }}
-    className="fixed top-0 left-0 w-full z-50 bg-white/80 comet-border dark:bg-black/50 backdrop-blur-md border-b border-black/10 dark:border-white/10 text-black dark:text-white shadow-lg"
+    className="fixed top-0 left-0 w-full z-50  comet-border  bg-gradient-to-r from-black/60 from-10% via-black/50 via-30% to-gray-700/70 to-90%  backdrop-blur-sm border-b border-black/10 dark:border-white/10 text-black dark:text-white shadow-lg"
 
 
     >
@@ -178,7 +178,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween' }}
-            className="fixed top-0 right-0 w-2/3 h-screen bg-white dark:bg-black backdrop-blur-md text-black dark:text-white p-6 z-60 md:hidden overflow-y-auto"
+            className="fixed top-0 right-0 w-2/3 h-screen  comet-border  bg-gradient-to-b from-black/70 from-10% via-black/80 via-30% to-gray-700/70 to-90%  backdrop-blur-xl border-b border-black/10 dark:border-white/10 p-6 z-60 md:hidden overflow-y-auto shadow-lg"
           >
             <ul className="flex flex-col gap-6 mt-16 text-lg font-semibold">
               {navItems.map(({ name, icon, submenu, href }) => (

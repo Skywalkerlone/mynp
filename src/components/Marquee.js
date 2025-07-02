@@ -11,7 +11,7 @@ const icons = [
   'react.png',
   'nextjs.png',
   'tail.png',
-  'ht,cs.png', // fixed typo
+  'ht,cs.png',
   'git.png',
   'CSP.png',
   'blender.png',
@@ -24,8 +24,7 @@ const icons = [
 ]
 
 export default function Marquee() {
- const [duplicatedIcons, setDuplicatedIcons] = useState([])
-
+  const [duplicatedIcons, setDuplicatedIcons] = useState([])
 
   useEffect(() => {
     setDuplicatedIcons([...icons, ...icons])
@@ -36,6 +35,7 @@ export default function Marquee() {
       {/* Animated background */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-transparent to-blue-100 dark:from-blue-950 dark:to-blue-950 bg-scroll animate-background z-0" aria-hidden="true" />
 
+      {/* Heading */}
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -46,23 +46,26 @@ export default function Marquee() {
         <span className="text-blue-400 dark:text-blue-200">Tools & </span>Technologies I Use
       </motion.h2>
 
+      {/* Marquee icons */}
       <div className="relative z-10 overflow-x-hidden whitespace-nowrap">
         <div className="animate-marquee flex items-center gap-12 px-6">
           {duplicatedIcons.map((icon, index) => (
             <motion.div
               key={`${icon}-${index}`}
-              className="flex-shrink-0 fade-icon"
+              className="flex-shrink-0 group"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: index * 0.02 }}
             >
-              <Image
-                src={`/icons/${icon}`}
-                alt={icon.replace('.png', '').replace('-', ' ').toUpperCase()}
-                width={60}
-                height={60}
-                className="object-contain grayscale hover:grayscale-0 transition duration-300"
-              />
+              <div className="fade-icon transition-opacity duration-300 group-hover:opacity-100">
+                <Image
+                  src={`/icons/${icon}`}
+                  alt={icon.replace('.png', '').replace('-', ' ').toUpperCase()}
+                  width={60}
+                  height={60}
+                  className="object-contain  transition duration-300 hover:grayscale-50"
+                />
+              </div>
             </motion.div>
           ))}
         </div>
@@ -98,7 +101,6 @@ export default function Marquee() {
 
         .fade-icon {
           opacity: 0.5;
-          transition: opacity 0.8s ease-in-out;
           animation: fadeInOut 6s ease-in-out infinite;
         }
 
@@ -109,6 +111,12 @@ export default function Marquee() {
           50% {
             opacity: 1;
           }
+        }
+
+        /* Pause fading when hovered */
+        .group:hover .fade-icon {
+          opacity: 1;
+          animation-play-state: paused;
         }
       `}</style>
     </section>
