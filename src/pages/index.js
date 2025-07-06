@@ -12,6 +12,7 @@ import Footer from '../components/Footer'
 import Resume from '../components/Resume'
 import EducationalPortfolio from '../components/EducationalPortfolio'
 import SocialMediaExpertise from '../components/SocialMediaExpertise'
+import Chatbot from '../components/chatbot'
 
 export default function Index({ darkMode, setDarkMode }) {
   return (
@@ -32,6 +33,7 @@ export default function Index({ darkMode, setDarkMode }) {
         <Resume />
         <About />
         <Contact />
+           <Chatbot />
       </main>
 
       <Footer />

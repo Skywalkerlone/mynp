@@ -42,11 +42,17 @@ export default function HomeSection() {
       }}
     >
       {/* FULL PAGE LOADER */}
-      {!isPageReady && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
+    {!isPageReady && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+    <div className="relative w-20 h-20">
+      <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-ripple" />
+      <div className="absolute inset-4 rounded-full border-4 border-blue-300 animate-ripple-delay" />
+      <div className="absolute inset-8 bg-blue-500 rounded-full" />
+    </div>
+
+
+  </div>
+)}
 
       {/* WELCOME POPUP */}
       <AnimatePresence>
@@ -138,7 +144,7 @@ export default function HomeSection() {
               href="#services"
               className="relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded text-lg shadow-lg font-semibold transition duration-300"
             >
-              Get Started
+              Explore
               <span className="absolute top-0 left-[-75%] w-20 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform skew-x-[-25deg] animate-shine" />
             </a>
 
@@ -220,9 +226,26 @@ export default function HomeSection() {
           }
         }
 
-        .animate-spin-slow {
-          animation: spin-slow 12s linear infinite;
+          @keyframes ripple {
+        0% {
+          transform: scale(0.9);
+          opacity: 1;
         }
+        100% {
+          transform: scale(12.5);
+          opacity: 0;
+        }
+      }
+
+      .animate-ripple {
+        animation: ripple 1.2s infinite ease-out;
+      }
+
+      .animate-ripple-delay {
+        animation: ripple 1.2s infinite ease-out;
+        animation-delay: 0.3s;
+      }
+
       `}</style>
     </section>
   )

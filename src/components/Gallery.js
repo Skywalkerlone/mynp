@@ -3,9 +3,8 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-import GraphicGallery from '../components/graphic' 
+import GraphicGallery from '../components/graphic'
 
-// Fixed artImages array (removed extra comma)
 const artImages = [
   'boo.png', 'ha.png', 'blood.png', '545r6rtf.png', 'resent.png',
   'fish1.png', 'ghghl.png', 'gjklb.png', 'guijh.png',
@@ -13,116 +12,125 @@ const artImages = [
   'Illustration28.png', 'hkh.jpg', 'fhjf.png', 'moon.png', 'ugug.png', 'omo.png'
 ]
 
-// Blender 3D images array (unchanged)
-const blenderImages = ['0002.png', 'b.png', 'cookie.png', 'gy.png','gyi.png', 'hm.png', 'st.png', 'this.png',
-   'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png','Screenshot 2024-12-12 120228.png.png', 'pef.png', 
-   'Screenshot 2024-12-08 074234.png.png','0001.png', 'this.png']
+const blenderImages = [
+  '0002.png', 'b.png', 'cookie.png', 'gy.png', 'gyi.png', 'hm.png', 'st.png', 'this.png',
+  'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png', 'Screenshot 2024-12-12 120228.png.png',
+  'pef.png', 'Screenshot 2024-12-08 074234.png.png', '0001.png', 'this.png'
+]
 
 export default function Gallery() {
   const sliderRef = useRef(null)
 
-  // Scroll function for 3D slider buttons
   const scroll = (dir) => {
     if (sliderRef.current) {
-      const scrollAmount = dir === 'left' ? -300 : 300
+      const scrollAmount = dir === 'left' ? -320 : 320
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
   }
 
   return (
-    <section id="gallery" className="py-20 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <section className="py-20 bg-gradient-to-b from-slate-900 via-black to-slate-900 text-white">
+      {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold text-center mb-12"
+        className="text-4xl font-extrabold text-center mb-10"
       >
-        <span className="text-blue-200">Artistic</span> Portfolio
-        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl m-5 mx-auto text-center">
-  I specialize in a wide range of creative services including book covers, illustrations, comics, animations, storytelling, graphic design, 3D modeling, and product design. Whether you're looking to bring characters to life, visualize a product, or tell a compelling story through visuals, my gallery showcases the depth and diversity of my work.
-</p>
-
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200/50 to-blue-200">
+          Artistic Portfolio
+        </span>
       </motion.h2>
 
-      {/* Art Gallery Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 px-4 max-w-7xl mx-auto">
+      <p className="text-center text-base max-w-3xl mx-auto text-gray-300 mb-16 px-4">
+        I specialize in creative services like book covers, illustrations, comics, animation, graphic design, 3D modeling, and product design. My gallery showcases the depth and diversity of my work — bringing characters and stories to life.
+      </p>
+
+      {/* ART IMAGES GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto">
         {artImages.map((img, index) => (
           <motion.div
             key={index}
-            initial={{ scale: 0.7, opacity: 0 }}
+            initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: index * 0.05, duration: 0.3 }}
+            transition={{ delay: index * 0.05, duration: 0.4 }}
             viewport={{ once: true }}
-            className="rounded-lg overflow-hidden shadow-lg bg-slate-200 dark:bg-slate-800 hover:scale-105 transition h-[600px]"
+            className="relative overflow-hidden rounded-xl shadow-xl bg-slate-800 hover:shadow-2xl hover:scale-[1.03] transition duration-300 group"
           >
             <Image
               src={`/gallery/${img}`}
               alt={`Artwork ${index + 1}`}
-              width={300}
+              width={400}
               height={600}
-              className="object-cover w-full h-full"
-              priority={index < 3} // optionally preload first few images
+              className="object-cover w-full h-[400px] transition-transform duration-300"
+              priority={index < 3}
             />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-sm text-white">
+              Artwork {index + 1}
+            </div>
           </motion.div>
         ))}
       </div>
-{/* Blender 3D Art Slider Title */}
-<motion.h3
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
-  viewport={{ once: true }}
-  className="text-2xl font-semibold text-center mt-20 mb-6"
->
-  <span className="text-blue-200">3D Blender</span> Showcase
-</motion.h3>
 
-<div className="relative max-w-7xl mx-auto px-4">
-  <button
-    onClick={() => scroll('left')}
-    className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 text-white p-2 rounded-full shadow-lg hover:bg-slate-900 transition"
-    aria-label="Scroll Left"
-  >
-    <FaArrowLeft />
-  </button>
-
-  <div
-    ref={sliderRef}
-    className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4 px-2"
-  >
-    {blenderImages.map((img, i) => (
-      <motion.div
-        key={i}
-        initial={{ opacity: 0, y: 50 }}
+      {/* BLENDER SECTION */}
+      <motion.h3
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: i * 0.1, duration: 0.4 }}
+        transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="min-w-[300px] bg-white dark:bg-slate-800 rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-300"
+        className="text-3xl font-semibold text-center mt-24 mb-8"
       >
-        <Image
-          src={`/blender/${img}`}
-          alt={`3D Art ${i + 1}`}
-          width={300}
-          height={200}
-          className="w-full h-[230px] object-cover rounded-t-xl"
-        />
-        <div className="p-2 text-center text-sm font-medium">Blender Render {i + 1}</div>
-      </motion.div>
-    ))}
-  </div>
+        3D Blender <span className="text-blue-200">Showcase</span>
+      </motion.h3>
 
-  <button
-    onClick={() => scroll('right')}
-    className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 text-white p-2 rounded-full shadow-lg hover:bg-slate-900 transition"
-    aria-label="Scroll Right"
-  >
-    <FaArrowRight />
-  </button>
-</div>
+      <div className="relative max-w-7xl mx-auto px-4">
+        {/* SCROLL BUTTONS */}
+        <button
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black p-3 rounded-full text-white"
+        >
+          <FaArrowLeft />
+        </button>
 
-       <GraphicGallery />
+        <div
+          ref={sliderRef}
+          className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-6"
+        >
+          {blenderImages.map((img, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="min-w-[300px] bg-slate-800 rounded-xl shadow-lg hover:scale-[1.03] transition"
+            >
+              <Image
+                src={`/blender/${img}`}
+                alt={`Blender Render ${i + 1}`}
+                width={300}
+                height={230}
+                className="w-full h-[230px] object-cover rounded-t-xl"
+              />
+              <div className="p-3 text-center text-sm text-white font-semibold">
+                Render {i + 1}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <button
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black p-3 rounded-full text-white"
+        >
+          <FaArrowRight />
+        </button>
+      </div>
+
+      <div className="mt-16">
+        <GraphicGallery />
+      </div>
     </section>
-   
   )
 }
