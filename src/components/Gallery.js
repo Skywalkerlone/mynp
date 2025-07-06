@@ -10,7 +10,7 @@ const artImages = [
   'boo.png', 'ha.png', 'blood.png', '545r6rtf.png', 'resent.png',
   'fish1.png', 'ghghl.png', 'gjklb.png', 'guijh.png',
   'henry.png', 'j.png', 'nun.png', 'castle32.png', 'khggk.jpg',
-  'Illustration28.png', 'hkh.jpg', 'Illustration26_022532.png', 'vhjvjk.png', 'ugug.png', 'omo.png'
+  'Illustration28.png', 'hkh.jpg', 'fhjf.png', 'moon.png', 'ugug.png', 'omo.png'
 ]
 
 // Blender 3D images array (unchanged)
