@@ -100,8 +100,8 @@ export default function About() {
             viewport={{ once: true }}
             className="max-w-2xl text-center md:text-left space-y-6"
           >
-            <h2 className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md p-6 shadow-lg border border-white/30 text-4xl font-bold text-blue-600 dark:text-blue-400">
-              About Me
+            <h2 className=" backdrop-blur-md p-6 shadow-lg  text-4xl font-bold text-blue-300">
+              About <span className='text-white'>Me</span>
             </h2>
 
             <p className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md p-6 text-lg leading-relaxed">

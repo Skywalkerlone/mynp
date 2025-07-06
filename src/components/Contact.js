@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { FaPhone } from "react-icons/fa"
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -61,12 +62,13 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white dark:bg-slate-900 p-10 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-slate-900 p-10 rounded-xl shadow-lg border-r-2 border-b-2 dark:border-blue-100/20">
               <h3 className="text-3xl font-semibold mb-5">Reach Out!</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 Have questions, ideas, or want to collaborate? Use the form on the right to send me a message. I am here to listen and help!
               </p>
-              <p className="text-gray-700 m-4 dark:text-gray-300 leading-relaxed">+234 8117820918</p>
+              <p className="text-gray-700 m-4 dark:text-gray-300 leading-relaxed">+234 8117820918 
+              <br />+234 8108666501</p>
             </div>
           </motion.div>
 
@@ -78,7 +80,7 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-lg p-10 shadow-lg border border-white/30 rounded-2xl">
+            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-lg p-10 shadow-lg hadow-lg border-r-2 border-b-2 dark:border-blue-100/20 rounded-2xl">
               <motion.h2
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}

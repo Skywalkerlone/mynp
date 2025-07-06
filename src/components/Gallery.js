@@ -7,7 +7,7 @@ import GraphicGallery from '../components/graphic'
 
 // Fixed artImages array (removed extra comma)
 const artImages = [
-  'boo.png', 'cowboy.png', 'blood.png', '545r6rtf.png', 'gghl.png',
+  'boo.png', 'ha.png', 'blood.png', '545r6rtf.png', 'gghl.png',
   'fish1.png', 'ghghl.png', 'gjklb.png', 'guijh.png',
   'henry.png', 'hghg.png', 'nun1.png', 'lhih.png', 'khggk.jpg',
   'Illustration28.png', 'hkh.jpg', 'Illustration26_022532.png', 'vhjvjk.png', 'ugug.png', 'om00X n.png'
