@@ -116,10 +116,10 @@ export default function Chatbot() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-12 right-4 z-50">
       {/* Toggle Button */}
       <button
-        className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg"
+        className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg"
         onClick={toggleChat}
       >
         <FiMessageCircle size={24} />

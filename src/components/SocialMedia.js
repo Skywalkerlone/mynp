@@ -54,7 +54,7 @@ export default function SocialMedia() {
       </div>
 
       {/* Horizontal bottom bar on small screens */}
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden bg-black bg-opacity-70 dark:bg-slate-900 dark:bg-opacity-70 py-2 justify-center space-x-6">
+      <div className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden bg-black/40 bg-opacity-20 dark:bg-slate-900/50 dark:bg-opacity-20 py-1 justify-center space-x-10">
         {socialLinks.map(({ href, icon, label }, i) => (
           <motion.a
             key={label}
@@ -66,7 +66,7 @@ export default function SocialMedia() {
             animate={{ y: 0, opacity: 1 }}
             whileHover={{ scale: 1.3, color: '#3b82f6' }}
             transition={{ delay: i * 0.1, type: 'spring', stiffness: 120 }}
-            className="text-white dark:text-blue-400 text-2xl hover:text-blue-500"
+            className="text-white dark:text-blue-400 text-1xl hover:text-blue-500"
           >
             {icon}
           </motion.a>
