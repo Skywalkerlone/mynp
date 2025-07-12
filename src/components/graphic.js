@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -41,13 +42,15 @@ export default function GraphicGallery() {
   }, [])
 
   return (
-    <section className="p-6" id='graphic'>
-      <h2 className="text-4xl font-bold mb-14 text-center "><span className="text-blue-200">Graphic</span> Gallery</h2>
+    <section className="p-6 bg-gray-100 dark:bg-black" id="graphic">
+      <h2 className="text-4xl font-bold mb-14 text-center text-gray-900 dark:text-white">
+        <span className="text-blue-500">Graphic</span> Gallery
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {images.map((img, idx) => (
           <motion.div
             key={idx}
-            className="overflow-hidden rounded-xl shadow-md bg-white dark:bg-gray-800"
+            className="overflow-hidden rounded-xl shadow-xl bg-white dark:bg-gray-800 transform transition-transform"
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.3 }}
@@ -60,7 +63,7 @@ export default function GraphicGallery() {
               alt={`Gallery Image ${idx + 1}`}
               width={600}
               height={400}
-              className="object-cover w-full h-auto transition-transform duration-300"
+              className="object-cover w-full h-auto"
             />
           </motion.div>
         ))}
