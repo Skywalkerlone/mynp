@@ -45,7 +45,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
       icon: <FaPaintBrush />,
       submenu: [ 
         { name: 'Technical Services', icon: <FaCode />, href: '#web' },
-        { name: 'Artistic Services', icon: <FaPaintBrush />, href: '#gallery' },
+        { name: 'Artistic Services', icon: <FaPaintBrush />, href: '#art' },
         // { name: 'Graphic Gallery'}, icon: <FaIcicles />, href: '#gallery' }
         { name: 'Graphic Gallery', icon: <FaGifts />, href: '#graphic' }
        

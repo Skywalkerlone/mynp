@@ -11,6 +11,7 @@ const imageList = [
   '1748883412843.png',
   '1748883412963.png',
   'graa.png',
+  'gra.png',
   'graaaaa.png'
 ]
 

@@ -29,7 +29,7 @@ export default function Gallery() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-900 via-black to-slate-900 text-white">
+    <section  className="py-20 bg-gradient-to-b from-slate-900 via-black to-slate-900 text-white" id='art'>
       {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
@@ -38,7 +38,7 @@ export default function Gallery() {
         viewport={{ once: true }}
         className="text-4xl font-extrabold text-center mb-10"
       >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200/50 to-blue-200">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-blue-300">
           Artistic Portfolio
         </span>
       </motion.h2>
