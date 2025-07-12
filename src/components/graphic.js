@@ -10,7 +10,8 @@ const imageList = [
   '1748883412764.png',
   '1748883412843.png',
   '1748883412963.png',
-  'graa.png'
+  'graa.png',
+  'graaaaa.png'
 ]
 
 const cardVariants = {
