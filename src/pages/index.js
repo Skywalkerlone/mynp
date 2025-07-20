@@ -13,6 +13,10 @@ import Resume from '../components/Resume'
 import EducationalPortfolio from '../components/EducationalPortfolio'
 import SocialMediaExpertise from '../components/SocialMediaExpertise'
 import Chatbot from '../components/chatbot'
+// import TestimonialForm from "../components/TestimonialForm";
+import TestimonialList from "../components/TestimonialList";
+
+
 
 export default function Index({ darkMode, setDarkMode }) {
   return (
@@ -30,6 +34,8 @@ export default function Index({ darkMode, setDarkMode }) {
         <Gallery />
         <SocialMediaExpertise />
          <EducationalPortfolio />
+            {/* <TestimonialForm /> */}
+      <TestimonialList />
         <Resume />
         <About />
         <Contact />

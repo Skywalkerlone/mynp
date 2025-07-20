@@ -14,31 +14,31 @@ const projects = [
   {
     title: 'Country Finder',
     image: 'cffff.png',
-    description: 'An interactive app showing countries, maps, weather, travel data, and more.',
+    description: 'An interactive app showing countries, maps, weather, travel data, and more.(HTML,CSS & JavaScript)',
     link: 'https://country-finder-gray-psi.vercel.app/',
   },
   {
     title: 'Word Scramble',
     image: 'wc.png',
-    description: 'Unscramble the letters to form a valid word! Challenge yourself with my Word Scramble game. Can you solve it?',
+    description: 'Unscramble the letters to form a valid word! Challenge yourself with my Word Scramble game. Can you solve it?(HTML,CSS & JavaScript )',
     link: 'https://word-scramble-gv93.vercel.app',
   },
   {
     title: 'TPN consult',
     image: 'tpn.png',
-    description: 'Learning management system (LMS)... coming soon',
+    description: 'Learning management system (LMS)... coming soon(Next.js,Tailwindcss ,node.js express,js',
     link: 'https://your-news-app.com',
   },
   {
     title: 'Trashpoint',
     image: 'trs.png',
-    description: 'A React + Next.js site that does amazing things.',
+    description: 'a wordpress site.',
     link: 'https://trashpoint.africa/',
   },
   {
     title: 'OSA heritage',
     image: 'osa.png',
-    description: 'non-code',
+    description: 'a wordpress site',
     link: 'https://www.osaheritage.com/',
   },
 ]
