@@ -15,6 +15,7 @@ const imageList = [
   'gra.png',
   'graaaaa.png',
   'lii.png',
+  'opt.png',
   'jioi.png'
 ]
 
