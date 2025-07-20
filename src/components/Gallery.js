@@ -14,7 +14,7 @@ const artImages = [
 
 const blenderImages = [
   '0002.png', 'b.png', 'cookie.png', 'gyi.png', 'hm.png', 'st.png', 'this.png',
-  'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png',
+  'ph.png', 'psc.png', 'untitled.png', 'untitl.png',
   'pef.png', 'jaaa.png', '0001.png', 'this.png'
 ]
 
