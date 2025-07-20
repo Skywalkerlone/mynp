@@ -26,7 +26,7 @@ const projects = [
   {
     title: 'TPN consult',
     image: 'tpn.png',
-    description: 'Learning management system (LMS)... coming soon(Next.js,Tailwindcss ,node.js express,js',
+    description: 'Learning management system (LMS)... coming soon(Next.js, Tailwindcss node.js expressjs)',
     link: 'https://your-news-app.com',
   },
   {

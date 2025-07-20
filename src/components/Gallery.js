@@ -13,9 +13,9 @@ const artImages = [
 ]
 
 const blenderImages = [
-  '0002.png', 'b.png', 'cookie.png', 'gy.png', 'gyi.png', 'hm.png', 'st.png', 'this.png',
-  'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png', 'Screenshot 2024-12-12 120228.png.png',
-  'pef.png', 'Screenshot 2024-12-08 074234.png.png', '0001.png', 'this.png'
+  '0002.png', 'b.png', 'cookie.png', 'gyi.png', 'hm.png', 'st.png', 'this.png',
+  'ph.png', 'psc.png', 'untitled.png', 'untitl.png.png',
+  'pef.png', 'jaaa.png', '0001.png', 'this.png'
 ]
 
 export default function Gallery() {
