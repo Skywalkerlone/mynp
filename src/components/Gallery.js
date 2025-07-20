@@ -109,8 +109,8 @@ export default function Gallery() {
               <Image
                 src={`/blender/${img}`}
                 alt={`Blender Render ${i + 1}`}
-                width={300}
-                height={230}
+                width={600}
+                height={450}
                 className="w-full h-[230px] object-cover rounded-t-xl"
               />
               <div className="p-3 text-center text-sm text-white font-semibold">
