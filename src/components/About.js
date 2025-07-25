@@ -84,7 +84,7 @@ export default function About() {
             className="flex-shrink-0"
           >
             <Image
-              src="/blender/we.jpg"
+              src="/blender/wee.jpg"
               alt="Idaewor Samuel Providence"
               width={300}
               height={300}
