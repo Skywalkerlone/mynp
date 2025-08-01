@@ -7,39 +7,50 @@ import Link from 'next/link'
 const skills = [
   'Next.js', 'HTML', 'Tailwind', 'CSS', 'JavaScript',
   'PHP', 'React', 'WordPress', 'Laravel',
-  'MySQL', 'MongoDB', 'Java', 'Python' , 'reactNative','expressjs','node', 'git' 
+  'MySQL', 'MongoDB', 'Java', 'Python', 'reactNative', 'expressjs', 'node', 'git'
 ]
 
 const projects = [
   {
     title: 'Country Finder',
     image: 'cffff.png',
-    description: 'An interactive app showing countries, maps, weather, travel data, and more.(HTML,CSS & JavaScript)',
+    description: 'An interactive app showing countries, maps, weather, travel data, and more. (HTML, CSS & JavaScript)',
     link: 'https://country-finder-gray-psi.vercel.app/',
+     tag: ['HTML', 'CSS', 'Javascript','firebase'],
   },
   {
     title: 'Word Scramble',
     image: 'wc.png',
-    description: 'Unscramble the letters to form a valid word! Challenge yourself with my Word Scramble game. Can you solve it?(HTML,CSS & JavaScript )',
+    description: 'Unscramble the letters to form a valid word! Challenge yourself with my Word Scramble game. Can you solve it? (HTML, CSS & JavaScript)',
     link: 'https://word-scramble-gv93.vercel.app',
+     tag: ['HTML', 'CSS', 'Javascript'],
   },
   {
     title: 'TPN consult',
     image: 'tpn.png',
-    description: 'Learning management system (LMS)... coming soon(Next.js, Tailwindcss node.js expressjs)',
+    description: 'Learning management system (LMS)... coming soon (Next.js, TailwindCSS, Node.js, ExpressJS)',
     link: 'https://your-news-app.com',
+     tag: ['Nextjs', 'tailwindcss', 'framer','nodejs','express.js'],
   },
   {
     title: 'Trashpoint',
     image: 'trs.png',
-    description: 'a wordpress site.',
+    description: 'A WordPress site.',
     link: 'https://trashpoint.africa/',
+     tag: ['HTML', 'CSS', 'Javascript']
   },
   {
     title: 'OSA heritage',
     image: 'osa.png',
-    description: 'a wordpress site',
+    description: 'A WordPress site.',
     link: 'https://www.osaheritage.com/',
+  },
+  {
+    title: 'Obel',
+    image: 'osay.png',
+    description: 'From mechanical constructions to electrical installations, pipelines, and facility maintenance we deliver reliable, efficient, and high-quality solutions for the oil, gas, and manufacturing industries.',
+    link: 'https://www.osayanyoboltd.com/',
+    tag: ['react', 'tailwindcss', 'framer'],
   },
 ]
 
@@ -67,9 +78,24 @@ function ProjectCard({ project, index }) {
         </div>
         <div className="w-full md:w-1/2">
           <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
-          <p className="text-base text-gray-700 dark:text-gray-300 mb-5 leading-relaxed">
+          <p className="text-base text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
             {project.description}
           </p>
+
+          {/* Tag rendering */}
+          {project.tag && Array.isArray(project.tag) && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.tag.map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="text-xs bg-blue-200 text-blue-800 dark:bg-blue-700 dark:text-blue-100 px-2 py-1 rounded-md"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
           <a
             href={project.link}
             target="_blank"
@@ -150,7 +176,6 @@ export default function Web() {
     </section>
   )
 }
-
 
 
 
