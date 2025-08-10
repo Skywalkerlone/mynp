@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-i
 
 const socialLinks = [
   {
-    href: 'https://www.linkedin.com/in/samuel-providence-idaewor-1059422a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+    href: 'www.linkedin.com/in/providence-idaewor-1059422a2',
     icon: <FaLinkedin />,
     label: 'LinkedIn',
   },
