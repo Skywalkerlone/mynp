@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-i
 
 const socialLinks = [
   {
-    href: 'www.linkedin.com/in/providence-idaewor-1059422a2',
+    href: 'https://www.linkedin.com/in/providence-idaewor-1059422a2/',
     icon: <FaLinkedin />,
     label: 'LinkedIn',
   },
