@@ -13,7 +13,7 @@ const skills = [
 const projects = [
   {
     title: 'Country Finder',
-    image: 'cffff.png',
+    image: 'mk.png',
     description: 'An interactive app showing countries, maps, weather, travel data, and more. (HTML, CSS & JavaScript)',
     link: 'https://country-finder-gray-psi.vercel.app/',
      tag: ['HTML', 'CSS', 'Javascript','firebase'],
