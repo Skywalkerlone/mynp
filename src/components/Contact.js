@@ -10,6 +10,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [touched, setTouched] = useState({ name: false, email: false, message: false })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleBlur = (e) => setTouched({ ...touched, [e.target.name]: true })
@@ -32,13 +33,43 @@ export default function Contact() {
 
   const isFormValid = !errors.name && !errors.email && !errors.message
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!isFormValid) return
-    setSubmitted(true)
-    setFormData({ name: "", email: "", message: "" })
-    setTouched({ name: false, email: false, message: false })
-    // submit logic
+    
+    setIsSubmitting(true)
+    
+    const form = e.target
+    const formDataToSend = new FormData(form)
+    
+    // Add botcheck for spam protection
+    formDataToSend.append("botcheck", "")
+    
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSend,
+      })
+
+      const data = await response.json()
+      
+      if (response.status === 200) {
+        setSubmitted(true)
+        setFormData({ name: "", email: "", message: "" })
+        setTouched({ name: false, email: false, message: false })
+        
+        // Reset submission status after 5 seconds
+        setTimeout(() => {
+          setSubmitted(false)
+        }, 5000)
+      } else {
+        console.error("Form submission failed:", data)
+      }
+    } catch (error) {
+      console.error("Network error:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -46,10 +77,11 @@ export default function Contact() {
       id="contact"
       className="relative overflow-hidden py-24 bg-gradient-to-b from-sky-100 to-white dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-white"
     >
-      <h2 className="text-5xl text-blue-200 font-bold m-6 text-center">Contact  </h2> 
+      <h2 className="text-5xl text-blue-200 font-bold m-6 text-center">Contact</h2> 
+      
       {/* Background Animated Clip Art */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
-        <div className="wave-bg absolute top-0 left-0 w-full h-[300px] opacity-70 "></div>
+        <div className="wave-bg absolute top-0 left-0 w-full h-[300px] opacity-70"></div>
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 z-10">
@@ -64,11 +96,17 @@ export default function Contact() {
           >
             <div className="bg-white dark:bg-slate-900 p-10 rounded-xl shadow-lg border-r-2 border-b-2 dark:border-blue-100/20">
               <h3 className="text-3xl font-semibold mb-5">Reach Out!</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                 Have questions, ideas, or want to collaborate? Use the form on the right to send me a message. I am here to listen and help!
               </p>
-              <p className="text-gray-700 m-4 dark:text-gray-300 leading-relaxed">+234 8117820918 
-              <br />+234 8108666501</p>
+              <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                <FaPhone className="text-blue-500" />
+                <div>
+                  <p className="font-medium">Phone Numbers:</p>
+                  <p>+234 8117820918</p>
+                  <p>+234 8108666501</p>
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -80,7 +118,7 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-lg p-10 shadow-lg hadow-lg border-r-2 border-b-2 dark:border-blue-100/20 rounded-2xl">
+            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-lg p-10 shadow-lg border-r-2 border-b-2 dark:border-blue-100/20 rounded-2xl">
               <motion.h2
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -91,6 +129,7 @@ export default function Contact() {
                 Contact Me
               </motion.h2>
 
+              {/* Web3Forms Form */}
               <form
                 action="https://api.web3forms.com/submit"
                 method="POST"
@@ -98,7 +137,15 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 noValidate
               >
+                {/* Hidden Web3Forms Fields */}
                 <input type="hidden" name="access_key" value="24d1eb49-5f69-4396-b1ca-7763dac612c5" />
+                <input type="hidden" name="subject" value="New Contact Form Submission" />
+                <input type="hidden" name="from_name" value="Contact Form" />
+                
+                {/* Honeypot field for spam protection */}
+                <div className="hidden">
+                  <input type="checkbox" name="botcheck" />
+                </div>
 
                 {["name", "email", "message"].map((field) => (
                   <div className="relative" key={field}>
@@ -175,10 +222,22 @@ export default function Contact() {
                   whileHover={{ scale: 1.07 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  disabled={!isFormValid}
-                  className="relative overflow-hidden bg-blue-600 text-white px-8 py-4 rounded-md w-full md:w-auto text-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!isFormValid || isSubmitting}
+                  className="relative overflow-hidden bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-md w-full text-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="relative z-10">Send Message</span>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </span>
                   <span
                     className="absolute top-0 left-[-100%] w-full h-full bg-white/30 transform skew-x-[-20deg]"
                     style={{ animation: "shine 2s infinite linear" }}
@@ -187,14 +246,16 @@ export default function Contact() {
 
                 <AnimatePresence>
                   {submitted && (
-                    <motion.p
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="mt-6 text-center text-green-600 font-semibold"
+                      className="mt-6 p-4 rounded-lg bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800"
                     >
-                      Thank you for reaching out! I will get back to you soon.
-                    </motion.p>
+                      <p className="text-center text-green-700 dark:text-green-300 font-semibold">
+                        Thank you for reaching out! I will get back to you soon.
+                      </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </form>
@@ -202,46 +263,47 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-<style jsx>{`
-  @keyframes shine {
-    0% {
-      left: -100%;
-    }
-    50% {
-      left: 500%;
-    }
-    100% {
-      left: 700%;
-    }
-  }
+      
+      <style jsx>{`
+        @keyframes shine {
+          0% {
+            left: -100%;
+          }
+          50% {
+            left: 500%;
+          }
+          100% {
+            left: 700%;
+          }
+        }
 
-  @keyframes waveMove {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
+        @keyframes waveMove {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
 
-.wave-bg {
-    height: 100vh;
-    width: 200%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: radial-gradient(circle at 50% 60%, rgba(0, 136, 255, 0.2) 20%, transparent 70%) repeat-x;
-    background-size: 50% 100%;
-    animation: waveMove 10s linear infinite;
-    opacity: 0.7;
-    z-index: -1;
-}
+        .wave-bg {
+          height: 100vh;
+          width: 200%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: radial-gradient(circle at 50% 60%, rgba(0, 136, 255, 0.2) 20%, transparent 70%) repeat-x;
+          background-size: 50% 100%;
+          animation: waveMove 10s linear infinite;
+          opacity: 0.7;
+          z-index: -1;
+        }
 
-@keyframes waveMove {
-    0% { background-position-x: 0%; }
-    100% { background-position-x: 100%; }
-}
-`}</style>
+        @keyframes waveMove {
+          0% { background-position-x: 0%; }
+          100% { background-position-x: 100%; }
+        }
+      `}</style>
     </section>
   )
 }
