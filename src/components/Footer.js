@@ -13,7 +13,7 @@ export default function Footer() {
           transition={{ duration: 0.6 }}
           className="text-center md:text-left text-sm"
         >
-          &copy; {new Date().getFullYear()} Idaewor Samuel Providence. All rights reserved.
+          &copy; {new Date().getFullYear()} I daewor  Samuel  Providence. All rights reserved.
         </motion.div>
 
         <motion.div

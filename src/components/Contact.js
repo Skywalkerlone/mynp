@@ -130,6 +130,7 @@ export default function Contact() {
               </motion.h2>
 
               {/* Web3Forms Form */}
+
               <form
                 action="https://api.web3forms.com/submit"
                 method="POST"
@@ -137,6 +138,7 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 noValidate
               >
+                
                 {/* Hidden Web3Forms Fields */}
                 <input type="hidden" name="access_key" value="24d1eb49-5f69-4396-b1ca-7763dac612c5" />
                 <input type="hidden" name="subject" value="New Contact Form Submission" />
