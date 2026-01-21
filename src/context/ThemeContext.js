@@ -1,10 +1,11 @@
 // context/ThemeContext.js
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 
 const ThemeContext = createContext(null)
 
 export function ThemeProvider({ children }) {
   const [darkMode, setDarkMode] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   // Load theme on first mount
   useEffect(() => {
@@ -20,10 +21,14 @@ export function ThemeProvider({ children }) {
       ).matches
       setDarkMode(prefersDark)
     }
+    
+    setIsInitialized(true)
   }, [])
 
   // Apply theme to <html>
   useEffect(() => {
+    if (!isInitialized) return;
+    
     const root = document.documentElement
 
     if (darkMode) {
@@ -33,9 +38,11 @@ export function ThemeProvider({ children }) {
       root.classList.remove('dark')
       localStorage.setItem('theme', 'light')
     }
-  }, [darkMode])
+  }, [darkMode, isInitialized])
 
-  const toggleTheme = () => setDarkMode(prev => !prev)
+  const toggleTheme = useCallback(() => {
+    setDarkMode(prev => !prev)
+  }, [])
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
@@ -44,4 +51,10 @@ export function ThemeProvider({ children }) {
   )
 }
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => {
+  const context = useContext(ThemeContext)
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  return context
+}
