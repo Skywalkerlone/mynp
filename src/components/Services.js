@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import Link from 'next/link'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Services() {
+  const { darkMode } = useTheme()
+
   // CountUp component for animated stats
   function CountUp({ target }) {
     const [count, setCount] = useState(0)
@@ -45,10 +48,12 @@ export default function Services() {
       description:
         'Web development, apps, UI/UX prototyping, and code optimization.',
       list: [
-        'Full-Stack Development: Front-end, back-end App dev and database development for web applications, SEO specialist and digital solutions',
-        'Data Entry and Management: Efficient data entry, management and analysis for businesses and organizations',
-        'CompTIA A+ certification in NIIT: Hardware maintenance and software management',
-      ],
+  'Full-Stack Development: Front-end and back-end web/app development, database design, SEO optimization, and end-to-end digital solutions',
+  'Data Entry & Management: Accurate data entry, structured data management, and basic data analysis for businesses and organizations',
+  'CompTIA A+ Certification (NIIT): Hardware troubleshooting, system maintenance, and software installation and management',
+  'AI Prompt Engineering & LLM Specialist: Designing precise and effective prompts'
+],
+
       link: '#web',
     },
     {
@@ -78,9 +83,13 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-20 px-6 bg-gradient-to-b  aura-scary from-white to-blue-100 dark:from-blue-900 dark:to-slate-900 text-gray-800 dark:text-white overflow-hidden"
+      className={`relative py-20 px-6 overflow-hidden transition-all duration-700 ${
+        darkMode 
+          ? 'bg-gradient-to-b from-slate-900 via-blue-900/20 to-slate-900' 
+          : 'bg-gradient-to-b from-blue-100 via-blue-50 to-blue-200'
+      }`}
     >
-      {/* Background wave */}
+      {/* Background wave - Different colors for light/dark */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">
         <svg
           className="absolute top-0 left-0 w-full h-auto"
@@ -88,13 +97,13 @@ export default function Services() {
           preserveAspectRatio="none"
         >
           <path
-            fill="#93c5fd"
-            fillOpacity="0.3"
-            d="M0,64L80,90.7C160,117,320,171,480,181.3C640,192,800,160,960,154.7C1120,149,1280,171,1360,181.3L1440,192L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+            fill={darkMode ? "#1e3a8a" : "#1e3a8a "}
+            fillOpacity={darkMode ? "0.4" : "0.3"}
+            d="M0,64L80,90.7C160,117,320,171,80,181.3C640,192,800,160,960,154.7C1120,149,1280,171,1360,181.3L1440,192L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
           />
         </svg>
 
-        {/* Floating bubbles */}
+        {/* Floating bubbles - Different colors for light/dark */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 0.2, y: [50, 0, 50] }}
@@ -103,7 +112,9 @@ export default function Services() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute -top-10 -left-10 w-40 h-40 bg-blue-300/30 rounded-full blur-2xl z-0"
+          className={`absolute -top-10 -left-10 w-40 h-40 rounded-full blur-2xl z-0 ${
+            darkMode ? 'bg-blue-400/70' : 'bg-blue-300/30'
+          }`}
         />
         <motion.div
           initial={{ opacity: 0, y: 80 }}
@@ -113,12 +124,18 @@ export default function Services() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute bottom-0 right-0 w-60 h-60 bg-purple-300/20 rounded-full blur-3xl z-0"
+          className={`absolute bottom-0 right-0 w-60 h-60 rounded-full blur-3xl z-0 ${
+            darkMode ? 'bg-purple-400/15' : 'bg-purple-300/20'
+          }`}
         />
 
-        {/* New aura blobs */}
+        {/* New aura blobs - Different gradients for light/dark */}
         <motion.div
-          className="absolute rounded-full bg-gradient-to-tr from-blue-400 to-indigo-600 opacity-30 blur-3xl"
+          className={`absolute rounded-full blur-3xl ${
+            darkMode 
+              ? 'bg-gradient-to-tr from-blue-500/30 to-indigo-600/30' 
+              : 'bg-gradient-to-tr from-blue-400/30 to-indigo-500/30'
+          }`}
           style={{ width: 180, height: 180, top: '20%', left: '15%' }}
           animate={{
             x: [0, 20, 0],
@@ -129,7 +146,11 @@ export default function Services() {
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute rounded-full bg-gradient-to-br from-purple-500 to-pink-500 opacity-25 blur-2xl"
+          className={`absolute rounded-full blur-2xl ${
+            darkMode
+              ? 'bg-gradient-to-br from-purple-600/25 to-pink-600/25'
+              : 'bg-gradient-to-br from-purple-500/25 to-pink-500/25'
+          }`}
           style={{ width: 220, height: 220, top: '50%', left: '60%' }}
           animate={{
             x: [0, -15, 0],
@@ -140,7 +161,11 @@ export default function Services() {
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute rounded-full bg-gradient-to-l from-teal-400 to-cyan-500 opacity-20 blur-3xl"
+          className={`absolute rounded-full blur-3xl ${
+            darkMode
+              ? 'bg-gradient-to-l from-teal-500/20 to-cyan-600/20'
+              : 'bg-gradient-to-l from-teal-400/20 to-cyan-500/20'
+          }`}
           style={{ width: 200, height: 200, top: '70%', left: '30%' }}
           animate={{
             x: [0, 10, 0],
@@ -158,7 +183,9 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl font-bold mb-4 text-blue-600 dark:text-blue-200"
+          className={`text-4xl sm:text-5xl font-bold mb-4 ${
+            darkMode ? 'text-blue-200' : 'text-blue-700'
+          }`}
         >
           My Services
         </motion.h2>
@@ -168,13 +195,15 @@ export default function Services() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-md mb-12 text-gray-600 dark:text-gray-300"
+          className={`text-lg mb-12 max-w-3xl mx-auto ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}
         >
           I provide powerful solutions through artistry, technology, and education—crafted to elevate your vision, you think it and i make it real.
         </motion.p>
 
         {/* Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-left ">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
           {services.map((service, i) => {
             const ref = useRef(null)
             const inView = useInView(ref, { once: true })
@@ -203,23 +232,36 @@ export default function Services() {
                     },
                   },
                 }}
-                // Added flex-col and flex + push button down with mt-auto
-                className="border-r-2 border-b-2 dark:border-white/20 bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition duration-300 backdrop-blur-md relative flex flex-col"
+                className={`rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm relative flex flex-col border ${
+                  darkMode
+                    ? 'bg-slate-800/70 border-slate-700 hover:border-blue-500/50 hover:bg-slate-800'
+                    : 'bg-white/80 border-blue-500 border  border-r hover:border-blue-700 hover:bg-white'
+                }`}
               >
-                <h3 className="text-xl font-semibold mb-3  text-blue-300 dark:text-blue-300">
+                <h3 className={`text-xl font-semibold mb-3 ${
+                  darkMode ? 'text-blue-300' : 'text-blue-600'
+                }`}>
                   {service.title}
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-3 ">
+                <p className={`mb-4 ${
+                  darkMode ? 'text-gray-300' : 'text-gray-700'
+                }`}>
                   {service.description}
                 </p>
-                <ul className="list-disc pl-5 mb-4 text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                <ul className={`list-disc pl-5 mb-6 text-sm space-y-2 ${
+                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                   {service.list.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
                 </ul>
                 <Link
                   href={service.link}
-                  className="block relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all font-semibold mt-auto hover:border-r-2 border-red-200"
+                  className={`mt-auto relative overflow-hidden px-4 py-3 rounded-lg transition-all font-semibold ${
+                    darkMode
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700'
+                      : 'bg-blue-500 hover:bg-blue-600 text-white border-blue-400'
+                  } border hover:scale-105 transform transition-all duration-300`}
                 >
                   View Portfolio
                   <span
@@ -234,7 +276,8 @@ export default function Services() {
 
         {/* Stats Section */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[{ label: 'Projects', value: 30 },
+          {[
+            { label: 'Projects', value: 30 },
             { label: 'Clients', value: 25 },
             { label: 'Years Experience', value: 5 },
             { label: 'Workshops', value: 10 },
@@ -245,12 +288,22 @@ export default function Services() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.3 }}
-              className="bg-blue-100 dark:bg-blue-800  text-blue-900 dark:text-white p-4 rounded-xl"
+              className={`p-6 rounded-xl border-b backdrop-blur-sm ${
+                darkMode
+                  ? 'bg-blue-900/90 border-blue-700/30 text-white'
+                  : 'bg-blue-50/70  border-blue-500 text-blue-800'
+              }`}
             >
-              <p className="text-3xl font-bold">
+              <p className={`text-3xl font-bold ${
+                darkMode ? 'text-blue-200' : 'text-blue-600'
+              }`}>
                 <CountUp target={stat.value} />
               </p>
-              <p className="mt-1 text-sm">{stat.label}</p>
+              <p className={`mt-2 text-sm ${
+                darkMode ? 'text-gray-300' : 'text-blue-700'
+              }`}>
+                {stat.label}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -258,34 +311,39 @@ export default function Services() {
 
       {/* Shine animation */}
       <style jsx>{`
-      
-     
-@layer utilities {
-  .bg-gradient-radial {
-    background: radial-gradient(circle at center, var(--tw-gradient-stops));
-  }
+        @keyframes shine {
+          0% {
+            left: -75%;
+          }
+          100% {
+            left: 125%;
+          }
+        }
 
-  @keyframes aura {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.3;
-    }
-    50% {
-      transform: translate(20px, -20px) scale(1.1);
-      opacity: 0.5;
-    }
-  }
+        .animate-shine {
+          animation: shine 2.5s infinite;
+        }
 
-  .animate-aura {
-    animation: aura 15s ease-in-out infinite;
-  }
+        @keyframes aura {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translate(20px, -20px) scale(1.1);
+            opacity: 0.5;
+          }
+        }
 
-  .animate-aura-delay {
-    animation: aura 20s ease-in-out infinite;
-    animation-delay: 5s;
-  }
-}
+        .animate-aura {
+          animation: aura 15s ease-in-out infinite;
+        }
+
+        .animate-aura-delay {
+          animation: aura 20s ease-in-out infinite;
+          animation-delay: 5s;
+        }
       `}</style>
     </section>
   )

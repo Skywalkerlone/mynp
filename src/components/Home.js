@@ -36,7 +36,7 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full px-4 sm:px-6 py-8 bg-fixed flex items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
+      className="relative min-h-screen w-full px-4 sm:px-6 py-8 bg-fixed flex  items-center justify-center text-white overflow-hidden transition duration-1000 bg-cover bg-center bg-no-repeat group"
       style={{
         backgroundImage: 'url("/images/ff.png")',
       }}
@@ -123,6 +123,7 @@ export default function HomeSection() {
             If you are looking for a{' '}
             <span className="text-blue-300">Digital Artist</span>,{' '}
             <span className="text-blue-300">Graphic Designer</span>,{' '}
+               <span className="text-blue-300"> AI Training</span>,{' '}
             <span className="text-blue-300">App</span> or{' '}
             <span className="text-blue-300">Website Developer</span> (Front-end/Back-end),{' '}
             <span className="text-blue-300">Video Editor</span>,{' '}
@@ -250,3 +251,25 @@ export default function HomeSection() {
     </section>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

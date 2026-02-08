@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 const icons = [
   'blender.png',
@@ -25,15 +26,45 @@ const icons = [
 
 export default function Marquee() {
   const [duplicatedIcons, setDuplicatedIcons] = useState([])
+  const { darkMode } = useTheme()
 
   useEffect(() => {
     setDuplicatedIcons([...icons, ...icons])
   }, [])
 
   return (
-    <section className="relative py-10 overflow-hidden border-y border-gray-200 dark:border-slate-700">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-transparent to-blue-100 dark:from-blue-950 dark:to-blue-950 bg-scroll animate-background z-0" aria-hidden="true" />
+    <section className="relative py-10 overflow-hidden border-y border-blue-400 transition-all duration-500"
+      style={{
+    backgroundColor: darkMode ? '#020617' : '#f8fafc',
+  }}
+    >
+<div
+  className="absolute inset-0 animate-background z-0 pointer-events-none"
+  aria-hidden="true"
+  style={{
+    opacity: darkMode ? 0.35 : 0.22,
+    mixBlendMode: darkMode ? 'screen' : 'multiply',
+    background: darkMode
+      ? 'linear-gradient(90deg, #1e40af 0%, transparent 25%, transparent 75%, #1e40af 100%)'
+      : 'linear-gradient(90deg, #bfdbfe 0%, #eff6ff 30%, #f8fafc 70%, #93c5fd 100%)',
+  }}
+/>
+
+      {/* Gradient overlays */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 z-10"
+        style={{
+          background: darkMode
+            ? 'linear-gradient(to right, #0f172a, transparent)'
+            : 'linear-gradient(to right, white, transparent)'
+        }}
+      />
+      <div className="absolute right-0 top-0 bottom-0 w-32 z-10"
+        style={{
+          background: darkMode
+            ? 'linear-gradient(to left, #0f172a, transparent)'
+            : 'linear-gradient(to left, white, transparent)'
+        }}
+      />
 
       {/* Heading */}
       <motion.h2
@@ -41,13 +72,20 @@ export default function Marquee() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative z-10 text-2xl sm:text-3xl font-semibold text-center mb-6"
+        className={`relative z-20 text-2xl sm:text-3xl font-semibold text-center mb-8 px-4 ${
+          darkMode ? 'text-white' : 'text-gray-800'
+        }`}
       >
-        <span className="text-blue-400 dark:text-blue-200">Tools & </span>Technologies I Use
+        <span className={darkMode ? 'text-blue-300' : 'text-blue-600'}>
+          Tools & 
+        </span>
+        <span className={darkMode ? 'text-white' : 'text-gray-700'}>
+          {' '}Technologies I Use
+        </span>
       </motion.h2>
 
       {/* Marquee icons */}
-      <div className="relative z-10 overflow-x-hidden whitespace-nowrap">
+      <div className="relative z-20 overflow-x-hidden whitespace-nowrap">
         <div className="animate-marquee flex items-center gap-12 px-6">
           {duplicatedIcons.map((icon, index) => (
             <motion.div
@@ -57,19 +95,29 @@ export default function Marquee() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: index * 0.02 }}
             >
-              <div className="fade-icon transition-opacity duration-300 group-hover:opacity-100">
+              <div className={`transition-all duration-500 ease-in-out transform group-hover:scale-110 ${
+                darkMode ? 'icon-dark' : 'icon-light'
+              }`}>
                 <Image
                   src={`/icons/${icon}`}
                   alt={icon.replace('.png', '').replace('-', ' ').toUpperCase()}
-                  width={60}
-                  height={60}
-                  className="object-contain  transition duration-300 hover:grayscale-50"
+                  width={70}
+                  height={70}
+                  className="object-contain transition-all duration-300"
+                  style={{
+                    filter: darkMode 
+                      ? 'brightness(0.9) contrast(1.1)' 
+                      : 'brightness(1) contrast(1)'
+                  }}
                 />
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+    
+ 
 
       <style jsx>{`
         @keyframes marquee {
@@ -81,42 +129,71 @@ export default function Marquee() {
           }
         }
 
-        @keyframes backgroundMove {
+        @keyframes marquee-reverse {
           0% {
-            background-position: 0% 50%;
+            transform: translateX(-50%);
           }
           100% {
-            background-position: 100% 50%;
+            transform: translateX(0%);
           }
         }
 
         .animate-marquee {
-          animation: marquee 30s linear infinite;
+          animation: marquee 40s linear infinite;
+        }
+
+        .animate-marquee-reverse {
+          animation: marquee-reverse 35s linear infinite;
+        }
+
+        .icon-light {
+          opacity: 0.7;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .icon-light:hover {
+          opacity: 1;
+          filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+        }
+
+        .icon-dark {
+          opacity: 0.8;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .icon-dark:hover {
+          opacity: 1;
+          filter: drop-shadow(0 4px 8px rgba(96, 165, 250, 0.4));
+        }
+
+        @keyframes backgroundMove {
+          0% {
+            background-position: 200% 0;
+          }
+          100% {
+            background-position: -200% 0;
+          }
         }
 
         .animate-background {
           background-size: 200% 100%;
-          animation: backgroundMove 10s linear infinite;
+          animation: backgroundMove 20s linear infinite;
         }
 
-        .fade-icon {
-          opacity: 0.5;
-          animation: fadeInOut 6s ease-in-out infinite;
-        }
-
-        @keyframes fadeInOut {
-          0%, 100% {
-            opacity: 0.2;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        /* Pause fading when hovered */
-        .group:hover .fade-icon {
-          opacity: 1;
+        /* Pause animations on hover */
+        .group:hover .animate-marquee,
+        .group:hover .animate-marquee-reverse {
           animation-play-state: paused;
+        }
+
+        @media (max-width: 640px) {
+          .animate-marquee {
+            animation: marquee 25s linear infinite;
+          }
+          
+          .animate-marquee-reverse {
+            animation: marquee-reverse 20s linear infinite;
+          }
         }
       `}</style>
     </section>
