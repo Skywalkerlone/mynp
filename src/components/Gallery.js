@@ -337,13 +337,14 @@ export default function Gallery() {
 
   return (
     <section 
+      id="art"
  
       className={`py-20 text-white transition-all duration-700 ${
         darkMode 
           ? 'bg-gradient-to-b from-slate-900 via-black to-slate-900' 
           : 'bg-gradient-to-b from-blue-100 via-white to-blue-100'
       }`} 
-      id='gallery'
+     
     >
       {/* Title */}
       <motion.h2

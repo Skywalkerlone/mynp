@@ -203,7 +203,9 @@ const BarChart = dynamic(
       ];
 
       return (
-        <div className={`w-full h-96 mb-12 backdrop-blur rounded-xl shadow-lg p-4 border ${
+        <div 
+        id="ep"
+        className={`w-full h-96 mb-12 backdrop-blur rounded-xl shadow-lg p-4 border ${
           darkMode
             ? 'bg-slate-800/60 border-blue-700/50'
             : 'bg-white/80 border-blue-200'

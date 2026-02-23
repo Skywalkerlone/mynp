@@ -1,237 +1,15 @@
-// 'use client'
-
-// import { useEffect, useRef, useState } from 'react'
-// import { FiSend, FiMessageCircle, FiMic } from 'react-icons/fi'
-
-// const defaultMessages = [
-//   {
-//     from: 'bot',
-//     text: 'Hi there! 👋 I’m your virtual assistant. Ask me anything about my work, skills, or how we can collaborate or click the icon to browse through.',
-//   },
-// ]
-
-// const suggestions = [
-//   'Who are you?',
-//   'What services do you offer?',
-//   'What are your skills?',
-//   'What’s your philosophy?',
-//   'Can we collaborate?',
-//   'Show me your work',
-//   'How do I contact you?',
-//   'What does E_sai_Art mean?',
-// ]
-
-// export default function Chatbot() {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const [messages, setMessages] = useState(defaultMessages)
-//   const [input, setInput] = useState('')
-//   const [isTyping, setIsTyping] = useState(false)
-//   const recognitionRef = useRef(null)
-
-//   const toggleChat = () => setIsOpen(!isOpen)
-
-//   // ⏱️ Auto-open chat after 4 seconds
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       setIsOpen(true)
-//     }, 7000)
-//     return () => clearTimeout(timer)
-//   }, [])
-
-//   // 🧠 Bot reply logic
-//   const getBotReply = (lower) => {
-//     if (lower.includes('hello') || lower.includes('hi')) {
-//       return 'Hey! 👋 I’m here to help you explore Samuel’s work. What would you like to know?'
-//     } else if (lower.includes('who are you')) {
-//       return `I'm Idaewor S.E Providence — a creative technologist and artist. I blend code and creativity to build functional and imaginative solutions.`
-//     } else if (lower.includes('what services') || lower.includes('offer')) {
-//       return `I offer services including:\n• Book Covers\n• Illustrations\n• Comics\n• 3D Modeling\n• Product Design\n• Audio, Video & Image Editing\n• Graphic Design\n• Frontend/Backend Dev\n• Mobile Apps\n• Video Editing & Animation.`
-//     } else if (lower.includes('what are your skills')) {
-//       return `My soft skills: Honesty, Teamwork, Creativity, Cognitive Thinking.\nHard skills being developed: Web3, AI Dev, Game Dev.`
-//     } else if (lower.includes('philosophy')) {
-//       return `Curiosity is my superpower. I believe both art and technology are tools for transformation — they connect, inspire, and empower.`
-//     } else if (lower.includes('collaborate') || lower.includes('can we collaborate')) {
-//       return `Absolutely! I love creative collaborations — whether it’s art, tech, or educational projects. Let’s make something meaningful together. 🤝`
-//     } else if (
-//       lower.includes('show me your work') ||
-//       lower.includes('portfolio') ||
-//       lower.includes('project')
-//     ) {
-//       return `Close me and go through the website`
-//     } else if (
-//       lower.includes('contact') ||
-//       lower.includes('how do i contact you') ||
-//       lower.includes('reach you')
-//     ) {
-//       return `You can reach me via email at: idaeworsamuelprovidence@gmail.com or use the contact form on my site. Let's connect!`
-//     } else if (lower.includes('e_sai_art') || lower.includes('what does e_sai_art mean')) {
-//       return `E_sai_Art (The Skywalker) is my artistic alias — it represents a journey of storytelling, personal growth, and creative reinvention. ✨`
-//     }
-//     return `Hmm... I'm not sure how to respond to that yet. You can ask about my services, skills, or see my works or contact me?`
-//   }
-
-//   // 💬 Send message
-//   const handleSend = (textOverride = null) => {
-//     const finalInput = textOverride || input.trim()
-//     if (!finalInput) return
-
-//     const userMessage = { from: 'user', text: finalInput }
-//     setMessages((prev) => [...prev, userMessage])
-//     setInput('')
-//     setIsTyping(true)
-
-//     const lower = finalInput.toLowerCase()
-//     const reply = getBotReply(lower)
-
-//     setTimeout(() => {
-//       setMessages((prev) => [...prev, { from: 'bot', text: reply }])
-//       setIsTyping(false)
-//     }, 700)
-//   }
-
-//   // 🎤 Voice input
-//   const startSpeechRecognition = () => {
-//     if (!('webkitSpeechRecognition' in window)) {
-//       alert('Speech recognition not supported in this browser')
-//       return
-//     }
-
-//     const recognition = new window.webkitSpeechRecognition()
-//     recognition.lang = 'en-US'
-//     recognition.interimResults = false
-//     recognition.maxAlternatives = 1
-
-//     recognition.onresult = (event) => {
-//       const transcript = event.results[0][0].transcript
-//       setInput(transcript)
-//       handleSend(transcript)
-//     }
-
-//     recognition.onerror = (event) => {
-//       console.error('Speech error', event.error)
-//     }
-
-//     recognitionRef.current = recognition
-//     recognition.start()
-//   }
-
-//   return (
-//     <div className="fixed bottom-12 right-4 z-50">
-//       {/* Toggle Button */}
-//       <button
-//         className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg"
-//         onClick={toggleChat}
-//       >
-//         <FiMessageCircle size={24} />
-//       </button>
-
-//       {/* Chat Window */}
-//       {isOpen && (
-//         <div className="w-80 h-[500px] bg-white dark:bg-slate-800 rounded-xl shadow-2xl flex flex-col mt-3">
-//           {/* Header */}
-//           <div className="bg-blue-600 text-white px-4 py-2 rounded-t-xl text-sm font-semibold">
-//             Chat with me!
-//           </div>
-
-//           {/* Messages */}
-//           <div
-//             className="flex-1 p-3 space-y-2 text-sm overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent"
-//             style={{
-//               scrollbarWidth: 'thin',
-//               scrollbarColor: 'black transparent',
-//             }}
-//           >
-//             {messages.map((msg, i) => (
-//               <div
-//                 key={i}
-//                 className={`p-2 rounded-lg max-w-[80%] whitespace-pre-wrap ${
-//                   msg.from === 'user'
-//                     ? 'bg-blue-100 self-end'
-//                     : 'bg-gray-200 dark:bg-slate-700 text-white self-start'
-//                 }`}
-//               >
-//                 {msg.text}
-//               </div>
-//             ))}
-//             {isTyping && (
-//               <div className="text-gray-400 italic text-xs">Typing...</div>
-//             )}
-//           </div>
-
-//           {/* Suggestions */}
-//           <div
-//             className="flex gap-2 overflow-x-auto px-2 py-1 scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent"
-//             style={{
-//               scrollbarWidth: 'thin',
-//               scrollbarColor: 'black transparent',
-//             }}
-//           >
-//             {suggestions.map((s, i) => (
-//               <button
-//                 key={i}
-//                 onClick={() => handleSend(s)}
-//                 className="text-xs whitespace-nowrap bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white px-2 py-1 rounded hover:bg-blue-200 dark:hover:bg-blue-900"
-//               >
-//                 {s}
-//               </button>
-//             ))}
-//           </div>
-
-//           {/* Input */}
-//           <div className="flex border-t border-gray-300 dark:border-slate-700 p-2">
-//             <input
-//               type="text"
-//               value={input}
-//               onChange={(e) => setInput(e.target.value)}
-//               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-//               placeholder="Type something..."
-//               className="flex-1 px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 focus:outline-none"
-//             />
-//             <button
-//               onClick={handleSend}
-//               className="ml-2 text-blue-600 hover:text-blue-800"
-//               title="Send"
-//             >
-//               <FiSend size={20} />
-//             </button>
-//             <button
-//               onClick={startSpeechRecognition}
-//               className="ml-2 text-blue-600 hover:text-blue-800"
-//               title="Speak"
-//             >
-//               {/* <FiMic size={20} /> */}
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   )
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { FiSend, FiMessageCircle, FiMic, FiX, FiMinimize } from 'react-icons/fi'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2 } from 'react-icons/fi'
+import { BsRobot, BsPerson } from 'react-icons/bs'
 import { useTheme } from '../context/ThemeContext'
 
 const defaultMessages = [
   {
     from: 'bot',
-    text: 'Hi there! 👋 I\'m your virtual assistant. Ask me anything about my work, skills, or how we can collaborate or click the icons below to browse.',
+    text: 'Hi there! 👋 I\'m your virtual assistant. Ask me anything about my work, skills, or how we can collaborate!',
   },
 ]
 
@@ -246,20 +24,45 @@ const suggestions = [
   'What does E_sai_Art mean?',
 ]
 
+const typingReplies = [
+  'Let me think about that...',
+  'Processing your question...',
+  'Finding the best answer...',
+  'Just a moment...',
+]
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState(defaultMessages)
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
+  const [typingText, setTypingText] = useState('')
   const recognitionRef = useRef(null)
   const messagesEndRef = useRef(null)
+  const inputRef = useRef(null)
   const { darkMode } = useTheme()
 
-  const toggleChat = () => setIsOpen(!isOpen)
+  const toggleChat = () => {
+    setIsOpen(!isOpen)
+    if (!isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 300)
+    }
+  }
+  
   const toggleMinimize = () => setIsMinimized(!isMinimized)
 
-  // ⏱️ Auto-open chat after 4 seconds
+  // Rotate typing messages
+  useEffect(() => {
+    if (isTyping) {
+      const interval = setInterval(() => {
+        setTypingText(typingReplies[Math.floor(Math.random() * typingReplies.length)])
+      }, 2000)
+      return () => clearInterval(interval)
+    }
+  }, [isTyping])
+
+  // ⏱️ Auto-open chat after 7 seconds with animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(true)
@@ -279,26 +82,26 @@ export default function Chatbot() {
     } else if (lower.includes('who are you') || lower.includes('tell me about yourself')) {
       return `I'm Idaewor S.E Providence — a creative technologist and artist. I blend code and creativity to build functional and imaginative solutions.`
     } else if (lower.includes('what services') || lower.includes('offer') || lower.includes('do you do')) {
-      return `I offer services including:\n• Book Covers\n• Illustrations\n• Comics\n• 3D Modeling\n• Product Design\n• Audio, Video & Image Editing\n• Graphic Design\n• Frontend/Backend Dev\n• Mobile Apps\n• Video Editing & Animation.`
+      return `I offer services including:\n\n• 🎨 Book Covers & Illustrations\n• 📚 Comics & Graphic Novels\n• 🖌️ 3D Modeling & Product Design\n• 🎬 Audio, Video & Image Editing\n• 💻 Frontend/Backend Development\n• 📱 Mobile Apps & Web Design\n• 🎞️ Video Editing & Animation`
     } else if (lower.includes('what are your skills') || lower.includes('skills') || lower.includes('expertise')) {
-      return `My soft skills: Honesty, Teamwork, Creativity, Cognitive Thinking.\nHard skills being developed: Web3, AI Dev, Game Dev.`
+      return `**Soft Skills:**\n✨ Honesty | 🤝 Teamwork | 🎨 Creativity | 🧠 Cognitive Thinking\n\n**Hard Skills (in development):**\n🔗 Web3 | 🤖 AI Development | 🎮 Game Development`
     } else if (lower.includes('philosophy') || lower.includes('belief')) {
-      return `Curiosity is my superpower. I believe both art and technology are tools for transformation — they connect, inspire, and empower.`
+      return `Curiosity is my superpower. I believe both art and technology are tools for transformation — they connect, inspire, and empower. ✨`
     } else if (lower.includes('collaborate') || lower.includes('can we collaborate') || lower.includes('work together')) {
-      return `Absolutely! I love creative collaborations — whether it's art, tech, or educational projects. Let's make something meaningful together. 🤝`
+      return `Absolutely! I love creative collaborations — whether it's art, tech, or educational projects. Let's make something meaningful together! 🤝`
     } else if (
       lower.includes('show me your work') ||
       lower.includes('portfolio') ||
       lower.includes('project')
     ) {
-      return `You can view my work in the following sections:\n• Technical Portfolio: Websites & Apps\n• Artistic Portfolio: 2D & 3D Art\n• Graphic Gallery: Design Projects\n\nClose the chat and explore the page sections above!`
+      return `You can view my work in these sections:\n\n🖥️ **Technical Portfolio:** Websites & Apps\n🎨 **Artistic Portfolio:** 2D & 3D Art\n🖼️ **Graphic Gallery:** Design Projects\n\nClose the chat and explore above!`
     } else if (
       lower.includes('contact') ||
       lower.includes('how do i contact you') ||
       lower.includes('reach you') ||
       lower.includes('email')
     ) {
-      return `You can reach me via email at: idaeworsamuelprovidence@gmail.com or use the contact form on my site. You can also call: +234 811 782 0918 or +234 810 866 6501`
+      return `You can reach me here:\n\n📧 Email: idaeworsamuelprovidence@gmail.com\n📞 Call: +234 811 782 0918\n📱 WhatsApp: +234 810 866 6501\n\nOr use the contact form on my site!`
     } else if (lower.includes('e_sai_art') || lower.includes('what does e_sai_art mean') || lower.includes('skywalker')) {
       return `E_sai_Art (The Skywalker) is my artistic alias — it represents a journey of storytelling, personal growth, and creative reinvention. ✨`
     } else if (lower.includes('thank') || lower.includes('thanks')) {
@@ -306,7 +109,7 @@ export default function Chatbot() {
     } else if (lower.includes('bye') || lower.includes('goodbye') || lower.includes('see you')) {
       return `Goodbye! 👋 Feel free to come back anytime. Have a great day!`
     }
-    return `Hmm... I'm not sure how to respond to that yet. You can ask about:\n• My services\n• Skills & expertise\n• Portfolio examples\n• Contact information\n• Collaboration opportunities`
+    return `Hmm... I'm not sure about that yet. You can ask me about:\n\n👤 Who I am\n🛠️ My services\n💡 Skills & expertise\n📂 Portfolio\n📞 Contact info\n🤝 Collaboration`
   }
 
   // 💬 Send message
@@ -325,13 +128,13 @@ export default function Chatbot() {
     setTimeout(() => {
       setMessages((prev) => [...prev, { from: 'bot', text: reply }])
       setIsTyping(false)
-    }, 700)
+    }, 1500)
   }
 
   // 🎤 Voice input
   const startSpeechRecognition = () => {
     if (!('webkitSpeechRecognition' in window)) {
-      alert('Speech recognition not supported in this browser')
+      alert('Speech recognition is only supported in Chrome browser')
       return
     }
 
@@ -339,6 +142,10 @@ export default function Chatbot() {
     recognition.lang = 'en-US'
     recognition.interimResults = false
     recognition.maxAlternatives = 1
+
+    recognition.onstart = () => {
+      // Visual feedback could be added here
+    }
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript
@@ -355,239 +162,311 @@ export default function Chatbot() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
-      {/* Toggle Button */}
-      <button
-        onClick={toggleChat}
-        className={`flex items-center gap-2 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${
-          darkMode
-            ? 'bg-blue-600 hover:bg-blue-700 text-white'
-            : 'bg-blue-500 hover:bg-blue-600 text-white'
-        }`}
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
-      >
-        {isOpen ? <FiX size={20} /> : <FiMessageCircle size={20} />}
-      </button>
-
-      {/* Chat Window */}
-      {isOpen && !isMinimized && (
-        <div className={`w-80 sm:w-96 h-[500px] rounded-xl shadow-2xl flex flex-col mt-3 border transition-all duration-300 ${
-          darkMode
-            ? 'bg-slate-800 border-slate-700'
-            : 'bg-white border-blue-100'
-        }`}>
-          {/* Header */}
-          <div className={`px-4 py-3 rounded-t-xl flex justify-between items-center ${
+    <div className="fixed bottom-6 right-6 z-50">
+      <AnimatePresence>
+        {/* Toggle Button */}
+        <motion.button
+          key="toggle-button"
+          onClick={toggleChat}
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={`flex items-center gap-2 p-4 rounded-full shadow-2xl transition-all duration-300 ${
             darkMode
-              ? 'bg-blue-800 text-white'
-              : 'bg-blue-600 text-white'
-          }`}>
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${
-                isTyping ? 'bg-green-400 animate-pulse' : 'bg-green-400'
-              }`} />
-              <span className="font-semibold">Chat Assistant</span>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={toggleMinimize}
-                className="p-1 hover:bg-white/20 rounded transition-colors"
-                aria-label="Minimize chat"
-              >
-                <FiMinimize size={16} />
-              </button>
-              <button
-                onClick={toggleChat}
-                className="p-1 hover:bg-white/20 rounded transition-colors"
-                aria-label="Close chat"
-              >
-                <FiX size={16} />
-              </button>
-            </div>
-          </div>
+              ? 'bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700'
+              : 'bg-gradient-to-r from-blue-500 to-blue-500 hover:from-blue-600 hover:to-blue-600'
+          } text-white`}
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        >
+          {isOpen ? <FiX size={24} /> : <FiMessageCircle size={24} />}
+        </motion.button>
 
-          {/* Messages */}
-          <div className="flex-1 p-4 space-y-3 overflow-y-auto scrollbar-thin"
-            style={{
-              scrollbarWidth: 'thin',
-              scrollbarColor: darkMode ? '#475569 #1e293b' : '#cbd5e1 #f1f5f9',
+        {/* Chat Window */}
+        {isOpen && (
+          <motion.div
+            key="chat-window"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0, 
+              scale: 1,
+              height: isMinimized ? 'auto' : '600px'
             }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className={`absolute bottom-20 right-0 w-80 sm:w-96 rounded-2xl shadow-2xl flex flex-col overflow-hidden border ${
+              darkMode
+                ? 'bg-slate-800/95 backdrop-blur-xl border-slate-700'
+                : 'bg-white/95 backdrop-blur-xl border-blue-100'
+            }`}
           >
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`p-3 rounded-lg max-w-[85%] whitespace-pre-wrap shadow-sm ${
-                  msg.from === 'user'
-                    ? darkMode
-                      ? 'bg-blue-600 text-white ml-auto rounded-br-none'
-                      : 'bg-blue-500 text-white ml-auto rounded-br-none'
-                    : darkMode
-                      ? 'bg-slate-700 text-gray-200 mr-auto rounded-bl-none'
-                      : 'bg-gray-100 text-gray-800 mr-auto rounded-bl-none'
-                }`}
+            {!isMinimized ? (
+              <>
+                {/* Header with Gradient */}
+                <motion.div 
+                  initial={{ y: -50 }}
+                  animate={{ y: 0 }}
+                  className={`px-4 py-4 bg-gradient-to-r from-blue-600 to-blue-600 text-white`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <BsRobot size={24} />
+                      </motion.div>
+                      <div>
+                        <h3 className="font-semibold">E_sai Assistant</h3>
+                        <div className="flex items-center gap-2 text-xs opacity-90">
+                          <div className={`w-2 h-2 rounded-full ${
+                            isTyping ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'
+                          }`} />
+                          <span>{isTyping ? 'Thinking...' : 'Online'}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={toggleMinimize}
+                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                      >
+                        <FiMinimize2 size={16} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={toggleChat}
+                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                      >
+                        <FiX size={16} />
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Messages Area */}
+                <div 
+                  className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin"
+                  style={{
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: darkMode ? '#475569 #1e293b' : '#cbd5e1 #f1f5f9',
+                  }}
+                >
+                  <AnimatePresence>
+                    {messages.map((msg, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: msg.from === 'user' ? 20 : -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className={`flex items-start gap-2 ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        {msg.from === 'bot' && (
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-600 flex items-center justify-center text-white text-sm shrink-0">
+                            <BsRobot size={14} />
+                          </div>
+                        )}
+                        <div
+                          className={`p-3 rounded-2xl max-w-[85%] whitespace-pre-wrap shadow-md ${
+                            msg.from === 'user'
+                              ? darkMode
+                                ? 'bg-blue-600 text-white rounded-br-none'
+                                : 'bg-blue-500 text-white rounded-br-none'
+                              : darkMode
+                                ? 'bg-slate-700 text-gray-200 rounded-bl-none'
+                                : 'bg-gray-100 text-gray-800 rounded-bl-none'
+                          }`}
+                        >
+                          {msg.text}
+                        </div>
+                        {msg.from === 'user' && (
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-600 flex items-center justify-center text-white text-sm shrink-0">
+                            <BsPerson size={14} />
+                          </div>
+                        )}
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                  
+                  {isTyping && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-start gap-2"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-600 flex items-center justify-center text-white">
+                        <BsRobot size={14} />
+                      </div>
+                      <div className="bg-gray-100 dark:bg-slate-700 p-4 rounded-2xl rounded-bl-none">
+                        <div className="flex gap-1 items-center mb-2">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        </div>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 italic">
+                          {typingText}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Suggestions */}
+                <div className="px-4 py-3 border-t dark:border-slate-700">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    Quick suggestions:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestions.map((s, i) => (
+                      <motion.button
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleSend(s)}
+                        className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 ${
+                          darkMode
+                            ? 'bg-slate-700 hover:bg-slate-600 text-gray-200'
+                            : 'bg-blue-50 hover:bg-blue-100 text-blue-700'
+                        }`}
+                      >
+                        {s}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Input Area */}
+                <div className="p-4 border-t dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+                  <div className="flex gap-2">
+                    <motion.div
+                      whileFocus={{ scale: 1.02 }}
+                      className="flex-1 relative"
+                    >
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                        placeholder="Type your message..."
+                        className={`w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                          darkMode
+                            ? 'bg-slate-700 text-white placeholder-gray-400 focus:ring-blue-500'
+                            : 'bg-white text-gray-800 placeholder-gray-400 focus:ring-blue-400'
+                        }`}
+                      />
+                    </motion.div>
+                    <div className="flex gap-2">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => handleSend()}
+                        disabled={!input.trim()}
+                        className={`p-3 rounded-xl transition-all ${
+                          darkMode
+                            ? input.trim() 
+                              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                              : 'bg-slate-700 text-gray-500 cursor-not-allowed'
+                            : input.trim()
+                              ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        }`}
+                      >
+                        <FiSend size={18} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={startSpeechRecognition}
+                        className={`p-3 rounded-xl transition-all ${
+                          darkMode
+                            ? 'bg-slate-700 hover:bg-slate-600 text-gray-300'
+                            : 'bg-gray-200 hover:bg-gray-300 text-gray-600'
+                        }`}
+                        title="Voice input (Chrome only)"
+                      >
+                        
+                      </motion.button>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                    Press Enter to send • Voice input available in Chrome
+                  </p>
+                </div>
+              </>
+            ) : (
+              /* Minimized View */
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-4 cursor-pointer"
+                onClick={toggleMinimize}
               >
-                {msg.text}
-              </div>
-            ))}
-            {isTyping && (
-              <div className={`flex gap-1 items-center ${
-                darkMode ? 'text-gray-400' : 'text-gray-500'
-              }`}>
-                <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                <span className="ml-2 text-sm italic">Assistant is typing...</span>
-              </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white">
+                      <BsRobot size={16} />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm dark:text-white">E_sai Assistant</h4>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {messages.length} messages • Click to expand
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleMinimize()
+                      }}
+                      className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg"
+                    >
+                      <FiMaximize2 size={16} />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleChat()
+                      }}
+                      className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg"
+                    >
+                      <FiX size={16} />
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
             )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Suggestions */}
-          <div className="px-3 py-2 border-t"
-            style={{
-              borderColor: darkMode ? '#334155' : '#e2e8f0',
-            }}
-          >
-            <div className="text-xs font-medium mb-2 px-1"
-              style={{
-                color: darkMode ? '#94a3b8' : '#64748b',
-              }}
-            >
-              Quick suggestions:
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {suggestions.map((s, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleSend(s)}
-                  className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 hover:scale-105 ${
-                    darkMode
-                      ? 'bg-slate-700 hover:bg-slate-600 text-gray-200'
-                      : 'bg-blue-50 hover:bg-blue-100 text-blue-700'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Input Area */}
-          <div className="p-3 border-t"
-            style={{
-              borderColor: darkMode ? '#334155' : '#e2e8f0',
-            }}
-          >
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Type your message here..."
-                className={`flex-1 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                  darkMode
-                    ? 'bg-slate-700 text-white placeholder-gray-400 focus:ring-blue-500'
-                    : 'bg-gray-100 text-gray-800 placeholder-gray-500 focus:ring-blue-400'
-                }`}
-              />
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleSend()}
-                  disabled={!input.trim()}
-                  className={`p-2 rounded-lg transition-colors ${
-                    darkMode
-                      ? 'bg-blue-600 hover:bg-blue-700 disabled:bg-slate-700 disabled:text-gray-500'
-                      : 'bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-400'
-                  }`}
-                  aria-label="Send message"
-                >
-                  <FiSend size={18} className={darkMode ? 'text-white' : 'text-white'} />
-                </button>
-                <button
-                  onClick={startSpeechRecognition}
-                  className={`p-2 rounded-lg transition-colors ${
-                    darkMode
-                      ? 'bg-slate-700 hover:bg-slate-600'
-                      : 'bg-gray-200 hover:bg-gray-300'
-                  }`}
-                  aria-label="Voice input"
-                  title="Voice input (Chrome only)"
-                >
-                  <FiMic size={18} className={darkMode ? 'text-gray-300' : 'text-gray-600'} />
-                </button>
-              </div>
-            </div>
-            <div className={`text-xs mt-2 px-1 ${
-              darkMode ? 'text-gray-400' : 'text-gray-500'
-            }`}>
-              Press Enter to send • Try voice input in Chrome
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Minimized Chat */}
-      {isOpen && isMinimized && (
-        <div className={`mt-3 p-3 rounded-lg shadow-lg border ${
-          darkMode
-            ? 'bg-slate-800 border-slate-700'
-            : 'bg-white border-blue-100'
-        }`}>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-400" />
-              <span className={`text-sm font-medium ${
-                darkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                Chat Assistant
-              </span>
-            </div>
-            <div className="flex gap-1">
-              <button
-                onClick={toggleMinimize}
-                className={`p-1 rounded ${
-                  darkMode 
-                    ? 'hover:bg-slate-700' 
-                    : 'hover:bg-gray-100'
-                }`}
-                aria-label="Restore chat"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <line x1="8" y1="12" x2="16" y2="12" />
-                </svg>
-              </button>
-              <button
-                onClick={toggleChat}
-                className={`p-1 rounded ${
-                  darkMode 
-                    ? 'hover:bg-slate-700' 
-                    : 'hover:bg-gray-100'
-                }`}
-                aria-label="Close chat"
-              >
-                <FiX size={16} />
-              </button>
-            </div>
-          </div>
-          <div className={`text-xs mt-2 ${
-            darkMode ? 'text-gray-400' : 'text-gray-500'
-          }`}>
-            Chat minimized. Click to restore.
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style jsx>{`
         .scrollbar-thin::-webkit-scrollbar {
           width: 6px;
         }
         .scrollbar-thin::-webkit-scrollbar-track {
-          border-radius: 3px;
+          background: transparent;
         }
         .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: ${darkMode ? '#475569' : '#cbd5e1'};
           border-radius: 3px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+          background: ${darkMode ? '#64748b' : '#94a3b8'};
         }
       `}</style>
     </div>

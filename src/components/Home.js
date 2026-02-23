@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+
 export default function HomeSection() {
   const name = 'IDAEWOR SAMUEL .E PROVIDENCE.'
   const [isPageReady, setIsPageReady] = useState(false)
@@ -41,6 +42,7 @@ export default function HomeSection() {
         backgroundImage: 'url("/images/ff.png")',
       }}
     >
+      
       {/* FULL PAGE LOADER */}
     {!isPageReady && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">

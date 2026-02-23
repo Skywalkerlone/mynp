@@ -5,7 +5,8 @@ import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaSun, FaMoon, FaBars, FaTimes, FaPaintBrush, FaCode,
-  FaHome, FaBriefcase, FaUser, FaEnvelope, FaGifts
+  FaHome, FaBriefcase, FaUser, FaEnvelope, FaGifts,
+  FaBook
 } from 'react-icons/fa'
 import { MdArrowDropDown } from 'react-icons/md'
 import Link from 'next/link'
@@ -44,7 +45,9 @@ export default function Navbar() {
       submenu: [
         { name: 'Technical Services', icon: <FaCode />, href: '#web' },
         { name: 'Artistic Services', icon: <FaPaintBrush />, href: '#art' },
-        { name: 'Graphic Gallery', icon: <FaGifts />, href: '#graphic' }
+        { name: 'Graphic Gallery', icon: <FaGifts />, href: '#graphic' },
+          { name: 'Educational Services', icon: <FaBook />, href: '#ep' },
+        
       ],
     },
     { name: 'About', icon: <FaUser />, href: '#about' },
