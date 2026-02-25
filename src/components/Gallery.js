@@ -252,54 +252,9 @@
 // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'use client'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { FaArrowLeft, FaArrowRight, FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import GraphicGallery from '../components/graphic'
@@ -323,6 +278,18 @@ export default function Gallery() {
   const [showAllArt, setShowAllArt] = useState(false)
   const [showAllBlender, setShowAllBlender] = useState(false)
   const { darkMode } = useTheme()
+  
+  // Refs for sections
+  const titleRef = useRef(null)
+  const artSectionRef = useRef(null)
+  const blenderTitleRef = useRef(null)
+  const blenderSectionRef = useRef(null)
+  
+  // InView states
+  const isTitleInView = useInView(titleRef, { once: false, amount: 0.3 })
+  const isArtSectionInView = useInView(artSectionRef, { once: false, amount: 0.2 })
+  const isBlenderTitleInView = useInView(blenderTitleRef, { once: false, amount: 0.3 })
+  const isBlenderSectionInView = useInView(blenderSectionRef, { once: false, amount: 0.2 })
 
   const scroll = (dir) => {
     if (sliderRef.current) {
@@ -338,56 +305,70 @@ export default function Gallery() {
   return (
     <section 
       id="art"
- 
       className={`py-20 text-white transition-all duration-700 ${
         darkMode 
           ? 'bg-gradient-to-b from-slate-900 via-black to-slate-900' 
           : 'bg-gradient-to-b from-blue-100 via-white to-blue-100'
       }`} 
-     
     >
-      {/* Title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+      {/* Title with out-view animation */}
+      <motion.div ref={titleRef}>
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6 }}
+          className={`text-4xl font-extrabold text-center mb-10 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}
+        >
+          <span className={`bg-clip-text text-transparent ${
+            darkMode 
+              ? 'bg-gradient-to-r from-white via-blue-200 to-blue-300'
+              : 'bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500'
+          }`}>
+            Artistic Portfolio
+          </span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isTitleInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className={`text-center text-base max-w-3xl mx-auto mb-16 px-4 ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}
+        >
+          I specialize in creative services like book covers, illustrations, comics, animation, graphic design, 3D modeling, and product design. My gallery showcases the depth and diversity of my work — bringing characters and stories to life.
+        </motion.p>
+      </motion.div>
+
+      {/* ART IMAGES GRID with out-view animation */}
+      <motion.div 
+        ref={artSectionRef}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isArtSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className={`text-4xl font-extrabold text-center mb-10 ${
-          darkMode ? 'text-white' : 'text-gray-800'
-        }`}
+        className="px-4 max-w-7xl mx-auto"
       >
-        <span className={`bg-clip-text text-transparent ${
-          darkMode 
-            ? 'bg-gradient-to-r from-white via-blue-200 to-blue-300'
-            : 'bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500'
-        }`}>
-          Artistic Portfolio
-        </span>
-      </motion.h2>
-
-      <p className={`text-center text-base max-w-3xl mx-auto mb-16 px-4 ${
-        darkMode ? 'text-gray-300' : 'text-gray-600'
-      }`}>
-        I specialize in creative services like book covers, illustrations, comics, animation, graphic design, 3D modeling, and product design. My gallery showcases the depth and diversity of my work — bringing characters and stories to life.
-      </p>
-
-      {/* ART IMAGES GRID */}
-      <div className="px-4 max-w-7xl mx-auto">
-        <h3 className={`text-2xl font-bold mb-6 ${
-          darkMode ? 'text-blue-200' : 'text-blue-700'
-        }`}>
+        <motion.h3 
+          initial={{ opacity: 0, x: -30 }}
+          animate={isArtSectionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+          transition={{ duration: 0.5 }}
+          className={`text-2xl font-bold mb-6 ${
+            darkMode ? 'text-blue-200' : 'text-blue-700'
+          }`}
+        >
           2D Art & Illustrations
-        </h3>
+        </motion.h3>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {/* Initial 4 items - always visible */}
+          {/* Initial 4 items - always visible with individual animations */}
           {initialArtImages.map((img, index) => (
             <motion.div
               key={`initial-${index}`}
               initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
+              animate={isArtSectionInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
               transition={{ delay: index * 0.05, duration: 0.4 }}
-              viewport={{ once: true }}
               className={`relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 group ${
                 darkMode ? 'bg-slate-800' : 'bg-white border border-blue-100'
               }`}
@@ -426,6 +407,7 @@ export default function Gallery() {
                       key={`additional-${index}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
                       transition={{ delay: index * 0.03, duration: 0.3 }}
                       className={`relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 group ${
                         darkMode ? 'bg-slate-800' : 'bg-white border border-blue-100'
@@ -454,7 +436,12 @@ export default function Gallery() {
         </div>
 
         {/* Show More/Less Button for Art */}
-        <div className="flex justify-center mt-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={isArtSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center mt-8"
+        >
           <button
             onClick={() => setShowAllArt(!showAllArt)}
             className={`flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
@@ -475,28 +462,38 @@ export default function Gallery() {
               </>
             )}
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* BLENDER SECTION */}
-      <motion.h3
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className={`text-3xl font-semibold text-center mt-24 mb-8 ${
-          darkMode ? 'text-white' : 'text-gray-800'
-        }`}
+      {/* BLENDER SECTION with out-view animation */}
+      <motion.div ref={blenderTitleRef}>
+        <motion.h3
+          initial={{ opacity: 0, y: 30 }}
+          animate={isBlenderTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.5 }}
+          className={`text-3xl font-semibold text-center mt-24 mb-8 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}
+        >
+          3D Blender{' '}
+          <span className={darkMode ? 'text-blue-200' : 'text-blue-600'}>
+            Showcase
+          </span>
+        </motion.h3>
+      </motion.div>
+
+      <motion.div 
+        ref={blenderSectionRef}
+        initial={{ opacity: 0 }}
+        animate={isBlenderSectionInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative max-w-7xl mx-auto px-4"
       >
-        3D Blender{' '}
-        <span className={darkMode ? 'text-blue-200' : 'text-blue-600'}>
-          Showcase
-        </span>
-      </motion.h3>
-
-      <div className="relative max-w-7xl mx-auto px-4">
         {/* SCROLL BUTTONS */}
-        <button
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={isBlenderSectionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           onClick={() => scroll('left')}
           className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-all duration-300 ${
             darkMode 
@@ -505,7 +502,7 @@ export default function Gallery() {
           }`}
         >
           <FaArrowLeft />
-        </button>
+        </motion.button>
 
         <div
           ref={sliderRef}
@@ -516,9 +513,8 @@ export default function Gallery() {
             <motion.div
               key={`blender-initial-${i}`}
               initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={isBlenderSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              viewport={{ once: true }}
               className={`min-w-[300px] rounded-xl shadow-lg hover:scale-[1.03] transition-all duration-300 ${
                 darkMode ? 'bg-slate-800' : 'bg-white border border-blue-100'
               }`}
@@ -547,6 +543,7 @@ export default function Gallery() {
                     key={`blender-additional-${i}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ delay: i * 0.05, duration: 0.4 }}
                     className={`min-w-[300px] rounded-xl shadow-lg hover:scale-[1.03] transition-all duration-300 ${
                       darkMode ? 'bg-slate-800' : 'bg-white border border-blue-100'
@@ -571,7 +568,10 @@ export default function Gallery() {
           </AnimatePresence>
         </div>
 
-        <button
+        <motion.button
+          initial={{ opacity: 0, x: 20 }}
+          animate={isBlenderSectionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           onClick={() => scroll('right')}
           className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-all duration-300 ${
             darkMode 
@@ -580,10 +580,15 @@ export default function Gallery() {
           }`}
         >
           <FaArrowRight />
-        </button>
+        </motion.button>
 
         {/* Show More/Less Button for Blender */}
-        <div className="flex justify-center mt-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={isBlenderSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center mt-8"
+        >
           <button
             onClick={() => setShowAllBlender(!showAllBlender)}
             className={`flex items-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300 hover:scale-105 ${
@@ -604,12 +609,20 @@ export default function Gallery() {
               </>
             )}
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="mt-16">
+      {/* Graphic Gallery with out-view animation */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 40 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+        className="mt-16"
+      >
         <GraphicGallery />
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .scrollbar-hide {

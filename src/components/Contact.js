@@ -416,7 +416,7 @@ export default function Contact() {
     {
       icon: <FaEnvelope className="text-white" />,
       title: "Email",
-      details: ["idaeworsamuel@gmail.com"],
+      details: ["idaeworsamuelprovidence@gmail.com"],
       action: "mailto:idaeworsamuel@gmail.com",
       color: "from-blue-500 to-blue-400"
     },

@@ -66,7 +66,7 @@ export default function Navbar() {
           repeat: Infinity,
           duration: 3,
           ease: "linear",
-          delay: Math.random() * 2
+          delay: Math.random() * 1
         }}
       />
       <motion.div
@@ -88,13 +88,13 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 50 }}
-      className="fixed top-0 left-0 w-full z-50 overflow-visible"
+      className="fixed top-0 left-0 w-full backdrop-blur-lg  z-50 overflow-visible"
     >
       {/* Comet border container */}
        <div className="relative">
-        <div className={`relative backdrop-blur-sm shadow-2xl ${
+        <div className={`relative  shadow-2xl ${
           darkMode 
-            ? 'bg-gradient-to-r from-blue-950/25 from-10% via-blue-900/35 via-40% to-blue-950/25 to-90% border-b border-blue-800/60 text-white shadow-2xl shadow-blue-900/20' 
+            ? 'bg-gradient-to-r from-blue-950/25 from-10% via-blue-900/35 via-40% to-blue-950/25 to-90% border-b border-blue-800/60 text-white shadow-2xl  shadow-blue-900/20' 
             : 'bg-gradient-to-r from-blue-200/30 from-10% via-blue-100/40 via-40% to-blue-50/40 to-90% border-b border-blue-500/70 text-black shadow-2xl shadow-blue-400/20'
         }`}>
           {/* Comet animation layer */}
@@ -126,11 +126,11 @@ export default function Navbar() {
             {/* Desktop Menu */}
             <ul className="hidden md:flex gap-8 items-center font-semibold">
               {navItems.map(({ name, icon, submenu, href }) => (
-                <li key={name} className="relative group cursor-pointer transition duration-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <li key={name} className="relative group cursor-pointer  transition duration-300 hover:text-blue-600 dark:hover:text-blue-400">
                   {submenu ? (
                     <>
                       <button
-                        className="flex items-center gap-1 select-none"
+                        className="flex items-center gap-1 select-none "
                         onClick={() => setPortfolioOpen(!portfolioOpen)}
                         onBlur={() => setTimeout(() => setPortfolioOpen(false), 150)}
                       >
@@ -144,7 +144,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.25 }}
-                            className={`absolute top-8 left-0 rounded-lg shadow-xl py-2 w-56 z-50 overflow-hidden backdrop-blur-lg ${
+                            className={`absolute top-8 left-0 rounded-lg shadow-xl py-2 w-56 z-50 overflow-hidden backdrop-blur-xl ${
                               darkMode 
                                 ? 'bg-blue-900/80 border border-blue-800/50 text-white' 
                                 : 'bg-white/90 border border-blue-200/40 text-gray-800'
@@ -228,7 +228,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween' }}
-            className={`fixed top-0 right-0 w-2/3 h-screen backdrop-blur-xs shadow-2xl p-6 z-60 md:hidden overflow-y-auto ${
+            className={`fixed top-0 right-0 w-2/3 h-screen  backdrop-blur-xl shadow-2xl p-6 z-60 md:hidden overflow-y-auto ${
               darkMode 
                 ? 'bg-gradient-to-b from-blue-900/30 from-10% via-blue-800/50 via-30% to-blue-900/30 to-90% border-l border-blue-800/30 text-white' 
                 : 'bg-gradient-to-b from-blue-100/40 from-10% via-blue-100/500 via-30% to-blue-100/10 to-90% border-l border-blue-500/40 text-gray-800'
@@ -239,7 +239,7 @@ export default function Navbar() {
               <CometBorder />
             </div>
             
-            <ul className="flex flex-col gap-6 mt-16 text-lg font-semibold">
+            <ul className="flex flex-col  gap-6 mt-16 text-lg font-semibold">
               {navItems.map(({ name, icon, submenu, href }) => (
                 <li key={name} className="relative">
                   {submenu ? (

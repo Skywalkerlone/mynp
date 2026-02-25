@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Link from 'next/link'
 import { useTheme } from '../context/ThemeContext'
+import { useRef } from 'react'
 
 const skills = [
   'Next.js', 'HTML', 'Tailwind', 'CSS', 'JavaScript',
@@ -63,30 +64,32 @@ const projects = [
 ]
 
 function ProjectCard({ project, index, darkMode }) {
-  return (
-    
-  <div
-   id="web"
-  className={`relative group rounded-xl overflow-hidden ${
-    darkMode
-      ? 'bg-gradient-to-r from-blue-500/30 via-purple-800/20 to-pink-500/20'
-      : 'bg-gradient-to-r from-blue-600 via-slate-50 to-white'
-  }`}
->
+  const cardRef = useRef(null)
+  const isInView = useInView(cardRef, { once: false, amount: 0.2 })
 
-      <div className={`absolute inset-0 z-0 blur-2xl opacity-80 group-hover:opacity-80   transition-opacity duration-500 rounded-lg ${
+  return (
+    <div
+      ref={cardRef}
+      id="web"
+      className={`relative group rounded-xl overflow-hidden ${
         darkMode
           ? 'bg-gradient-to-r from-blue-500/30 via-purple-800/20 to-pink-500/20'
-          : 'bg-gradient-to-r from-blue-400/20 via-purple-600/10 to-pink-400/10 '
+          : 'bg-gradient-to-r from-blue-600 via-slate-50 to-white'
+      }`}
+    >
+      <div className={`absolute inset-0 z-0 blur-2xl opacity-80 group-hover:opacity-80 transition-opacity duration-500 rounded-lg ${
+        darkMode
+          ? 'bg-gradient-to-r from-blue-500/30 via-purple-800/20 to-pink-500/20'
+          : 'bg-gradient-to-r from-blue-400/20 via-purple-600/10 to-pink-400/10'
       }`} />
+      
       <motion.div
         initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
         className={`relative z-10 flex flex-col md:flex-row items-center gap-6 rounded-xl shadow-xl p-5 md:p-8 w-full overflow-hidden border backdrop-blur-md hover:shadow-2xl transition-all duration-500 ${
           darkMode
-            ? 'bg-slate-800/60 border-slate-700  hover:border-blue-500/50 hover:shadow-blue-500/20'
+            ? 'bg-slate-800/60 border-slate-700 hover:border-blue-500/50 hover:shadow-blue-500/20'
             : 'bg-white/80 border-blue-500 hover:border-blue-300 hover:shadow-blue-300/30'
         }`}
       >
@@ -139,7 +142,7 @@ function ProjectCard({ project, index, darkMode }) {
             className={`relative inline-block px-5 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300 ease-in-out shadow-md overflow-hidden ${
               darkMode
                 ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                : ' bg-blue-500 hover:bg-blue-600 text-white '
+                : 'bg-blue-500 hover:bg-blue-600 text-white'
             }`}
           >
             <span className="relative z-10">View Website</span>
@@ -155,6 +158,23 @@ function ProjectCard({ project, index, darkMode }) {
 
 export default function Web() {
   const { darkMode } = useTheme()
+  const skillsRef = useRef(null)
+  const statsRef = useRef(null)
+  const headingRef = useRef(null)
+  
+  const isSkillsInView = useInView(skillsRef, { once: false, amount: 0.3 })
+  const isStatsInView = useInView(statsRef, { once: false, amount: 0.5 })
+  const isHeadingInView = useInView(headingRef, { once: false, amount: 0.5 })
+
+  // Stats animation variants - REMOVED ALL DELAYS
+  const statsVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" } // No delay
+    }
+  }
 
   return (
     <section
@@ -162,7 +182,7 @@ export default function Web() {
       className={`relative py-16 w-full overflow-hidden transition-all duration-700 ${
         darkMode 
           ? 'bg-gradient-to-b from-slate-900 via-blue-900/10 to-slate-900' 
-          : 'bg-gradient-to-b from-blue-200 via-white to-blue-50 '
+          : 'bg-gradient-to-b from-blue-200 via-white to-blue-50'
       }`}
     >
       {/* Background Aura */}
@@ -172,20 +192,20 @@ export default function Web() {
           : 'bg-gradient-to-br from-blue-400/5 via-purple-300/5 to-indigo-400/5'
       }`} />
 
-      {/* Skills Bar */}
+      {/* Skills Bar with out-view animation */}
       <motion.div
+        ref={skillsRef}
         initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={isSkillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="flex flex-wrap justify-center items-center gap-3 mb-12 px-4 max-w-5xl mx-auto"
+        className="flex flex-wrap justify-center items-center gap-3 mb-8 px-4 max-w-5xl mx-auto"
       >
         {skills.map((skill, idx) => (
           <span
             key={idx}
             className={`text-sm md:text-base px-4 py-2 rounded-full font-medium hover:scale-105 transition-all duration-200 ${
               darkMode
-                ? 'bg-blue-900/50 text-blue-200 hover:bg-blue-800 '
+                ? 'bg-blue-900/50 text-blue-200 hover:bg-blue-800'
                 : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
             }`}
           >
@@ -194,11 +214,129 @@ export default function Web() {
         ))}
       </motion.div>
 
+      {/* Frontend/Backend Stats with out-view animation - NO STAGGER */}
+      <motion.div
+        ref={statsRef}
+        variants={statsVariants}
+        initial="hidden"
+        animate={isStatsInView ? "visible" : "hidden"}
+        className="max-w-2xl mx-auto mb-8 px-4"
+      >
+        <div className="grid grid-cols-2 gap-6">
+          {/* Frontend */}
+          <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={isStatsInView ? { scale: 1 } : { scale: 0 }}
+              transition={{ duration: 0.6, type: "spring" }} // REMOVED delay
+              className={`relative rounded-full w-32 h-32 mx-auto mb-3 flex items-center justify-center ${
+                darkMode ? 'bg-blue-900/30' : 'bg-blue-100'
+              }`}
+            >
+              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                <circle
+                  cx="64"
+                  cy="64"
+                  r="58"
+                  stroke={darkMode ? '#1e3a8a' : '#93c5fd'}
+                  strokeWidth="8"
+                  fill="none"
+                  className="opacity-30"
+                />
+                <motion.circle
+                  cx="64"
+                  cy="64"
+                  r="58"
+                  stroke={darkMode ? '#60a5fa' : '#2563eb'}
+                  strokeWidth="8"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ strokeDasharray: `0 364` }}
+                  animate={isStatsInView ? { strokeDasharray: `${290} 364` } : { strokeDasharray: `0 364` }}
+                  transition={{ duration: 1.5, ease: "easeOut" }} // REMOVED delay
+                  style={{
+                    strokeDasharray: `${290} 364`,
+                  }}
+                />
+              </svg>
+              <span className={`text-3xl font-bold ${darkMode ? 'text-blue-300' : 'text-blue-600'}`}>
+                85%
+              </span>
+            </motion.div>
+            <h3 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+              Frontend
+            </h3>
+            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              React, Next.js, Framer, Tailwind
+            </p>
+          </div>
+
+          {/* Backend */}
+          <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={isStatsInView ? { scale: 1 } : { scale: 0 }}
+              transition={{ duration: 0.6, type: "spring" }} // REMOVED delay
+              className={`relative rounded-full w-32 h-32 mx-auto mb-3 flex items-center justify-center ${
+                darkMode ? 'bg-purple-900/30' : 'bg-purple-100'
+              }`}
+            >
+              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                <circle
+                  cx="64"
+                  cy="64"
+                  r="58"
+                  stroke={darkMode ? '#581c87' : '#c4b5fd'}
+                  strokeWidth="8"
+                  fill="none"
+                  className="opacity-30"
+                />
+                <motion.circle
+                  cx="64"
+                  cy="64"
+                  r="58"
+                  stroke={darkMode ? '#c084fc' : '#7c3aed'}
+                  strokeWidth="8"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ strokeDasharray: `0 364` }}
+                  animate={isStatsInView ? { strokeDasharray: `${55} 364` } : { strokeDasharray: `0 364` }}
+                  transition={{ duration: 1.5, ease: "easeOut" }} // REMOVED delay
+                  style={{
+                    strokeDasharray: `${55} 364`,
+                  }}
+                />
+              </svg>
+              <span className={`text-3xl font-bold ${darkMode ? 'text-purple-300' : 'text-purple-600'}`}>
+                15%
+              </span>
+            </motion.div>
+            <h3 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+              Backend
+            </h3>
+            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Node.js, Laravel, Django, Express, Databases
+            </p>
+          </div>
+        </div>
+
+        {/* Stats description - REMOVED delay */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isStatsInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6 }} // REMOVED delay
+          className={`text-center mt-4 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
+        >
+          ⚡ Specialized in modern frontend with growing backend expertise
+        </motion.p>
+      </motion.div>
+
+      {/* Technical Portfolio Heading with out-view animation */}
       <motion.h2
+        ref={headingRef}
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
         className={`text-3xl sm:text-4xl font-bold text-center mb-12 px-4 max-w-4xl mx-auto ${
           darkMode ? 'text-white' : 'text-gray-800'
         }`}
@@ -223,12 +361,13 @@ export default function Web() {
         ))}
       </div>
 
-      {/* Back Button */}
+      {/* Back Button with out-view animation */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        viewport={{ once: true }}
+        exit={{ opacity: 0, y: 40 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.6 }} // Changed from delay to duration
         className="mt-16 text-center px-4"
       >
         <Link href="#services">
@@ -247,220 +386,3 @@ export default function Web() {
     </section>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 'use client'
-
-// import Image from 'next/image'
-// import { motion } from 'framer-motion'
-// import Link from 'next/link'
-
-// // Skills with percentage
-// const skillProgress = [
-//   { name: 'Next.js', level: 90 },
-//   { name: 'HTML', level: 95 },
-//   { name: 'Tailwind', level: 90 },
-//   { name: 'CSS', level: 92 },
-//   { name: 'JavaScript', level: 93 },
-//   { name: 'PHP', level: 85 },
-//   { name: 'React', level: 90 },
-//   { name: 'WordPress', level: 80 },
-//   { name: 'Laravel', level: 88 },
-//   { name: 'MySQL', level: 89 },
-//   { name: 'MongoDB', level: 75 },
-//   { name: 'Java', level: 70 },
-//   { name: 'Python', level: 87 },
-//   { name: 'React Native', level: 82 },
-//   { name: 'ExpressJS', level: 80 },
-//   { name: 'Node', level: 84 },
-//   { name: 'Git', level: 90 },
-// ]
-
-// // Projects
-// const projects = [
-//   {
-//     title: 'Country Finder',
-//     image: 'cffff.png',
-//     description: 'An interactive app showing countries, maps, weather, travel data, and more.',
-//     link: 'https://country-finder-gray-psi.vercel.app/',
-//   },
-//   {
-//     title: 'Word Scramble',
-//     image: 'wc.png',
-//     description: 'Unscramble the letters to form a valid word! Challenge yourself with my Word Scramble game.',
-//     link: 'https://word-scramble-gv93.vercel.app',
-//   },
-//   {
-//     title: 'TPN consult',
-//     image: 'tpn.png',
-//     description: 'Learning management system (LMS)... coming soon',
-//     link: 'https://your-news-app.com',
-//   },
-//   {
-//     title: 'Trashpoint',
-//     image: 'trs.png',
-//     description: 'A React + Next.js site that does amazing things.',
-//     link: 'https://trashpoint.africa/',
-//   },
-//   {
-//     title: 'OSA heritage',
-//     image: 'osa.png',
-//     description: 'non-code',
-//     link: 'https://www.osaheritage.com/',
-//   },
-// ]
-
-// function ProjectCard({ project, index }) {
-//   return (
-//     <div className="relative group rounded-xl overflow-hidden">
-//       <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-500/50 via-purple-800/20 to-pink-500/20 blur-2xl opacity-80 group-hover:opacity-80 transition-opacity duration-500 rounded-lg" />
-//       <motion.div
-//         initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-//         whileInView={{ opacity: 1, x: 0 }}
-//         transition={{ duration: 0.8 }}
-//         viewport={{ once: true }}
-//         className="relative z-10 flex flex-col md:flex-row items-center gap-6 bg-white/10 dark:bg-slate-800/60 rounded-xl shadow-2xl p-5 md:p-8 w-full overflow-hidden border-r-4 border-b-2 border-white/10 backdrop-blur-md hover:shadow-blue-400/30 transition-shadow duration-500"
-//       >
-//         <div className="w-full md:w-1/2 flex justify-center">
-//           <Image
-//             src={`/webb/${project.image}`}
-//             alt={`Screenshot of ${project.title}`}
-//             width={400}
-//             height={250}
-//             className="rounded-md object-cover w-full max-w-xs sm:max-w-sm md:max-w-md"
-//             priority={index < 2}
-//             sizes="(max-width: 768px) 100vw, 50vw"
-//           />
-//         </div>
-//         <div className="w-full md:w-1/2">
-//           <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
-//           <p className="text-base text-gray-700 dark:text-gray-300 mb-5 leading-relaxed">
-//             {project.description}
-//           </p>
-//           <a
-//             href={project.link}
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             aria-label={`View website for ${project.title}`}
-//             className="relative inline-block bg-blue-500 px-5 py-3 rounded-lg text-white font-semibold hover:scale-105 transition-all duration-300 ease-in-out shadow-md overflow-hidden"
-//           >
-//             <span className="relative z-10">View Website</span>
-//             <span className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-opacity duration-300 rounded-lg blur-sm"></span>
-//           </a>
-//         </div>
-//       </motion.div>
-//     </div>
-//   )
-// }
-
-// export default function Web() {
-//   return (
-//     <section
-//       id="web"
-//       className="relative py-16 bg-white dark:bg-slate-900 text-slate-900 dark:text-white w-full overflow-hidden"
-//     >
-//       {/* Background Aura */}
-//       <div className="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-br from-blue-800/10 via-pink-500/5 to-indigo-700/10 blur-3xl opacity-20 pointer-events-none" />
-
-//       {/* Skills with Bars */}
-//       <motion.div
-//         initial={{ opacity: 0, y: -20 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6 }}
-//         viewport={{ once: true }}
-//         className="mb-12 px-4 max-w-4xl mx-auto space-y-6"
-//       >
-//         {skillProgress.map((skill, idx) => (
-//           <div key={idx}>
-//             <div className="flex justify-between mb-1">
-//               <span className="text-sm font-medium text-slate-900 dark:text-white">{skill.name}</span>
-//               <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{skill.level}%</span>
-//             </div>
-//             <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
-//               <motion.div
-//                 initial={{ width: 0 }}
-//                 whileInView={{ width: `${skill.level}%` }}
-//                 transition={{ duration: 1 }}
-//                 className="h-2.5 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"
-//               />
-//             </div>
-//           </div>
-//         ))}
-//       </motion.div>
-
-//       {/* Heading */}
-//       <motion.h2
-//         initial={{ opacity: 0, y: 30 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6 }}
-//         viewport={{ once: true }}
-//         className="text-3xl font-bold text-center mb-12 px-4 max-w-4xl mx-auto"
-//       >
-//         <span className="text-blue-200">Technical</span> Portfolio
-//       </motion.h2>
-
-//       {/* Project Cards */}
-//       <div className="space-y-12 px-4 max-w-6xl mx-auto w-full">
-//         {projects.map((project, index) => (
-//           <ProjectCard key={index} project={project} index={index} />
-//         ))}
-//       </div>
-
-//       {/* Back Button */}
-//       <motion.div
-//         initial={{ opacity: 0, y: 40 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ delay: 0.5 }}
-//         viewport={{ once: true }}
-//         className="mt-16 text-center px-4"
-//       >
-//         <Link href="#services">
-//           <button
-//             className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md p-3 md:p-3 shadow-lg border border-white/30 text-white rounded-lg hover:scale-105 transition-transform duration-300"
-//             aria-label="Back to Technical Services"
-//           >
-//             Back to Technical Services
-//           </button>
-//         </Link>
-//       </motion.div>
-//     </section>
-//   )
-// }

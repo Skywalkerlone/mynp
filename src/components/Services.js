@@ -5,6 +5,8 @@ import { useTheme } from '../context/ThemeContext'
 
 export default function Services() {
   const { darkMode } = useTheme()
+  const sectionRef = useRef(null)
+  const [hasBeenInView, setHasBeenInView] = useState(false)
 
   // CountUp component for animated stats
   function CountUp({ target }) {
@@ -41,19 +43,18 @@ export default function Services() {
         'Digital Art: Commissioned artwork, concept art and visual storytelling',
         'Graphic Design and Logo Creation: Visual branding solutions for companies and individuals',
       ],
-      link: '#gallery',
+      link: '#art',
     },
     {
       title: 'Technical Services',
       description:
         'Web development, apps, UI/UX prototyping, and code optimization.',
       list: [
-  'Full-Stack Development: Front-end and back-end web/app development, database design, SEO optimization, and end-to-end digital solutions',
-  'Data Entry & Management: Accurate data entry, structured data management, and basic data analysis for businesses and organizations',
-  'CompTIA A+ Certification (NIIT): Hardware troubleshooting, system maintenance, and software installation and management',
-  'AI Prompt Engineering & LLM Specialist: Designing precise and effective prompts'
-],
-
+        'Full-Stack Development: Front-end and back-end web/app development, database design, SEO optimization, and end-to-end digital solutions',
+        'Data Entry & Management: Accurate data entry, structured data management, and basic data analysis for businesses and organizations',
+        'CompTIA A+ Certification (NIIT): Hardware troubleshooting, system maintenance, and software installation and management',
+        'AI Prompt Engineering & LLM Specialist: Designing precise and effective prompts'
+      ],
       link: '#web',
     },
     {
@@ -80,8 +81,31 @@ export default function Services() {
     },
   ]
 
+  // Track section visibility for exit animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasBeenInView(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
+  }, [])
+
   return (
     <section
+      ref={sectionRef}
       id="services"
       className={`relative py-20 px-6 overflow-hidden transition-all duration-700 ${
         darkMode 
@@ -181,19 +205,21 @@ export default function Services() {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          exit={{ opacity: 0, y: 20 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className={`text-4xl sm:text-5xl font-bold mb-4 ${
             darkMode ? 'text-blue-200' : 'text-blue-700'
           }`}
         >
-          My Services
+          My <span className='text-white'>Services</span>
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          exit={{ opacity: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className={`text-lg mb-12 max-w-3xl mx-auto ${
             darkMode ? 'text-gray-300' : 'text-gray-600'
@@ -206,11 +232,15 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
           {services.map((service, i) => {
             const ref = useRef(null)
-            const inView = useInView(ref, { once: true })
+            const inView = useInView(ref, { once: false, amount: 0.2 })
             const controls = useAnimation()
 
             useEffect(() => {
-              if (inView) controls.start('visible')
+              if (inView) {
+                controls.start('visible')
+              } else {
+                controls.start('hidden')
+              }
             }, [inView, controls])
 
             return (
@@ -220,7 +250,12 @@ export default function Services() {
                 initial="hidden"
                 animate={controls}
                 variants={{
-                  hidden: { opacity: 0, y: 50, scale: 0.95 },
+                  hidden: { 
+                    opacity: 0, 
+                    y: 50, 
+                    scale: 0.95,
+                    transition: { duration: 0.5 }
+                  },
                   visible: {
                     opacity: 1,
                     y: 0,
@@ -286,12 +321,13 @@ export default function Services() {
               key={idx}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.3 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ delay: idx * 0.3, duration: 0.5 }}
               className={`p-6 rounded-xl border-b backdrop-blur-sm ${
                 darkMode
                   ? 'bg-blue-900/90 border-blue-700/30 text-white'
-                  : 'bg-blue-50/70  border-blue-500 text-blue-800'
+                  : 'bg-blue-50/70 border-blue-500 text-blue-800'
               }`}
             >
               <p className={`text-3xl font-bold ${

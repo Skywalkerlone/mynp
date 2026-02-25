@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
 const icons = [
@@ -27,51 +27,61 @@ const icons = [
 export default function Marquee() {
   const [duplicatedIcons, setDuplicatedIcons] = useState([])
   const { darkMode } = useTheme()
+  const sectionRef = useRef(null)
+  const headingRef = useRef(null)
+  const marqueeRef = useRef(null)
+  
+  const isHeadingInView = useInView(headingRef, { once: false, amount: 0.5 })
+  const isMarqueeInView = useInView(marqueeRef, { once: false, amount: 0.3 })
 
   useEffect(() => {
     setDuplicatedIcons([...icons, ...icons])
   }, [])
 
   return (
-    <section className="relative py-10 overflow-hidden border-y border-blue-400 transition-all duration-500"
+    <section 
+      ref={sectionRef}
+      className="relative py-10 overflow-hidden border-y border-blue-400 transition-all duration-500"
       style={{
-    backgroundColor: darkMode ? '#020617' : '#f8fafc',
-  }}
+        backgroundColor: darkMode ? '#020617' : '#f8fafc',
+      }}
     >
-<div
-  className="absolute inset-0 animate-background z-0 pointer-events-none"
-  aria-hidden="true"
-  style={{
-    opacity: darkMode ? 0.35 : 0.22,
-    mixBlendMode: darkMode ? 'screen' : 'multiply',
-    background: darkMode
-      ? 'linear-gradient(90deg, #1e40af 0%, transparent 25%, transparent 75%, #1e40af 100%)'
-      : 'linear-gradient(90deg, #bfdbfe 0%, #eff6ff 30%, #f8fafc 70%, #93c5fd 100%)',
-  }}
-/>
-
-      {/* Gradient overlays */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 z-10"
+      <div
+        className="absolute inset-0 animate-background z-0 pointer-events-none"
+        aria-hidden="true"
         style={{
+          opacity: darkMode ? 0.35 : 0.22,
+          mixBlendMode: darkMode ? 'screen' : 'multiply',
           background: darkMode
-            ? 'linear-gradient(to right, #0f172a, transparent)'
-            : 'linear-gradient(to right, white, transparent)'
-        }}
-      />
-      <div className="absolute right-0 top-0 bottom-0 w-32 z-10"
-        style={{
-          background: darkMode
-            ? 'linear-gradient(to left, #0f172a, transparent)'
-            : 'linear-gradient(to left, white, transparent)'
+            ? 'linear-gradient(90deg, #1e40af 0%, transparent 25%, transparent 75%, #1e40af 100%)'
+            : 'linear-gradient(90deg, #bfdbfe 0%, #eff6ff 30%, #f8fafc 70%, #93c5fd 100%)',
         }}
       />
 
-      {/* Heading */}
+      {/* Gradient overlays - Enhanced fade effect */}
+      <div 
+        className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+        style={{
+          background: darkMode
+            ? 'linear-gradient(to right, #020617, transparent 80%)'
+            : 'linear-gradient(to right, #f8fafc, transparent 80%)'
+        }}
+      />
+      <div 
+        className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+        style={{
+          background: darkMode
+            ? 'linear-gradient(to left, #020617, transparent 80%)'
+            : 'linear-gradient(to left, #f8fafc, transparent 80%)'
+        }}
+      />
+
+      {/* Heading with fade left/right animation */}
       <motion.h2
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        ref={headingRef}
+        initial={{ opacity: 0, x: -50 }}
+        animate={isHeadingInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className={`relative z-20 text-2xl sm:text-3xl font-semibold text-center mb-8 px-4 ${
           darkMode ? 'text-white' : 'text-gray-800'
         }`}
@@ -84,16 +94,29 @@ export default function Marquee() {
         </span>
       </motion.h2>
 
-      {/* Marquee icons */}
-      <div className="relative z-20 overflow-x-hidden whitespace-nowrap">
+      {/* Marquee icons with fade left/right animation */}
+      <motion.div
+        ref={marqueeRef}
+        initial={{ opacity: 0, x: -100 }}
+        animate={isMarqueeInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+        transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+        className="relative z-20 overflow-x-hidden whitespace-nowrap"
+      >
         <div className="animate-marquee flex items-center gap-12 px-6">
           {duplicatedIcons.map((icon, index) => (
             <motion.div
               key={`${icon}-${index}`}
               className="flex-shrink-0 group"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: index * 0.02 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isMarqueeInView ? { 
+                opacity: 1, 
+                scale: 1,
+                transition: { delay: 0.3 + (index * 0.02) }
+              } : { 
+                opacity: 0, 
+                scale: 0.8,
+                transition: { duration: 0.3 }
+              }}
             >
               <div className={`transition-all duration-500 ease-in-out transform group-hover:scale-110 ${
                 darkMode ? 'icon-dark' : 'icon-light'
@@ -114,10 +137,7 @@ export default function Marquee() {
             </motion.div>
           ))}
         </div>
-      </div>
-
-    
- 
+      </motion.div>
 
       <style jsx>{`
         @keyframes marquee {

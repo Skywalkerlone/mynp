@@ -162,7 +162,7 @@ export default function Chatbot() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-0 right-6 z-50">
       <AnimatePresence>
         {/* Toggle Button */}
         <motion.button
@@ -195,7 +195,7 @@ export default function Chatbot() {
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className={`absolute bottom-20 right-0 w-80 sm:w-96 rounded-2xl shadow-2xl flex flex-col overflow-hidden border ${
+            className={`absolute bottom-10 right-0 w-80 sm:w-96 rounded-2xl shadow-2xl flex flex-col overflow-hidden border ${
               darkMode
                 ? 'bg-slate-800/95 backdrop-blur-xl border-slate-700'
                 : 'bg-white/95 backdrop-blur-xl border-blue-100'
@@ -218,7 +218,7 @@ export default function Chatbot() {
                         <BsRobot size={24} />
                       </motion.div>
                       <div>
-                        <h3 className="font-semibold">E_sai Assistant</h3>
+                        <h3 className="font-semibold">Sam Assistant</h3>
                         <div className="flex items-center gap-2 text-xs opacity-90">
                           <div className={`w-2 h-2 rounded-full ${
                             isTyping ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'
@@ -417,7 +417,7 @@ export default function Chatbot() {
                       <BsRobot size={16} />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-sm dark:text-white">E_sai Assistant</h4>
+                      <h4 className="font-semibold text-sm dark:text-white">Sam Assistant</h4>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         {messages.length} messages • Click to expand
                       </p>
