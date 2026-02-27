@@ -281,8 +281,8 @@ export default function Resume() {
         {/* Download Button */}
         <div className="flex justify-center mb-8">
           <motion.a
-            href="/images/IDAEWORPROVIDENCE-CV.docx"
-            download="IDAEWORSAMUEL.docx"
+            href="/images/IDAEWOR S.E PROVIDENCE..CV.docx"
+            download="IDAEWOR S.E PROVIDENCE..CV.docx"
             className={`flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
               darkMode
                 ? 'bg-blue-600 hover:bg-blue-700 text-white'

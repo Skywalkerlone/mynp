@@ -286,7 +286,7 @@ export default function EducationPage() {
                           📸 Session Photo
                         </span>
                         <span className="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full">
-                          👥 15+ Kids
+                          👥 50+ Kids
                         </span>
                         <span className="px-3 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full">
                           🎮 Hands-on Learning
