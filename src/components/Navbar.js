@@ -94,7 +94,7 @@ export default function Navbar() {
        <div className="relative">
         <div className={`relative  shadow-2xl ${
           darkMode 
-            ? 'bg-gradient-to-r from-blue-950/25 from-10% via-blue-900/35 via-40% to-blue-950/25 to-90% border-b border-blue-800/60 text-white shadow-2xl  shadow-blue-900/20' 
+            ? 'bg-gradient-to-r from-blue-950/25 from-10% via-blue-900/55 via-40% to-blue-950/25 to-90% border-b border-blue-800/60 text-white shadow-2xl  shadow-blue-900/20' 
             : 'bg-gradient-to-r from-blue-200/30 from-10% via-blue-100/40 via-40% to-blue-50/40 to-90% border-b border-blue-500/70 text-black shadow-2xl shadow-blue-400/20'
         }`}>
           {/* Comet animation layer */}
@@ -230,8 +230,8 @@ export default function Navbar() {
             transition={{ type: 'tween' }}
             className={`fixed top-0 right-0 w-2/3 h-screen  backdrop-blur-xl shadow-2xl p-6 z-60 md:hidden overflow-y-auto ${
               darkMode 
-                ? 'bg-gradient-to-b from-blue-900/30 from-10% via-blue-800/50 via-30% to-blue-900/30 to-90% border-l border-blue-800/30 text-white' 
-                : 'bg-gradient-to-b from-blue-100/40 from-10% via-blue-100/500 via-30% to-blue-100/10 to-90% border-l border-blue-500/40 text-gray-800'
+                ? 'bg-gradient-to-b from-blue-900/60 from-10% via-blue-800/70 via-30% to-blue-900/30 to-90% border-l border-blue-800/30 text-white' 
+                : 'bg-gradient-to-b from-blue-100/70 from-10% via-blue-100/80 via-30% to-blue-100/10 to-90% border-l border-blue-500/40 text-gray-800'
             }`}
           >
             {/* Comet border for mobile */}

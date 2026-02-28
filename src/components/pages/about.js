@@ -473,7 +473,7 @@ export default function About() {
       {/* SKILLS SECTION */}
       <section className={`py-20 px-6 transition-all duration-700 ${
         darkMode 
-          ? 'bg-gradient-to-b from-blue-900/30 to-slate-900' 
+          ? 'bg-gradient-to-b from-blue-950/20 to-slate-900' 
           : 'bg-gradient-to-b from-blue-50 to-blue-100'
       }`}>
         <motion.div
@@ -529,7 +529,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2, duration: 0.5 }}
                 viewport={{ once: true }}
-                className={`p-8 text-center rounded-xl shadow-lg hover:scale-105 transition-all duration-300 relative overflow-hidden ${
+                className={`p-8 text-center rounded-xl shadow-4xl hover:scale-105 transition-all duration-300 relative overflow-hidden ${
                   darkMode
                     ? 'bg-blue-900/40 border border-blue-800/30 text-white'
                     : 'bg-blue-100 border border-blue-200 text-gray-800'
@@ -573,7 +573,7 @@ export default function About() {
                 <p className={`text-sm ${
                   darkMode ? 'text-gray-300' : 'text-gray-600'
                 }`}>
-                  These interpersonal and personal attributes enable effective collaboration, communication, and problem-solving in any professional environment.
+                  These interpersonal and personal attributes i have to enable effective collaboration, communication, and problem-solving in any professional environment i am in.
                 </p>
               </div>
               <div>
@@ -585,7 +585,7 @@ export default function About() {
                 <p className={`text-sm ${
                   darkMode ? 'text-gray-300' : 'text-gray-600'
                 }`}>
-                  Technical competencies being developed to stay ahead in emerging technologies, ensuring cutting-edge solutions for future challenges.
+                   These are Technical competencies i am developing to stay ahead in emerging technologies, ensuring cutting-edge solutions for future challenges.
                 </p>
               </div>
             </div>
