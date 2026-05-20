@@ -15,6 +15,7 @@ import EducationalPortfolio from '../components/EducationalPortfolio'
 import SocialMediaExpertise from '../components/SocialMediaExpertise'
 import Chatbot from '../components/chatbot'
 
+
 export default function Index() {
   return (
     <>
@@ -22,7 +23,7 @@ export default function Index() {
       <SocialMedia />
       <main>
         <Home />
-       
+      
          <Services /> 
          <Marquee />
          <Web /> 
