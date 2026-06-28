@@ -30,9 +30,20 @@ const projects = [
    {
     title: 'Upperclass AI',
     image: 'uo.png',
-    description: 'An AI-driven LMS platform for machine learning, web development, and other skills, built with Django and Vite, featuring intelligent chatbots and interactive training.',
+    description: 'An AI-driven LMS platform for machine learning, web development, and other skills, built with Django and Vite, featuring intelligent chatbots and interactive training (in development).',
     link: 'upperclassai.com',
     tag: ['HTML', 'CSS', 'Javascript'],
+  },
+
+
+
+  
+    {
+    title: 'Jcinuniben',
+    image: 'JCP.png',
+    description: 'The Employability, Business, and Leadership (EBL) Masterclass is a flagship initiative of the Junior Chamber International Nigeria, University of Benin (JCIN UNIBEN), designed to equip UNIBEN students with practical skills and real-world insights.',
+    link: 'https://ebl.jcinuniben.com/',
+    tag: ['Nextjs', 'tailwindcss', 'framer'],
   },
   {
     title: 'TPN consult',
