@@ -32,12 +32,18 @@ const projects = [
     image: 'uo.png',
     description: 'An AI-driven LMS platform for machine learning, web development, and other skills, built with Django and Vite, featuring intelligent chatbots and interactive training (in development).',
     link: 'upperclassai.com',
-    tag: ['HTML', 'CSS', 'Javascript'],
+    tag: ['React.vite', 'tailwindcss', 'ML', 'Django',],
+  },
+
+  {
+    title: 'Afrika',
+    image: 'afri.png',
+    description: 'AFRIAK is a digital marketplace celebrating indigenous fashion. We spotlight local artisans share stories, and bring authentic African designs to the ....',
+    link: 'https://www.afrika.com.ng/',
+    tag: ['Nextjs', 'tailwindcss', 'framer', 'nodejs'],
   },
 
 
-
-  
     {
     title: 'Jcinuniben',
     image: 'JCP.png',
