@@ -35,6 +35,16 @@ const projects = [
     tag: ['React.vite', 'tailwindcss', 'ML', 'Django',],
   },
 
+    {
+    title: 'Gvany',
+    image: 'gva.png',
+    description: 'Committed to delivering quality projects and services across Nigeria, Kenya, Uganda, Ghana, and Ivory Coast.',
+    link: 'https://www.gvany.com/',
+    tag: ['Nextjs', 'tailwindcss', 'framer', 'nodejs'],
+  },
+
+
+
   {
     title: 'Afrika',
     image: 'afri.png',
