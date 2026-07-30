@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 const teachingExperiences = [
   {
-    title: "eduBRICKS - Coding & Robotics Academy",
+    title: "EduBricks - Coding & Robotics Academy",
     organization: "eduBRICKS",
     period: "2026 - Present",
     type: "Bootcamp & School Programs",
@@ -20,11 +20,11 @@ const teachingExperiences = [
     color: "from-blue-500 to-blue-600",
     iconColor: "text-blue-500",
     images: [
-      { src: "/gallery/edubricks1.jpg", alt: "Kids learning robotics at eduBRICKS" },
-      { src: "/gallery/edubricks2.jpg", alt: "Students coding in Python at eduBRICKS" },
+      { src: "/images/edu.jpg", alt: "Kids learning robotics at eduBRICKS" },
+      { src: "/images/eedu.jpg", alt: "Students coding in Python at eduBRICKS" },
 
     ],
-    imageLayout: "grid" // 4 images in grid
+     imageLayout: "full"
   },
   {
     title: "UpperClass AI - AI Awareness & Web Development",
@@ -34,7 +34,7 @@ const teachingExperiences = [
     description: "Specialized training programs focused on artificial intelligence awareness and practical applications. Teaching AI fundamentals, machine learning concepts, and comprehensive web development bootcamps to prepare students for the future of technology.",
     icon: <FaBrain />,
     skills: ["AI Awareness", "Machine Learning", "Web Development", "Data Science", "Python", "AI Ethics"],
-    color: "from-blue-500 to-blue-60000",
+    color: "from-blue-500 to-blue-600",
     iconColor: "text-purple-500",
     images: null
   },
