@@ -16,8 +16,8 @@ const BarChart = dynamic(
         { subject: "Physics", level: 90 },
         { subject: "Chemistry", level: 85 },
         { subject: "Sciences", level: 88 },
-        { subject: "Computer Science", level: 92 },
-        { subject: "Fine Art", level: 80 },
+        { subject: "Computer Science", level: 82 },
+        { subject: "Fine Art", level: 92 },
       ];
 
       return (

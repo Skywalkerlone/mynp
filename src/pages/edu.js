@@ -2,13 +2,42 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaHome, FaChalkboardTeacher, FaCode, FaUsers, FaSchool, FaLaptopCode, FaArrowLeft, FaLightbulb, FaChild, FaUserTie } from 'react-icons/fa'
+import { FaHome, FaChalkboardTeacher, FaCode, FaUsers, FaSchool, FaLaptopCode, FaArrowLeft, FaLightbulb, FaChild, FaUserTie, FaRobot, FaBrain, FaChess, FaPython } from 'react-icons/fa'
 import { MdComputer } from 'react-icons/md'
 import Link from 'next/link'
 import { useTheme } from '../context/ThemeContext'
 import Image from 'next/image'
 
 const teachingExperiences = [
+  {
+    title: "eduBRICKS - Coding & Robotics Academy",
+    organization: "eduBRICKS",
+    period: "2026 - Present",
+    type: "Bootcamp & School Programs",
+    description: "Comprehensive technology education program for children aged 5-16. Teaching Scratch programming, Python development, HTML/CSS web design, robotics engineering, and strategic chess. Delivered through intensive bootcamps and ongoing school partnerships.",
+    icon: <FaRobot />,
+    skills: ["Scratch", "Python", "HTML/CSS", "Robotics", "Chess", "STEM Education"],
+    color: "from-blue-500 to-blue-600",
+    iconColor: "text-blue-500",
+    images: [
+      { src: "/gallery/edubricks1.jpg", alt: "Kids learning robotics at eduBRICKS" },
+      { src: "/gallery/edubricks2.jpg", alt: "Students coding in Python at eduBRICKS" },
+
+    ],
+    imageLayout: "grid" // 4 images in grid
+  },
+  {
+    title: "UpperClass AI - AI Awareness & Web Development",
+    organization: "UpperClass AI",
+    period: "2026 - Present",
+    type: "Online & On-site Training",
+    description: "Specialized training programs focused on artificial intelligence awareness and practical applications. Teaching AI fundamentals, machine learning concepts, and comprehensive web development bootcamps to prepare students for the future of technology.",
+    icon: <FaBrain />,
+    skills: ["AI Awareness", "Machine Learning", "Web Development", "Data Science", "Python", "AI Ethics"],
+    color: "from-blue-500 to-blue-60000",
+    iconColor: "text-purple-500",
+    images: null
+  },
   {
     title: "GivHerTech Trainee - HTML & CSS, JavaScript",
     organization: "GivHerTech Africa",
@@ -19,7 +48,7 @@ const teachingExperiences = [
     skills: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Web Fundamentals"],
     color: "from-blue-500 to-blue-600",
     iconColor: "text-blue-500",
-    image: null
+    images: null
   },
   {
     title: "Programming Awareness Program",
@@ -31,7 +60,7 @@ const teachingExperiences = [
     skills: ["Programming Basics", "Career Guidance", "Tech Awareness", "Youth Engagement"],
     color: "from-blue-500 to-blue-600",
     iconColor: "text-blue-500",
-    image: null
+    images: null
   },
   {
     title: "Web Development Bootcamp (Adults)",
@@ -43,7 +72,7 @@ const teachingExperiences = [
     skills: ["Full-stack Development", "Project-based Learning", "Career Transition", "Practical Workshops"],
     color: "from-blue-500 to-blue-600",
     iconColor: "text-blue-500",
-    image: null
+    images: null
   },
   {
     title: "Kids Coding Program",
@@ -55,8 +84,10 @@ const teachingExperiences = [
     skills: ["Visual Programming", "Game Development", "Creative Learning", "Age-appropriate Curriculum"],
     color: "from-blue-500 to-blue-600",
     iconColor: "text-blue-500",
-    image: "/gallery/ed.jpg", // Add your image path here
-    imageAlt: "Children learning to code at Edo Innovate"
+    images: [
+      { src: "/gallery/ed.jpg", alt: "Children learning to code at Edo Innovate" }
+    ],
+    imageLayout: "full" // single full-width image
   }
 ]
 
@@ -170,15 +201,15 @@ export default function EducationPage() {
           className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12"
         >
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">4</div>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">6</div>
             <div className="text-gray-700 dark:text-gray-300">Teaching Programs</div>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">200+</div>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">500+</div>
             <div className="text-gray-700 dark:text-gray-300">Students Trained</div>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">2 Years</div>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">10+ Years</div>
             <div className="text-gray-700 dark:text-gray-300">Teaching Experience</div>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
@@ -226,8 +257,86 @@ export default function EducationPage() {
 
                 {/* Content */}
                 <div className="p-8">
-                  {/* Image Gallery for Kids Coding Program */}
-                  {experience.image && (
+                  {/* Image Gallery - Grid layout for eduBRICKS (4 images) */}
+                  {experience.images && experience.images.length > 0 && experience.imageLayout === "grid" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="mb-8"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {experience.images.map((img, imgIndex) => (
+                          <motion.div
+                            key={imgIndex}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1 * imgIndex }}
+                            whileHover={{ scale: 1.05 }}
+                            className="relative group/image cursor-pointer"
+                            onClick={() => setSelectedImage({ src: img.src, alt: img.alt })}
+                          >
+                            <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-lg">
+                              <Image
+                                src={img.src}
+                                alt={img.alt}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover/image:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300" />
+                              
+                              {/* Overlay with zoom button */}
+                              <motion.div 
+                                initial={{ opacity: 0 }}
+                                whileHover={{ opacity: 1 }}
+                                className="absolute inset-0 flex items-center justify-center"
+                              >
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/40 transition-all"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                  </svg>
+                                </motion.button>
+                              </motion.div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      {/* eduBRICKS stats tags */}
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.4 }}
+                        className="flex flex-wrap gap-3 mt-4 text-sm"
+                      >
+                        <span className="px-3 py-1 bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full flex items-center gap-1 border border-orange-200 dark:border-orange-800">
+                          <FaRobot /> Robotics
+                        </span>
+                        <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center gap-1 border border-blue-200 dark:border-blue-800">
+                          <FaPython /> Python
+                        </span>
+                        <span className="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center gap-1 border border-green-200 dark:border-green-800">
+                          <FaChess /> Chess
+                        </span>
+                        <span className="px-3 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full flex items-center gap-1 border border-purple-200 dark:border-purple-800">
+                          <FaCode /> HTML/CSS
+                        </span>
+                        <span className="px-3 py-1 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center gap-1 border border-red-200 dark:border-red-800">
+                          👶 Ages 5-16
+                        </span>
+                        <span className="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full flex items-center gap-1 border border-yellow-200 dark:border-yellow-800">
+                          🏫 Bootcamp & Schools
+                        </span>
+                      </motion.div>
+                    </motion.div>
+                  )}
+
+                  {/* Full-width image for Kids Coding Program */}
+                  {experience.images && experience.images.length > 0 && experience.imageLayout === "full" && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -237,8 +346,8 @@ export default function EducationPage() {
                       <div className="relative group/image">
                         <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-xl">
                           <Image
-                            src={experience.image}
-                            alt={experience.imageAlt}
+                            src={experience.images[0].src}
+                            alt={experience.images[0].alt}
                             fill
                             className="object-cover transition-transform duration-700 group-hover/image:scale-110"
                           />
@@ -253,7 +362,7 @@ export default function EducationPage() {
                             <motion.button
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
-                              onClick={() => setSelectedImage({ src: experience.image, alt: experience.imageAlt })}
+                              onClick={() => setSelectedImage({ src: experience.images[0].src, alt: experience.images[0].alt })}
                               className="bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-white/40 transition-all"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -365,12 +474,12 @@ export default function EducationPage() {
               Interested in Collaborating on Education Programs?
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-              I'm passionate about tech education and always open to new teaching opportunities, workshops, or educational collaborations.
+              With over 10 years of teaching experience across various technology disciplines, I'm passionate about tech education and always open to new teaching opportunities, workshops, or educational collaborations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/"
-                className="px-8 py-3 bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="px-8 py-3 bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white  font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 Back to Portfolio
               </Link>

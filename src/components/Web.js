@@ -219,6 +219,25 @@ export default function Web() {
           : 'bg-gradient-to-br from-blue-400/5 via-purple-300/5 to-indigo-400/5'
       }`} />
 
+
+        {/* Technical Portfolio Heading with out-view animation */}
+      <motion.h2
+        ref={headingRef}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.6 }}
+        className={`text-3xl sm:text-4xl font-bold text-center mb-12 px-4 max-w-4xl mx-auto ${
+          darkMode ? 'text-white' : 'text-gray-800'
+        }`}
+      >
+        <span className={darkMode ? 'text-blue-300' : 'text-blue-600'}>
+          Technical
+        </span>
+        <span className={darkMode ? 'text-white' : 'text-gray-700'}>
+          {' '}Portfolio
+        </span>
+      </motion.h2>
+
       {/* Skills Bar with out-view animation */}
       <motion.div
         ref={skillsRef}
@@ -358,23 +377,7 @@ export default function Web() {
         </motion.p>
       </motion.div>
 
-      {/* Technical Portfolio Heading with out-view animation */}
-      <motion.h2
-        ref={headingRef}
-        initial={{ opacity: 0, y: 30 }}
-        animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.6 }}
-        className={`text-3xl sm:text-4xl font-bold text-center mb-12 px-4 max-w-4xl mx-auto ${
-          darkMode ? 'text-white' : 'text-gray-800'
-        }`}
-      >
-        <span className={darkMode ? 'text-blue-300' : 'text-blue-600'}>
-          Technical
-        </span>
-        <span className={darkMode ? 'text-white' : 'text-gray-700'}>
-          {' '}Portfolio
-        </span>
-      </motion.h2>
+    
 
       {/* Projects */}
       <div className="space-y-12 px-4 max-w-6xl mx-auto w-full">

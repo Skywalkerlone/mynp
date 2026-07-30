@@ -147,7 +147,7 @@ export default function HomeSection() {
 
           <p className="mt-1 text-base sm:text-lg">My name is...</p>
           
-          {/* TYPEWRITER EFFECT - ONLY ON THE NAME */}
+          {/* TYPEWRITER EFFECT - NEW CSS TYPING EFFECT */}
           <h1 className="typewriter text-lg sm:text-2xl md:text-3xl lg:text-4xl my-6 font-bold text-blue-200 mx-auto">
             {name}
           </h1>
@@ -161,20 +161,21 @@ export default function HomeSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
-                className="mt-1 text-white/90 text-base sm:text-lg"
+                className="mt-1 text-white/90  lg:text-xl sm:text-base sm:text-lg"
               >
                 If you are looking for a{' '}
                 <span className="text-blue-300">Digital Artist</span>,{' '}
                 <span className="text-blue-300">Graphic Designer</span>,{' '}
-                <span className="text-blue-300">AI Training</span>,{' '}
+                <span className="text-blue-300">AI Trainer</span>,{' '}
                 <span className="text-blue-300">App</span> or{' '}
-                <span className="text-blue-300">Website Developer</span> (Front-end/Back-end),{' '}
+                <span className="text-blue-300">Web Developer</span> (Front-end/Back-end),{' '}
                 <span className="text-blue-300">Video Editor</span>,{' '}
                 <span className="text-blue-300">2D</span> or{' '}
+                <span className="text-blue-300">Data annotator</span> or{' '}
                 <span className="text-blue-300">3D product designer</span> and{' '}
-                <span className="text-blue-300">animator</span>, or{' '}
+                <span className="text-blue-300">Animator</span>, or{' '}
                 <span className="text-blue-300">Tutorials</span> or{' '}
-                <span className="text-blue-300">Facilitator</span>, then you have come to the right place.
+                <span className="text-blue-300">Facilitator</span>, then that's me.
               </motion.p>
             )}
           </AnimatePresence>
@@ -192,7 +193,7 @@ export default function HomeSection() {
               >
                 <a
                   href="#services"
-                  className="relative overflow-hidden bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded text-lg shadow-lg font-semibold transition duration-300"
+                  className="relative overflow-hidden bg-blue-500 hover:bg-white hover:text-black text-white px-5 py-2 rounded text-lg shadow-lg font-semibold transition duration-300"
                 >
                   Explore
                   <span className="absolute top-0 left-[-75%] w-20 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform skew-x-[-25deg] animate-shine" />
@@ -202,7 +203,7 @@ export default function HomeSection() {
                   href="https://www.redbubble.com/people/ESAIART/shop?asc=u"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md px-5 py-2 shadow-lg border border-white/30 text-white rounded hover:bg-white/20 hover:border-white transition duration-300 font-semibold"
+                  className="bg-gradient-to-r from-white/20 via-white/10 to-white/5 backdrop-blur-md px-5 py-2 shadow-lg border border-white/30 text-white rounded hover:bg-white/20 hover:border-blue-300 transition duration-300 font-semibold"
                 >
                   Visit Shop
                 </a>
@@ -214,12 +215,16 @@ export default function HomeSection() {
 
       {/* STYLES */}
       <style jsx>{`
+        /* === NEW CSS TYPING EFFECT === */
         .typewriter {
+          display: inline-block;
           overflow: hidden;
           white-space: nowrap;
-          border-right: 2px solid #fff;
-          width: fit-content;
-          animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+          border-right: 2px solid #60a5fa;
+          width: 0;
+          animation: typing 3s steps(30, end) forwards,
+                     blink 0.75s step-end infinite;
+          max-width: fit-content;
         }
 
         @keyframes typing {
@@ -232,6 +237,10 @@ export default function HomeSection() {
         }
 
         @keyframes blink {
+          0%,
+          100% {
+            border-color: #60a5fa;
+          }
           50% {
             border-color: transparent;
           }
