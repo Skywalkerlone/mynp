@@ -236,9 +236,9 @@ body {
 
 
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 @layer utilities {
   .bg-gradient-radial {
@@ -289,6 +289,273 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== GLOBAL TOOLBAR SCROLL EFFECTS ===== */
+:root {
+  /* Color variables for toolbar states */
+  --toolbar-bg-start: rgba(255, 255, 255, 0.3);
+  --toolbar-bg-end: rgba(255, 255, 255, 0.95);
+  --toolbar-border-color: rgba(59, 130, 246, 0.3);
+  --toolbar-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --toolbar-blur: blur(20px);
+}
+
+.dark {
+  --toolbar-bg-start: rgba(30, 58, 138, 0.2);
+  --toolbar-bg-end: rgba(30, 58, 138, 0.9);
+  --toolbar-border-color: rgba(59, 130, 246, 0.2);
+  --toolbar-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Toolbar base styles */
+.toolbar-scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backdrop-filter: var(--toolbar-blur);
+  -webkit-backdrop-filter: var(--toolbar-blur);
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid transparent;
+}
+
+/* Toolbar states based on scroll */
+.toolbar-scroll.at-top {
+  background: var(--toolbar-bg-start);
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.toolbar-scroll.scrolled {
+  background: var(--toolbar-bg-end);
+  border-bottom-color: var(--toolbar-border-color);
+  box-shadow: var(--toolbar-shadow);
+}
+
+/* ===== COMET BORDER ANIMATION ===== */
+.comet-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.toolbar-scroll.scrolled .comet-border {
+  opacity: 1;
+}
+
+.comet-border .comet {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+  animation: cometTrail 3s ease-in-out infinite;
+}
+
+.comet-border .comet:nth-child(1) {
+  width: 80px;
+  animation-delay: 0s;
+  animation-duration: 3s;
+}
+
+.comet-border .comet:nth-child(2) {
+  width: 50px;
+  animation-delay: 1.2s;
+  animation-duration: 2.5s;
+  background: linear-gradient(90deg, transparent, #93c5fd, transparent);
+}
+
+.comet-border .comet:nth-child(3) {
+  width: 60px;
+  animation-delay: 2.4s;
+  animation-duration: 3.5s;
+  background: linear-gradient(90deg, transparent, #818cf8, transparent);
+}
+
+@keyframes cometTrail {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(400%);
+    opacity: 0;
+  }
+}
+
+
+
+
+/* ===== TOOLBAR ELEMENTS ===== */
+/* Logo animation on scroll */
+.toolbar-scroll.scrolled .logo-icon {
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.toolbar-scroll.at-top .logo-icon {
+  transform: scale(1);
+}
+
+/* Nav item hover effects */
+.toolbar-scroll .nav-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.toolbar-scroll .nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.toolbar-scroll .nav-item:hover::after {
+  width: 80%;
+}
+
+.toolbar-scroll.scrolled .nav-item:hover::after {
+  width: 100%;
+}
+
+/* ===== MOBILE SIDEBAR =====
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  max-width: 320px;
+  height: 100vh;
+  z-index: 1002;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.mobile-sidebar.open {
+  right: 0;
+} */
+
+/* Sidebar overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ===== DARK MODE TOGGLE ===== */
+.theme-toggle {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  transform: rotate(30deg) scale(1.05);
+}
+
+.theme-toggle .icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+/* ===== SCROLL STYLES ===== */
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 1px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2563eb, #7c3aed);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2979fa transparent;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+/* @media (max-width: 768px) {
+  .toolbar-scroll {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .toolbar-scroll.at-top {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .dark .toolbar-scroll.at-top {
+    background: rgba(30, 58, 138, 0.1);
+  }
+  
+  .scroll-progress .progress-bar {
+    height: 2px;
+  }
+} */
 
 
 

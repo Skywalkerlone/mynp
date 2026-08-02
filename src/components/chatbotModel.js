@@ -568,9 +568,6 @@ class ChatbotModel {
 
 
 
-// Add these entries to your trainingData array in chatbotModel.js
-
-// Budget & Pricing
 { input: 'budget', output: 'For pricing inquiries, I recommend we discuss your specific project requirements directly. My rates are flexible and depend on the scope of work, whether it\'s a one-time project or ongoing engagement. I offer competitive rates for both project-based and hourly work. Contact me at idaeworsamuelprovidence@gmail.com or call +234 811 782 0918 to discuss your budget and get a custom quote tailored to your needs.' },
 { input: 'price', output: 'My pricing is project-dependent and varies based on complexity, timeline, and deliverables. I offer flexible arrangements including fixed project rates and hourly consultations. For an accurate quote, please reach out to discuss your specific requirements. Email: idaeworsamuelprovidence@gmail.com or WhatsApp: +234 810 866 6501.' },
 { input: 'cost', output: 'Costs vary depending on the scope and nature of your project. I provide transparent, competitive pricing for all my services. Whether you need creative work, technical development, or educational services, I\'ll work within your budget. Contact me for a free consultation and custom quote.' },
