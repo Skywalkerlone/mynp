@@ -449,13 +449,9 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
-            darkMode 
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500' 
-              : 'bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-600'
-          }`}>
-            Contact Me
-          </h1>
+         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500">
+  Contact <span className="text-black dark:text-white">Me</span>
+</h1>
           <p className={`text-lg max-w-3xl mx-auto ${
             darkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>
