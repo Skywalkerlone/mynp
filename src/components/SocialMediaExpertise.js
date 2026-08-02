@@ -692,8 +692,8 @@ export default function SocialMediaExpertise() {
             }}
             className={`inline-block px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${
               darkMode
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
-                : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-white hover:to-blue-100 hover:text-black text-white'
+                : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-slate-900 hover:to-blue-700 text-white'
             }`}
           >
             Let's Grow Your Social Presence

@@ -260,7 +260,7 @@ const EducationalPortfolio = () => {
             href="/edu"
             className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all border ${
               darkMode
-                ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-500'
+                ? 'bg-blue-600 hover:bg-white text-white hover:text-black border-blue-500'
                 : 'bg-blue-500 hover:bg-blue-600 text-white border-blue-400'
             }`}
           >

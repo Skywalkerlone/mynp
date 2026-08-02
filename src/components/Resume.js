@@ -178,7 +178,7 @@ export default function Resume() {
             download="IDAEWOR S.E PROVIDENCE..CV.docx"
             className={`flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
               darkMode
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? 'bg-blue-600 hover:bg-white hover:text-black text-white'
                 : 'bg-blue-500 hover:bg-blue-600 text-white'
             }`}
             whileHover={{ scale: 1.05 }}

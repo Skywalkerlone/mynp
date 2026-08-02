@@ -168,8 +168,8 @@ function ProjectCard({ project, index, darkMode }) {
             aria-label={`View website for ${project.title}`}
             className={`relative inline-block px-5 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300 ease-in-out shadow-md overflow-hidden ${
               darkMode
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
+                ? 'bg-blue-600 hover:bg-white hover:text-black text-white'
+                : 'bg-blue-500 hover:bg-blue-100 hover:text-black text-white'
             }`}
           >
             <span className="relative z-10">View Website</span>

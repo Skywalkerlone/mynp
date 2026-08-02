@@ -294,8 +294,8 @@ export default function Services() {
                   href={service.link}
                   className={`mt-auto relative overflow-hidden px-4 py-3 rounded-lg transition-all font-semibold ${
                     darkMode
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700'
-                      : 'bg-blue-500 hover:bg-blue-600 text-white border-blue-400'
+                      ? 'bg-blue-600 hover:bg-white hover:text-black border-blue-700'
+                      : 'bg-blue-500 hover:bg-blue-100 text-black border-blue-400'
                   } border hover:scale-105 transform transition-all duration-300`}
                 >
                   View Portfolio
