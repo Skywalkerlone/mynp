@@ -488,3 +488,69 @@ html {
   scrollbar-color: #2979fa transparent;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+.custom-cursor {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: rgb(255, 0, 0);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+/* Hover effect */
+.custom-cursor.hover {
+  width: 60px;
+  height: 60px;
+  border-color: #60a5fa;
+}
+
+.custom-cursor-dot.hover {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+
+
+
+
+
+
+@keyframes border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-border-spin {
+  animation: border-spin 32s linear infinite;
+}

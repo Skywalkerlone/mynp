@@ -14,6 +14,7 @@ import Resume from '../components/Resume'
 import EducationalPortfolio from '../components/EducationalPortfolio'
 import SocialMediaExpertise from '../components/SocialMediaExpertise'
 import Chatbot from '../components/chatbot'
+// import Testimonial from '@/components/testimonial'
 
 
 export default function Index() {
@@ -32,7 +33,7 @@ export default function Index() {
       
          <SocialMediaExpertise /> 
          <EducationalPortfolio />
-         
+         {/* <Testimonial /> */}
          <Chatbot />  
 
          <Resume /> 

@@ -228,86 +228,101 @@ export default function Services() {
           I provide powerful solutions through artistry, technology, and education—crafted to elevate your vision, you think it and i make it real.
         </motion.p>
 
-        {/* Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
-          {services.map((service, i) => {
-            const ref = useRef(null)
-            const inView = useInView(ref, { once: false, amount: 0.2 })
-            const controls = useAnimation()
+{/* Service Cards */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+  {services.map((service, i) => {
+    const ref = useRef(null)
+    const inView = useInView(ref, { once: false, amount: 0.2 })
+    const controls = useAnimation()
 
-            useEffect(() => {
-              if (inView) {
-                controls.start('visible')
-              } else {
-                controls.start('hidden')
-              }
-            }, [inView, controls])
+    useEffect(() => {
+      if (inView) {
+        controls.start('visible')
+      } else {
+        controls.start('hidden')
+      }
+    }, [inView, controls])
 
-            return (
-              <motion.div
-                ref={ref}
-                key={i}
-                initial="hidden"
-                animate={controls}
-                variants={{
-                  hidden: { 
-                    opacity: 0, 
-                    y: 50, 
-                    scale: 0.95,
-                    transition: { duration: 0.5 }
-                  },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: {
-                      delay: i * 0.2,
-                      duration: 0.6,
-                      ease: 'easeOut',
-                    },
-                  },
-                }}
-                className={`rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm relative flex flex-col border ${
-                  darkMode
-                    ? 'bg-slate-800/70 border-slate-700 hover:border-blue-500/50 hover:bg-slate-800'
-                    : 'bg-white/80 border-blue-500 border  border-r hover:border-blue-700 hover:bg-white'
-                }`}
-              >
-                <h3 className={`text-xl font-semibold mb-3 ${
-                  darkMode ? 'text-blue-300' : 'text-blue-600'
-                }`}>
-                  {service.title}
-                </h3>
-                <p className={`mb-4 ${
-                  darkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                  {service.description}
-                </p>
-                <ul className={`list-disc pl-5 mb-6 text-sm space-y-2 ${
-                  darkMode ? 'text-gray-400' : 'text-gray-600'
-                }`}>
-                  {service.list.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-                <Link
-                  href={service.link}
-                  className={`mt-auto relative overflow-hidden px-4 py-3 rounded-lg transition-all font-semibold ${
-                    darkMode
-                      ? 'bg-blue-600 hover:bg-white hover:text-black border-blue-700'
-                      : 'bg-blue-500 hover:bg-blue-100 text-black border-blue-400'
-                  } border hover:scale-105 transform transition-all duration-300`}
-                >
-                  View Portfolio
-                  <span
-                    className="absolute top-0 left-0 w-12 h-full bg-white opacity-30 -skew-x-12 animate-shine"
-                    style={{ pointerEvents: 'none' }}
-                  />
-                </Link>
-              </motion.div>
-            )
-          })}
+    return (
+      <motion.div
+        key={i}
+        ref={ref}
+        initial="hidden"
+        animate={controls}
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: 50,
+            scale: 0.95,
+            transition: { duration: 0.5 }
+          },
+          visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+              delay: i * 0.2,
+              duration: 0.6,
+              ease: 'easeOut',
+            },
+          },
+        }}
+        className="relative p-[2px] rounded-2xl overflow-hidden"
+      >
+        {/* Conic gradient border with blur - FIXED */}
+        <div 
+          className="absolute inset-[-2px] rounded-2xl  animate-border-spin"
+          style={{
+            boxShadow: '0 0 9px rgba(37, 22, 249, 0.5)',
+            background: 'conic-gradient(from 0deg, #05128a, #0646a7, #1000a1, #2516f9)',
+            backgroundSize: '100% 100%',
+          }}
+        />
+
+        {/* Card content */}
+        <div
+          className={`relative rounded-xl p-6   xl:h-99 lg:h-99 md:h-auto sm:h-auto transform duration-700 hover:scale-105 shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col ${
+            darkMode
+              ? 'bg-slate-800 border-slate-700 hover:border-blue-500/50'
+              : 'bg-white border-blue-500 hover:border-blue-700'
+          } border`}
+        >
+          <h3 className={`text-xl font-semibold mb-3 ${
+            darkMode ? 'text-blue-300' : 'text-blue-600'
+          }`}>
+            {service.title}
+          </h3>
+          <p className={`mb-4 ${
+            darkMode ? 'text-gray-300' : 'text-gray-700'
+          }`}>
+            {service.description}
+          </p>
+          <ul className={`list-disc pl-5 mb-6 text-sm space-y-2 ${
+            darkMode ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            {service.list.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <Link
+            href={service.link}
+            className={`mt-auto relative overflow-hidden px-4 py-3 rounded-lg transition-all font-semibold ${
+              darkMode
+                ? 'bg-blue-600 hover:bg-white hover:text-black border-blue-700'
+                : 'bg-blue-500 hover:bg-blue-100 text-black border-blue-400'
+            } border hover:scale-105 transform transition-all duration-300`}
+          >
+            View Portfolio
+            <span
+              className="absolute top-0 left-0 w-12 h-full bg-white opacity-30 -skew-x-12 animate-shine"
+              style={{ pointerEvents: 'none' }}
+            />
+          </Link>
         </div>
+      </motion.div>
+    )
+  })}
+</div>
 
         {/* Stats Section */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
@@ -330,6 +345,7 @@ export default function Services() {
                   : 'bg-blue-50/70 border-blue-500 text-blue-800'
               }`}
             >
+              
               <p className={`text-3xl font-bold ${
                 darkMode ? 'text-blue-200' : 'text-blue-600'
               }`}>

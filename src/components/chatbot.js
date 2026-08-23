@@ -441,7 +441,7 @@ export default function Chatbot() {
     
     const voices = window.speechSynthesis.getVoices()
     const maleVoicePatterns = [
-      'Google UK English Male', 'Google US English Male', 'Microsoft David',
+      'Google UK English Male',  'Microsoft David',
       'Microsoft Mark', 'Microsoft Daniel', 'Microsoft Fred', 'Daniel',
       'David', 'Mark', 'Fred', 'Alex', 'Male'
     ]
