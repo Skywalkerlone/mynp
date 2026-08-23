@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import CustomCursor from './CustomCursor'
+// import CustomCursor from './CustomCursor'
 
 export default function HomeSection() {
   const name = 'IDAEWOR SAMUEL .E PROVIDENCE.'
@@ -58,7 +58,7 @@ export default function HomeSection() {
     <>
       {/* Custom Cursor - Outside section for proper positioning */}
       <div className="hidden md:block">
-        <CustomCursor />
+        {/* <CustomCursor /> */}
       </div>
 
       <section
