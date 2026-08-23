@@ -1,10 +1,10 @@
-// Component/Chatbot.js
+// Component/Chatbot.js - FIXED VERSION
 
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2 } from 'react-icons/fi'
+import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2, FiVolume2, FiVolumeX } from 'react-icons/fi'
 import { BsRobot, BsPerson } from 'react-icons/bs'
 import { useTheme } from '../context/ThemeContext'
 import chatbotModel from './chatbotModel'
@@ -291,19 +291,14 @@ const defaultMessages = [
   },
 ]
 
+// REDUCED SUGGESTIONS - Only 6 instead of 12
 const suggestions = [
   'Who are you?',
   'What services do you offer?',
   'What are your skills?',
-  'What is your philosophy?',
   'Can we collaborate?',
-  'Show me your work',
   'How do I contact you?',
-  'What does E_sai_Art mean?',
-  'Tell me about your teaching',
-  'What are your qualifications?',
-  'What are your rates?',
-  'Do you offer project-based pricing?',
+   'What are your qualifications?',
 ]
 
 const typingReplies = [
@@ -320,7 +315,7 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [typingText, setTypingText] = useState('')
-  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [voiceEnabled, setVoiceEnabled] = useState(true) // ALWAYS ON by default
   const [speechSupported, setSpeechSupported] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [voicesLoaded, setVoicesLoaded] = useState(false)
@@ -366,6 +361,18 @@ export default function Chatbot() {
   }
   
   const toggleMinimize = () => setIsMinimized(!isMinimized)
+
+  // Toggle voice on/off - user can still mute if they want
+  const toggleVoice = () => {
+    if (voiceEnabled) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel()
+      }
+      setVoiceEnabled(false)
+    } else {
+      setVoiceEnabled(true)
+    }
+  }
 
   // Rotate typing messages
   useEffect(() => {
@@ -421,8 +428,13 @@ export default function Chatbot() {
     }
   }, [])
 
-  // Speak text with soothing male voice
+  // Speak text with soothing male voice - ALWAYS tries male voice
   const speakText = (text) => {
+    if (!voiceEnabled) {
+      console.log('Voice is disabled')
+      return
+    }
+
     if (!('speechSynthesis' in window)) {
       console.warn('Speech synthesis not supported')
       return
@@ -435,15 +447,24 @@ export default function Chatbot() {
     const cleanText = text.replace(/\*\*/g, '').replace(/[•\n]/g, ' ').replace(/\s+/g, ' ').trim()
     const utterance = new SpeechSynthesisUtterance(cleanText)
     
+    // Male voice settings
     utterance.pitch = 0.75
     utterance.rate = 1
     utterance.volume = 1
     
     const voices = window.speechSynthesis.getVoices()
     const maleVoicePatterns = [
-      'Google UK English Male',  'Microsoft David',
-      'Microsoft Mark', 'Microsoft Daniel', 'Microsoft Fred', 'Daniel',
-      'David', 'Mark', 'Fred', 'Alex', 'Male'
+      'Google UK English Male',
+      'Microsoft David',
+      'Microsoft Mark',
+      'Microsoft Daniel',
+      'Microsoft Fred',
+      'Daniel',
+      'David',
+      'Mark',
+      'Fred',
+      'Alex',
+      'Male'
     ]
     
     let selectedVoice = null
@@ -479,14 +500,13 @@ export default function Chatbot() {
     }
     
     utterance.onstart = () => setVoiceEnabled(true)
-    utterance.onend = () => setVoiceEnabled(false)
-    utterance.onerror = () => setVoiceEnabled(false)
+    utterance.onend = () => setVoiceEnabled(true)
+    utterance.onerror = () => setVoiceEnabled(true)
     
     try {
       window.speechSynthesis.speak(utterance)
     } catch (error) {
       console.error('Speech error:', error)
-      setVoiceEnabled(false)
     }
   }
 
@@ -544,11 +564,12 @@ export default function Chatbot() {
     try {
       const reply = await getReply(finalInput)
       
+      // Slightly longer delay so user can see the message appear
       setTimeout(() => {
         setMessages((prev) => [...prev, { from: 'bot', text: reply }])
         setIsTyping(false)
         speakText(reply)
-      }, 800)
+      }, 1000)
     } catch (error) {
       console.error('Error getting reply:', error)
       const fallbackReply = getGeminiReply(finalInput.toLowerCase())
@@ -556,11 +577,11 @@ export default function Chatbot() {
         setMessages((prev) => [...prev, { from: 'bot', text: fallbackReply }])
         setIsTyping(false)
         speakText(fallbackReply)
-      }, 800)
+      }, 1000)
     }
   }
 
-  // Voice input - FIXED VERSION
+  // Voice input - ALWAYS picks up voice when listening
   const startSpeechRecognition = () => {
     if (isListening) {
       console.log('Already listening...')
@@ -613,6 +634,7 @@ export default function Chatbot() {
             if (finalTranscript) {
               console.log('Final transcript:', finalTranscript)
               setInput(finalTranscript)
+              // Send the voice input immediately
               setTimeout(() => {
                 handleSend(finalTranscript)
               }, 300)
@@ -728,18 +750,26 @@ export default function Chatbot() {
                           }`} />
                           <span>
                             {isTyping ? 'Thinking...' : 
-                             voiceEnabled ? 'Speaking...' : 
-                             modelReady ? 'AI Ready' : 'Loading...'}
+                             voiceEnabled ? 'Voice ON 🔊' : 'Voice OFF 🔇'}
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      {voiceEnabled && (
-                        <div className="flex items-center gap-1 mr-1">
-                          <span className="animate-pulse text-xs">🔊</span>
-                        </div>
-                      )}
+                      {/* Voice Toggle Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={toggleVoice}
+                        className={`p-1.5 rounded-lg transition-colors ${
+                          voiceEnabled 
+                            ? 'bg-white/20 text-white' 
+                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                        }`}
+                        title={voiceEnabled ? 'Mute voice' : 'Enable voice'}
+                      >
+                        {voiceEnabled ? <FiVolume2 size={16} /> : <FiVolumeX size={16} />}
+                      </motion.button>
                       {modelReady && (
                         <div className="flex items-center gap-1 mr-1">
                           <span className="text-xs" title="Neural Network Active">🧠</span>
@@ -833,12 +863,12 @@ export default function Chatbot() {
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Suggestions */}
-                <div className="px-4 py-3 border-t dark:border-slate-700">
-                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                {/* REDUCED Suggestions - Only 6 buttons */}
+                <div className="px-4 py-2 border-t dark:border-slate-700">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
                     Quick suggestions:
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {suggestions.map((s, i) => (
                       <motion.button
                         key={i}
@@ -848,7 +878,7 @@ export default function Chatbot() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleSend(s)}
-                        className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 ${
+                        className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
                           darkMode
                             ? 'bg-slate-700 hover:bg-slate-600 text-gray-200'
                             : 'bg-blue-50 hover:bg-blue-100 text-blue-700'
@@ -861,7 +891,7 @@ export default function Chatbot() {
                 </div>
 
                 {/* Input Area */}
-                <div className="p-4 border-t dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+                <div className="p-3 border-t dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
                   <div className="flex gap-2">
                     <motion.div
                       whileFocus={{ scale: 1.02 }}
@@ -874,7 +904,7 @@ export default function Chatbot() {
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                         placeholder={isListening ? '🎤 Listening...' : 'Type your message...'}
-                        className={`w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                        className={`w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 transition-all ${
                           isListening
                             ? 'ring-2 ring-red-500'
                             : ''
@@ -899,7 +929,7 @@ export default function Chatbot() {
                         whileTap={{ scale: 0.9 }}
                         onClick={() => handleSend()}
                         disabled={!input.trim() || isListening}
-                        className={`p-3 rounded-xl transition-all ${
+                        className={`p-2.5 rounded-xl transition-all ${
                           darkMode
                             ? input.trim() && !isListening
                               ? 'bg-blue-600 hover:bg-blue-700 text-white' 
@@ -917,7 +947,7 @@ export default function Chatbot() {
                           whileTap={{ scale: 0.9 }}
                           onClick={startSpeechRecognition}
                           disabled={isListening || isTyping}
-                          className={`p-3 rounded-xl transition-all ${
+                          className={`p-2.5 rounded-xl transition-all ${
                             isListening
                               ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
                               : isTyping
@@ -935,11 +965,15 @@ export default function Chatbot() {
                       )}
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                    {isListening ? '🎤 Listening...' : 
-                     voiceEnabled ? '🔊 Speaking...' : 
-                     modelReady ? '🧠 Neural Network Active' : '⏳ Loading AI Model...'}
-                  </p>
+                  <div className="flex justify-between items-center mt-1.5">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {isListening ? '🎤 Listening...' : 
+                       voiceEnabled ? '🔊 Male voice enabled' : '🔇 Voice muted'}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {modelReady ? '🧠 Neural AI' : '⏳ Loading...'}
+                    </p>
+                  </div>
                 </div>
               </>
             ) : (
@@ -959,17 +993,27 @@ export default function Chatbot() {
                     <div>
                       <h4 className="font-semibold text-sm dark:text-white">Sam Assistant</h4>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {modelReady ? '🧠 Neural AI' : 'Loading...'}
+                        {voiceEnabled ? '🔊 Voice ON' : '🔇 Voice OFF'} • {modelReady ? '🧠 AI' : 'Loading...'}
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    {voiceEnabled && (
-                      <span className="text-xs animate-pulse text-blue-500">🔊</span>
-                    )}
-                    {modelReady && (
-                      <span className="text-xs text-blue-500">🧠</span>
-                    )}
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleVoice()
+                      }}
+                      className={`p-1.5 rounded-lg transition-colors ${
+                        voiceEnabled 
+                          ? 'text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700' 
+                          : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700'
+                      }`}
+                      title={voiceEnabled ? 'Mute voice' : 'Enable voice'}
+                    >
+                      {voiceEnabled ? <FiVolume2 size={16} /> : <FiVolumeX size={16} />}
+                    </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
