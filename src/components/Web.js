@@ -31,7 +31,7 @@ const projects = [
     title: 'Upperclass AI',
     image: 'uo.png',
     description: 'An AI-driven LMS platform for machine learning, web development, and other skills, built with Django and Vite, featuring intelligent chatbots and interactive training (in development).',
-    link: 'upperclassai.com',
+    link: 'https://upperclassai.com/',
     tag: ['React.vite', 'tailwindcss', 'ML', 'Django',],
   },
 
