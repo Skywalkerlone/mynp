@@ -15,7 +15,7 @@ import EducationalPortfolio from '../components/EducationalPortfolio'
 import SocialMediaExpertise from '../components/SocialMediaExpertise'
 import Chatbot from '../components/chatbot'
 // import Testimoinial from '@/components/testimonial'
-import Certification from '@/components/certification'
+// import Certification from '@/components/certification'
 
 
 export default function Index() {
@@ -36,7 +36,7 @@ export default function Index() {
          <EducationalPortfolio />
          {/* <Testimonial /> */}
          <Chatbot />  
-         <Certification />
+         {/* <Certification /> */}
 
          <Resume /> 
          <About /> 
