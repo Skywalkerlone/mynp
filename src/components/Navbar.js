@@ -54,6 +54,7 @@ export default function Navbar() {
     { name: 'Contact', icon: <FaEnvelope />, href: '#contact' },
   ]
 
+  
   // Comet animation component
   const CometBorder = () => (
     <div className="absolute bottom-0 left-0 w-full h-[1px] overflow-hidden">

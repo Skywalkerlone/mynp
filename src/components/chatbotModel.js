@@ -997,6 +997,10 @@ class ChatbotModel {
       { input: 'bye', output: 'Goodbye! It was great chatting with you. Come back anytime! Remember: Curiosity is your superpower.' },
       { input: 'goodbye', output: 'Take care! Feel free to reach out whenever you have questions or ideas to explore.' },
       { input: 'see you', output: 'See you later! Keep creating, keep learning, and keep pushing boundaries.' }
+
+
+
+      
     
 
 
