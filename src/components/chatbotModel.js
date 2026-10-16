@@ -366,10 +366,7 @@
 
 
 
-
-
 // Component/chatbotModel.js
-// Simple chatbot model that doesn't require TensorFlow
 
 class ChatbotModel {
   constructor() {

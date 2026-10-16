@@ -1065,6 +1065,7 @@ import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2, FiVolume2, FiVo
 import { BsRobot, BsPerson } from 'react-icons/bs'
 import { useTheme } from '../context/ThemeContext'
 import chatbotModel from './chatbotModel'
+// import chatcon from './chatcon'
 
 // Mock Gemini AI response data - 5 responses each, no emojis
 const geminiMockData = {
@@ -1587,26 +1588,45 @@ export default function Chatbot() {
     return `I am not sure about that specific topic, but I would love to help! You can ask me about: Who I am, My services, Skills and expertise, Portfolio, Contact information, Collaboration, Education and teaching, or contact me directly via socials or via contact form message.`
   }
 
-  // Enhanced getReply that uses neural network or falls back to mock data
-  const getReply = async (userMessage) => {
-    const lower = userMessage.toLowerCase()
-    
-    if (useNeuralNet && modelReady) {
-      try {
-        console.log('Using neural network for prediction...')
-        const prediction = await chatbotModel.predict(lower)
-        if (prediction && prediction.length > 0) {
-          console.log('Neural network response:', prediction)
-          return prediction
-        }
-      } catch (error) {
-        console.error('Neural network prediction failed:', error)
+  // Enhanced getReply — 3-tier fallback:
+//   1. chatcon (pretrained embeddings + intent + flows) ← BEST
+//   2. chatbotModel (keyword matcher)                   ← OK
+//   3. getGeminiReply (regex on mock data)              ← LAST RESORT
+const getReply = async (userMessage) => {
+  // ---- Tier 1: chatcon ----
+  try {
+    const loaded = chatcon.isLoaded || (await chatcon.load())
+    if (loaded) {
+      console.log('🤖 Using chatcon (embeddings)...')
+      const reply = await chatcon.predict(userMessage)
+      if (reply && reply.length > 0) {
+        console.log('✅ chatcon reply:', reply)
+        return reply
       }
     }
-    
-    console.log('Using mock data fallback...')
-    return getGeminiReply(lower)
+  } catch (err) {
+    console.warn('⚠️ chatcon failed, falling through:', err)
   }
+
+  // ---- Tier 2: chatbotModel (keyword matcher) ----
+  if (useNeuralNet && modelReady) {
+    try {
+      console.log('🧩 Using chatbotModel (keyword)...')
+      const prediction = await chatbotModel.predict(userMessage.toLowerCase())
+      if (prediction && prediction.length > 0) {
+        console.log('✅ chatbotModel reply:', prediction)
+        return prediction
+      }
+    } catch (error) {
+      console.error('❌ chatbotModel failed:', error)
+    }
+  }
+
+  // ---- Tier 3: mock regex fallback ----
+  console.log('📚 Using getGeminiReply (mock data)...')
+  return getGeminiReply(userMessage.toLowerCase())
+}
+
 
   // Send message
   const handleSend = async (textOverride = null) => {
