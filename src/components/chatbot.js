@@ -1045,7 +1045,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2, FiVolume2, FiVolumeX } from 'react-icons/fi'
+import { FiHexagon,FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2, FiVolume2, FiVolumeX } from 'react-icons/fi'
 import { BsRobot, BsPerson } from 'react-icons/bs'
 import { useTheme } from '../context/ThemeContext'
 import chatbotModel from './chatbotModel'
@@ -2028,11 +2028,11 @@ const getReply = async (userMessage) => {
                   </div>
                   <div className="flex justify-between items-center mt-1.5">
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {isListening ? '🎤 Listening...' : 
-                       voiceEnabled ? '🔊 Male voice enabled' : '🔇 Voice muted'}
+                      {isListening ? ' Listening...' : 
+                       voiceEnabled ? ' voice enabled' : ' Voice muted'}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {modelReady ? '🧠 Neural AI' : '⏳ Loading...'}
+                      {modelReady ? 'Sam AI' : ' Loading...'}
                     </p>
                   </div>
                 </div>
