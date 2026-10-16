@@ -1051,21 +1051,23 @@
 
 
 
-
-
-
-
-// Component/Chatbot.js - FIXED VERSION
-
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSend, FiMessageCircle, FiX, FiMinimize2, FiMaximize2, FiVolume2, FiVolumeX } from 'react-icons/fi'
-import { BsRobot, BsPerson } from 'react-icons/bs'
+import {
+  FiSend,
+  FiMessageCircle,
+  FiX,
+  FiMinimize2,
+  FiMaximize2,
+  FiVolume2,
+  FiVolumeX,
+  FiMic,
+} from 'react-icons/fi'
+import { BsRobot, BsPerson, BsBrain } from 'react-icons/bs'
 import { useTheme } from '../context/ThemeContext'
 import chatbotModel from './chatbotModel'
-// import chatcon from './chatcon'
 
 // Mock Gemini AI response data - 5 responses each, no emojis
 const geminiMockData = {
@@ -1076,8 +1078,8 @@ const geminiMockData = {
       'Hello! Great to see you here. What would you like to explore?',
       'Hi! I am here to help you learn more about my work and services.',
       'Greetings! I am Sam, your virtual assistant. What brings you here today?',
-      'Welcome! I am delighted to chat with you. How can I help?'
-    ]
+      'Welcome! I am delighted to chat with you. How can I help?',
+    ],
   },
   about: {
     patterns: ['who are you', 'tell me about yourself', 'introduce yourself', 'about you', 'your background', 'your story', 'who is samuel', 'who is idaewor', 'about samuel'],
@@ -1086,8 +1088,8 @@ const geminiMockData = {
       "I am a multidisciplinary creator passionate about using technology and art to transform ideas into reality. My work spans digital art, web development, AI education, and creative design.",
       "I am Samuel, a creative technologist who believes in the power of art and code. I have been building digital experiences and teaching technology for over a decade.",
       "I am Idaewor S.E Providence, also known as E_sai_Art. I combine my skills in design, development, and education to create meaningful work and empower others.",
-      "I am a creative problem solver who works at the intersection of art, technology, and education. I help people and organizations bring their digital visions to life."
-    ]
+      "I am a creative problem solver who works at the intersection of art, technology, and education. I help people and organizations bring their digital visions to life.",
+    ],
   },
   artServices: {
     patterns: ['art', 'illustration', 'drawing', 'artist', 'artistic', '2d art', 'illustrator', 'commission', 'artwork', 'concept art', 'visual storytelling', 'book cover', 'comics', 'character design', 'digital art', 'paint', 'sketch', 'art tools', 'clip studio', 'adobe creative', 'creative suite', 'photoshop', 'illustrator'],
@@ -1096,8 +1098,8 @@ const geminiMockData = {
       "As a digital artist, I work with professional tools like Clip Studio Paint and Adobe Creative Suite. I create custom illustrations, design logos, develop visual branding, and produce commissioned artwork. I also specialize in concept art and visual storytelling for various projects.",
       "My artistic expertise includes 2D art and illustrations, graphic design, and logo creation. I use industry-standard tools including Photoshop, Illustrator, and Clip Studio. Whether you need a book cover, comic art, or character designs, I can bring your vision to life.",
       "I offer a wide range of artistic services: digital illustrations, book covers, comic art, graphic design, and visual branding. I work with Clip Studio, Adobe Creative Suite, and other professional tools to deliver high-quality artwork for clients.",
-      "My artistic portfolio includes custom illustrations, branding solutions, concept art, and visual storytelling. I'm proficient in Clip Studio, Photoshop, Illustrator, and other creative tools. I can help you with anything from character design to full visual campaigns."
-    ]
+      "My artistic portfolio includes custom illustrations, branding solutions, concept art, and visual storytelling. I'm proficient in Clip Studio, Photoshop, Illustrator, and other creative tools. I can help you with anything from character design to full visual campaigns.",
+    ],
   },
   threeDServices: {
     patterns: ['3d', 'blender', '3d modeling', '3d animation', 'sculpting', '3d render', 'product design', '3d visualization', 'animation', '3d artist', 'modeling', 'rendering'],
@@ -1106,8 +1108,8 @@ const geminiMockData = {
       "With Blender expertise, I offer 3D modeling, sculpting, and animation services. I create product visualizations, 3D renders, and animated content for presentations, marketing, and creative projects. My work includes both organic and hard-surface modeling.",
       "I provide professional 3D services including modeling, texturing, lighting, and animation. Using Blender, I create high-quality 3D renders and visualizations for products, characters, and environments. Whether you need product designs or animated content, I can help.",
       "My 3D capabilities include Blender-based modeling, sculpting, and animation. I create product visualizations, 3D assets, and animated sequences for various applications including marketing, presentations, and creative projects.",
-      "I offer comprehensive 3D services from concept to final render. Using Blender, I create 3D models, animations, and visualizations for product design, advertising, and creative projects. I also provide 3D product design and visualization services."
-    ]
+      "I offer comprehensive 3D services from concept to final render. Using Blender, I create 3D models, animations, and visualizations for product design, advertising, and creative projects. I also provide 3D product design and visualization services.",
+    ],
   },
   budgetPricing: {
     patterns: ['budget', 'price', 'cost', 'rates', 'pricing', 'how much', 'fee', 'charges', 'project cost', 'hourly rate'],
@@ -1116,8 +1118,8 @@ const geminiMockData = {
       "My pricing is project-dependent and varies based on complexity, timeline, and deliverables. I offer flexible arrangements including fixed project rates and hourly consultations. For an accurate quote, please reach out to discuss your specific requirements. Email: idaeworsamuelprovidence@gmail.com",
       "Costs vary depending on the scope and nature of your project. I provide transparent, competitive pricing for all my services. Whether you need creative work, technical development, or educational services, I'll work within your budget. Contact me for a free consultation and custom quote.",
       "I offer flexible pricing structures including project-based fixed rates, hourly rates for consultations, and retainer arrangements for long-term collaborations. Let's discuss your specific needs and I'll provide a competitive quote that fits your budget.",
-      "My pricing is customized to each project's unique requirements. I believe in transparent, fair pricing that delivers value. Contact me for a detailed quote tailored to your specific needs."
-    ]
+      "My pricing is customized to each project's unique requirements. I believe in transparent, fair pricing that delivers value. Contact me for a detailed quote tailored to your specific needs.",
+    ],
   },
   certifications: {
     patterns: ['certification', 'certificate', 'qualified', 'credentials', 'bsc', 'computer science', 'niit', 'comptia', 'comptia a+', 'edo innovate', 'degree', 'education', 'qualifications'],
@@ -1126,8 +1128,8 @@ const geminiMockData = {
       "My qualifications include: BSc in Computer Science, CompTIA A+ Certification from NIIT, Edo Innovate Software Development Graduate, 10+ Years of Practical Experience, and over 500 students trained. I combine academic knowledge with industry certifications and extensive practical experience.",
       "I earned my Bachelor of Science (BSc) in Computer Science, where I gained comprehensive knowledge in programming, database management, software engineering, and computer systems. My CompTIA A+ certification from NIIT covers hardware configuration, system maintenance, and security best practices.",
       "I am a graduate of the Edo Innovate Software Development program, where I received advanced training in modern web development technologies including full-stack development and industry best practices. This complements my BSc in Computer Science and CompTIA A+ certification.",
-      "My professional credentials include: Bachelor of Science in Computer Science, CompTIA A+ Certification (NIIT), Edo Innovate Software Development Graduate, 10+ Years in Creative Technology, and Proven Track Record in Teaching and Development."
-    ]
+      "My professional credentials include: Bachelor of Science in Computer Science, CompTIA A+ Certification (NIIT), Edo Innovate Software Development Graduate, 10+ Years in Creative Technology, and Proven Track Record in Teaching and Development.",
+    ],
   },
   pricingStructure: {
     patterns: ['project based', 'hourly', 'employment', 'contract', 'retainer', 'fixed price', 'per hour', 'salary', 'full time', 'part time'],
@@ -1136,8 +1138,8 @@ const geminiMockData = {
       "I'm open to both freelance/contract work and employment opportunities. For contract work, I offer flexible arrangements including project-based, hourly, or retainer options. I'm also interested in full-time positions where I can contribute my skills in web development, AI training, digital art, or education.",
       "I offer flexible pricing structures including project-based fixed rates for defined scopes, hourly rates for consultations and ongoing work, and retainer arrangements for long-term collaborations. Let's discuss your specific needs and I'll provide a competitive quote that fits your budget.",
       "For specific projects, I often provide a fixed quote that can be more cost-effective than hourly billing. For ongoing work, consultations, or projects with flexible scopes, I offer competitive hourly rates. Contact me to discuss your project and get a custom quote.",
-      "I charge competitive hourly rates for consultations, mentoring, and projects with flexible scopes. For well-defined projects, I provide fixed-rate quotes. My rates reflect my 10+ years of experience and diverse skill set across creative, technical, and educational fields."
-    ]
+      "I charge competitive hourly rates for consultations, mentoring, and projects with flexible scopes. For well-defined projects, I provide fixed-rate quotes. My rates reflect my 10+ years of experience and diverse skill set across creative, technical, and educational fields.",
+    ],
   },
   technicalServices: {
     patterns: ['web development', 'frontend', 'backend', 'full-stack', 'app development', 'website', 'web app', 'react', 'nextjs', 'nodejs', 'javascript', 'tailwind', 'css', 'html', 'php', 'laravel', 'mysql', 'mongodb', 'python', 'java', 'reactnative', 'express', 'git', 'wordpress', 'ui/ux', 'prototyping', 'code', 'programming', 'developer', 'full stack', 'tech stack', 'digital solution', 'web design'],
@@ -1146,8 +1148,8 @@ const geminiMockData = {
       "I offer full-stack development services including frontend and backend development, database design, SEO optimization, and end-to-end digital solutions. I work with React, Next.js, Node.js, Python, and various frameworks to create robust web applications and websites.",
       "As a developer, I specialize in React and Next.js with strong expertise in Tailwind CSS and Framer for frontend development. I also have growing backend expertise with Node.js, Express, Laravel, and Django. I build responsive, user-friendly web applications with modern tech stacks.",
       "My technical services include web development, app development, UI/UX prototyping, and code optimization. I work with technologies like React, Next.js, Node.js, Tailwind CSS, and various databases. I also provide WordPress development and custom web solutions.",
-      "I offer comprehensive technical services including full-stack web development, mobile app development, database design, and system architecture. My tech stack includes React, Next.js, Node.js, Python, Laravel, Django, Express, and modern frontend frameworks. I build scalable, optimized digital solutions."
-    ]
+      "I offer comprehensive technical services including full-stack web development, mobile app development, database design, and system architecture. My tech stack includes React, Next.js, Node.js, Python, Laravel, Django, Express, and modern frontend frameworks. I build scalable, optimized digital solutions.",
+    ],
   },
   technologies: {
     patterns: ['react', 'nextjs', 'next.js', 'tailwind', 'tailwindcss', 'node', 'nodejs', 'node.js', 'python', 'django', 'laravel', 'express', 'mongodb', 'mysql', 'php', 'java', 'flutter', 'react native', 'wordpress', 'figma', 'framer', 'javascript', 'html', 'css', 'git', 'vite', 'typescript', 'firebase', 'api', 'websocket'],
@@ -1156,8 +1158,8 @@ const geminiMockData = {
       "I work with a modern tech stack including React, Next.js, Tailwind CSS, Node.js, Express, Django, Laravel, Python, MongoDB, MySQL, and React Native. I also use tools like Git, Figma, Framer, and Firebase for development and design.",
       "My primary technologies are React and Next.js for frontend development, with Node.js and Express for backend. I also use Python, Django, Laravel, and various databases. For design, I use Figma and Framer. I'm proficient in Git, Firebase, and WordPress.",
       "I'm skilled in multiple programming languages and frameworks: JavaScript, React, Next.js, Python, Django, PHP, Laravel, Java, and more. I use MySQL, MongoDB, and Firebase for databases. I also work with React Native and Flutter for mobile development.",
-      "My tech stack includes modern JavaScript frameworks (React, Next.js, React Native), backend technologies (Node.js, Python, Django, Laravel), databases (MySQL, MongoDB), and design tools (Figma, Framer). I also have experience with WordPress, Git, and various APIs."
-    ]
+      "My tech stack includes modern JavaScript frameworks (React, Next.js, React Native), backend technologies (Node.js, Python, Django, Laravel), databases (MySQL, MongoDB), and design tools (Figma, Framer). I also have experience with WordPress, Git, and various APIs.",
+    ],
   },
   aiServices: {
     patterns: ['ai', 'artificial intelligence', 'machine learning', 'ml', 'prompt engineering', 'llm', 'data annotation', 'data training', 'ai trainer', 'ai training', 'model training', 'prompt engineer', 'chatbot', 'llm specialist', 'ai ethics', 'data curation'],
@@ -1166,8 +1168,8 @@ const geminiMockData = {
       "As an AI Trainer & Data Annotator at Multi Mango, I specialize in optimizing prompts that transform AI interactions across creative writing, Q&A systems, summarization, and sentiment analysis. I have developed comprehensive prompt libraries for various use cases and industries.",
       "My AI services include prompt engineering, LLM fine-tuning, data curation and annotation, model evaluation and testing, and AI ethics & bias mitigation. I've collaborated with cross-functional teams to align AI outputs with business objectives.",
       "I specialize in AI prompt engineering and LLM optimization. I create structured prompts for various applications including creative text generation, Q&A systems, summarization, sentiment analysis, and chatbot development. My work has increased model accuracy by 35%.",
-      "I offer AI training services including prompt optimization, data annotation, and model evaluation. I've worked on AI chatbots, story generators, resume analyzers, and various other AI applications. My expertise includes creating comprehensive prompt libraries and implementing A/B testing on prompt variations."
-    ]
+      "I offer AI training services including prompt optimization, data annotation, and model evaluation. I've worked on AI chatbots, story generators, resume analyzers, and various other AI applications. My expertise includes creating comprehensive prompt libraries and implementing A/B testing on prompt variations.",
+    ],
   },
   socialMediaServices: {
     patterns: ['social media', 'social media management', 'content creation', 'video editing', 'post creation', 'scheduling', 'paid ads', 'ads', 'advertising', 'marketing', 'campaign', 'social media strategy', 'brand growth', 'content strategy', 'instagram', 'tiktok', 'twitter', 'youtube', 'facebook', 'linkedin', 'reels', 'shorts', 'story'],
@@ -1176,8 +1178,8 @@ const geminiMockData = {
       "My social media expertise includes content strategy, post creation and scheduling, paid ads management, video editing, and campaign optimization. I create algorithm-friendly content tailored for each platform and provide 24/7 community support to help brands grow.",
       "I specialize in social media strategy and marketing campaigns that convert views into loyal followers and sales. From influencer outreach to paid ads, I create data-driven campaigns with performance tracking, conversion optimization, and ROI analysis.",
       "I offer professional social media services including platform optimization, audience engagement, viral content creation, community building, and analytics tracking. I help brands grow with targeted content strategies and paid advertising campaigns.",
-      "My social media services include video editing for reels, stories, ads, and educational content. I create compelling short-form and long-form videos tailored for various platforms. I've helped clients achieve 100k+ reach with 85% engagement rates across campaigns."
-    ]
+      "My social media services include video editing for reels, stories, ads, and educational content. I create compelling short-form and long-form videos tailored for various platforms. I've helped clients achieve 100k+ reach with 85% engagement rates across campaigns.",
+    ],
   },
   educationalServices: {
     patterns: ['education', 'teaching', 'tutor', 'mentorship', 'workshop', 'tutorial', 'student', 'learn', 'training', 'curriculum', 'class', 'lesson', 'instructor', 'mentor', 'teach', 'educator', 'e-learning', 'online course', 'coach', 'bootcamp'],
@@ -1186,8 +1188,8 @@ const geminiMockData = {
       "My educational expertise includes curriculum creation, workshop facilitation, and e-learning development. I've facilitated programs at Edo State Innovation Center, Teklearn, GiveHerTech, and other institutions. I teach early learners, primary school, secondary school, university students, and adults.",
       "I offer comprehensive educational services including teaching and mentorship, workshops and tutorials, curriculum design, and one-on-one mentorship. I specialize in Mathematics, Physics, Chemistry, Computer Science, Frontend Development, and Fine Art.",
       "I have 10+ years of teaching experience across multiple subjects and age groups. I provide 1-on-1 tutoring in Mathematics, Physics, Chemistry, Sciences, Computer Science, Frontend Development, Video Editing, and 2D Drawing. I also facilitate coding bootcamps and tech workshops.",
-      "My educational services include personalized tutoring, curriculum development, workshop facilitation, and e-learning content creation. I work with students of all ages from early learners to adults, helping them master various subjects and skills."
-    ]
+      "My educational services include personalized tutoring, curriculum development, workshop facilitation, and e-learning content creation. I work with students of all ages from early learners to adults, helping them master various subjects and skills.",
+    ],
   },
   csEducation: {
     patterns: ['computer science', 'programming', 'coding', 'software development', 'algorithm', 'data structure', 'cs', 'coding bootcamp', 'learn programming', 'learn coding', 'tech education'],
@@ -1196,8 +1198,8 @@ const geminiMockData = {
       "As a Computer Science educator, I teach programming, software development, algorithms, and data structures. I specialize in Frontend Development, React, Next.js, Python, and JavaScript. I've taught students from ages 3 to adult in various tech programs.",
       "I offer Computer Science and programming education with practical, hands-on learning approaches. I teach coding concepts, software development, web development, and programming languages including JavaScript, Python, React, and Next.js.",
       "I teach Computer Science with a focus on practical application and real-world skills. My expertise includes Frontend Development, React, Next.js, Python, JavaScript, and software development principles. I create engaging curriculum for bootcamps and workshops.",
-      "My Computer Science teaching covers programming fundamentals, web development, software engineering principles, and modern frameworks. I've taught coding bootcamps, workshops, and courses to students of all levels and ages."
-    ]
+      "My Computer Science teaching covers programming fundamentals, web development, software engineering principles, and modern frameworks. I've taught coding bootcamps, workshops, and courses to students of all levels and ages.",
+    ],
   },
   portfolioWork: {
     patterns: ['portfolio', 'projects', 'country finder', 'game hub', 'upperclass ai', 'gvany', 'afriak', 'jcinuniben', 'tpn consult', 'trashpoint', 'osa heritage', 'obel', 'work examples', 'show work', 'my projects', 'samples', 'past work'],
@@ -1206,8 +1208,8 @@ const geminiMockData = {
       "I've built diverse projects including interactive web apps, e-commerce platforms, learning management systems, and business websites. Notable projects include Country Finder, Game Hub, Upperclass AI, Gvany, Afriak, and JCINUNIBEN. I use React, Next.js, Tailwind CSS, Node.js, and various technologies.",
       "My portfolio showcases web applications across different industries. I've built real-time data apps, gaming platforms, AI-driven learning systems, e-commerce marketplaces, and business websites. Each project demonstrates my full-stack development capabilities.",
       "I've developed projects ranging from simple websites to complex web applications. My work includes Country Finder (data visualization), Game Hub (mobile games), Upperclass AI (LMS platform), and various business websites. I focus on responsive, user-friendly designs.",
-      "My project portfolio includes web applications built with modern technologies. I've created data visualization tools, gaming platforms, educational systems, e-commerce sites, and business websites. All projects are optimized for performance and user experience."
-    ]
+      "My project portfolio includes web applications built with modern technologies. I've created data visualization tools, gaming platforms, educational systems, e-commerce sites, and business websites. All projects are optimized for performance and user experience.",
+    ],
   },
   tools: {
     patterns: ['tools', 'software', 'applications', 'programs', 'what do you use', 'your tools', 'creative tools', 'dev tools', 'design tools', 'tech tools', 'clip studio', 'photoshop', 'illustrator', 'blender', 'figma', 'vscode', 'adobe', 'creative cloud'],
@@ -1216,8 +1218,8 @@ const geminiMockData = {
       "My primary tools include Clip Studio Paint and Adobe Creative Suite for digital art and illustration, Blender for 3D modeling and animation, VS Code for development, Figma and Framer for design, and various AI platforms for prompt engineering and training.",
       "I work with industry-standard tools: Clip Studio and Adobe Creative Cloud for artistic work, Blender for 3D, VS Code and Git for development, Figma and Framer for UI/UX design, and various AI platforms for model training and prompt engineering.",
       "My creative toolkit includes Clip Studio, Adobe Creative Suite, Blender, Figma, and VS Code. I also use various development tools, AI platforms, and productivity software to deliver high-quality work across multiple disciplines.",
-      "I'm proficient in multiple professional tools: Art (Clip Studio, Adobe Creative Suite, Blender), Development (VS Code, Git, Node.js, various frameworks), Design (Figma, Framer), and AI (LLM platforms, annotation tools)."
-    ]
+      "I'm proficient in multiple professional tools: Art (Clip Studio, Adobe Creative Suite, Blender), Development (VS Code, Git, Node.js, various frameworks), Design (Figma, Framer), and AI (LLM platforms, annotation tools).",
+    ],
   },
   hireClient: {
     patterns: ['hire', 'client', 'work together', 'contract', 'freelance', 'project cost', 'price', 'rates', 'cost', 'budget', 'availability', 'available', 'booking', 'book', 'schedule', 'consultation', 'consult', 'meeting'],
@@ -1226,18 +1228,18 @@ const geminiMockData = {
       "I'm currently accepting new clients and projects! Whether you need creative services, technical development, AI training, or educational programs, I'd love to work with you. Contact me via email at idaeworsamuelprovidence@gmail.com or call +234 811 782 0918.",
       "I am open to freelance projects, consultations, and collaborations. Rates depend on project scope and requirements. Contact me through email, phone, or social media to discuss your project needs and schedule a consultation.",
       "I'm available for hire! I work with clients on creative projects, web development, AI training, educational programs, and more. Let's discuss your project requirements, timeline, and budget. Reach out via email or phone to get started.",
-      "I am currently available for new projects and collaborations. My services include artistic work, technical development, AI training, social media management, and educational programs. Contact me to discuss your project needs and availability."
-    ]
+      "I am currently available for new projects and collaborations. My services include artistic work, technical development, AI training, social media management, and educational programs. Contact me to discuss your project needs and availability.",
+    ],
   },
   shop: {
     patterns: ['shop', 'store', 'merch', 'buy', 'purchase', 'redbubble', 'products', 'art shop', 'merchandise', 'visit shop', 'art store', 'buy art', 'shop link'],
     responses: [
       "I have an art merch shop where you can find my designs on various products! From apparel to accessories, my artwork is available on high-quality items.",
-      "You can browse and purchase my art on Redbubble! I have a collection of designs available on t-shirts, hoodies, stickers, phone cases, and more. ",
+      "You can browse and purchase my art on Redbubble! I have a collection of designs available on t-shirts, hoodies, stickers, phone cases, and more.",
       "My art merch is available online! I sell my designs on various products through Redbubble. Check out the collection here",
       "Looking for my art on products? Visit my Redbubble shop to see my designs on apparel, accessories, and home decor",
-      "Support my art by purchasing merch! I have a shop on Redbubble featuring my designs on a variety of products. "
-    ]
+      "Support my art by purchasing merch! I have a shop on Redbubble featuring my designs on a variety of products.",
+    ],
   },
   services: {
     patterns: ['services', 'offer', 'do you do', 'what can you do', 'help with', 'what services', 'your services', 'service', 'offerings', 'what do you offer'],
@@ -1246,8 +1248,8 @@ const geminiMockData = {
       "My services include creative design, web and app development, AI training, and education. Whether you need a website, a mobile app, digital art, or training programs, I can help.",
       "I provide end-to-end digital solutions: from concept to deployment. This includes UI/UX design, full-stack development, 3D product visualization, video production, and technology education.",
       "I specialize in creative and technical services: digital art and illustration, web and mobile development, AI and data solutions, and educational programs for all ages.",
-      "My offerings cover the full spectrum of digital creation: design, development, AI, and education. I work with individuals, businesses, and educational institutions."
-    ]
+      "My offerings cover the full spectrum of digital creation: design, development, AI, and education. I work with individuals, businesses, and educational institutions.",
+    ],
   },
   skills: {
     patterns: ['skills', 'expertise', 'technologies', 'tools', 'know', 'what are your skills', 'tech stack', 'proficient in', 'capabilities', 'what do you know'],
@@ -1256,8 +1258,8 @@ const geminiMockData = {
       "I bring a diverse skill set: full-stack web development, digital art and 3D modeling, AI and machine learning, curriculum design, and workshop facilitation. I am also skilled in project management and creative problem solving.",
       "My expertise includes frontend and backend development, UI/UX design, 3D modeling and animation, AI education, and data annotation. I also have strong teaching and facilitation skills.",
       "I am proficient in React, Next.js, Node.js, Python, Figma, Blender, and various AI tools. I also design and deliver educational programs on technology and digital skills.",
-      "I combine technical skills in web development and AI with creative skills in design and art. I am also an experienced educator who has trained over 500 students across various programs."
-    ]
+      "I combine technical skills in web development and AI with creative skills in design and art. I am also an experienced educator who has trained over 500 students across various programs.",
+    ],
   },
   philosophy: {
     patterns: ['philosophy', 'belief', 'values', 'mission', 'vision', 'what do you believe', 'your philosophy', 'core values', 'principle', 'what drives you'],
@@ -1266,8 +1268,8 @@ const geminiMockData = {
       "I believe that creativity and technology together can change the world. My mission is to use my skills to create impactful work and help others do the same.",
       "My values center on curiosity, creativity, and community. I believe in lifelong learning, collaborative creation, and using technology for good.",
       "I believe every project is an opportunity to learn, grow, and make a positive impact. My work is guided by a commitment to excellence, integrity, and innovation.",
-      "I am driven by a belief that art and technology are powerful tools for storytelling and empowerment. My mission is to help people express themselves and solve problems through digital creation."
-    ]
+      "I am driven by a belief that art and technology are powerful tools for storytelling and empowerment. My mission is to help people express themselves and solve problems through digital creation.",
+    ],
   },
   collaboration: {
     patterns: ['collaborate', 'work together', 'partner', 'team up', 'hire', 'collaboration', 'freelance', 'contract', 'project', 'work with you'],
@@ -1276,8 +1278,8 @@ const geminiMockData = {
       "Collaboration is at the heart of what I do. I love working with others to bring ideas to life. Feel free to reach out if you have a project in mind.",
       "I am available for freelance work, partnerships, and educational collaborations. Lets create something meaningful together!",
       "I welcome collaboration opportunities in art, technology, and education. Whether its a creative project, a technical build, or a training program, I am interested.",
-      "Lets work together! I bring creativity, technical skills, and teaching experience to every collaboration. Contact me to discuss your project."
-    ]
+      "Lets work together! I bring creativity, technical skills, and teaching experience to every collaboration. Contact me to discuss your project.",
+    ],
   },
   portfolio: {
     patterns: ['portfolio', 'work', 'projects', 'show me', 'gallery', 'examples', 'your work', 'past projects', 'what have you built', 'your creations', 'samples'],
@@ -1286,8 +1288,8 @@ const geminiMockData = {
       "My portfolio showcases a diverse range of work: from web applications and mobile apps to digital art and educational materials. I also have experience with 3D product design and animation.",
       "I have worked on projects across multiple domains: creative design, web development, AI education, and content creation. You can find examples of my work in the portfolio section.",
       "My work includes commercial projects, personal art pieces, educational programs, and technical builds. I am happy to share examples based on your area of interest.",
-      "I have built websites, designed products, created art, and developed training programs. Let me know what you are interested in, and I can show you relevant examples."
-    ]
+      "I have built websites, designed products, created art, and developed training programs. Let me know what you are interested in, and I can show you relevant examples.",
+    ],
   },
   contact: {
     patterns: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'message', 'how to contact', 'get in touch', 'reach out', 'connect with you', 'your contact'],
@@ -1296,8 +1298,8 @@ const geminiMockData = {
       "You can contact me via email, phone, or social media. I am most responsive on email and WhatsApp. Looking forward to connecting with you!",
       "Reach out to me through any of these channels: email, phone, WhatsApp, or Twitter. I am always happy to hear from potential collaborators or clients.",
       "I am available for inquiries via email, phone, or social media. Feel free to reach out with any questions or project ideas.",
-      "Contact me through my website's contact form, email, or WhatsApp. I usually respond quickly and would love to discuss your project."
-    ]
+      "Contact me through my website's contact form, email, or WhatsApp. I usually respond quickly and would love to discuss your project.",
+    ],
   },
   e_sai_art: {
     patterns: ['e_sai_art', 'skywalker', 'meaning', 'what does e_sai_art mean', 'e sai art', 'alias', 'artistic name', 'why e_sai_art', 'what is e_sai_art'],
@@ -1306,8 +1308,8 @@ const geminiMockData = {
       "E_sai_Art is my artistic identity. It combines my passion for art with a sense of limitless potential. The Skywalker name represents my journey of exploration and growth.",
       "The name E_sai_Art reflects my creative philosophy: art that reaches for the sky. It symbolizes freedom, imagination, and the endless possibilities of creative expression.",
       "E_sai_Art (The Skywalker) is more than just a name — it is a commitment to creative excellence and personal growth. It represents my journey as an artist and technologist.",
-      "I chose E_sai_Art as my creative alias to capture the spirit of exploration and artistic expression. The Skywalker part reminds me to always reach higher and push boundaries."
-    ]
+      "I chose E_sai_Art as my creative alias to capture the spirit of exploration and artistic expression. The Skywalker part reminds me to always reach higher and push boundaries.",
+    ],
   },
   education: {
     patterns: ['education', 'teaching', 'train', 'learn', 'bootcamp', 'workshop', 'teach', 'trainer', 'instructor', 'mentor', 'students', 'classes', 'courses'],
@@ -1316,8 +1318,8 @@ const geminiMockData = {
       "I have extensive teaching experience across multiple programs and age groups. My approach is hands-on and practical, focusing on real-world skills and project-based learning.",
       "I design and deliver educational programs on technology, digital skills, and creative arts. I have worked with children, teenagers, adults, and professionals.",
       "Teaching is one of my greatest passions. I have developed curricula and taught coding, robotics, AI, web development, and digital art to diverse audiences.",
-      "I believe in accessible education for all. My teaching experience spans bootcamps, school programs, online courses, and workshops for various age groups and skill levels."
-    ]
+      "I believe in accessible education for all. My teaching experience spans bootcamps, school programs, online courses, and workshops for various age groups and skill levels.",
+    ],
   },
   thank_you: {
     patterns: ['thank you', 'thanks', 'appreciate', 'grateful', 'thank', 'thx', 'appreciation'],
@@ -1326,8 +1328,8 @@ const geminiMockData = {
       "Thanks for your kind words! I am here whenever you need assistance.",
       "My pleasure! Feel free to ask anything else about my work or services.",
       "I appreciate your gratitude! Let me know if I can help with anything else.",
-      "Anytime! I enjoy helping people learn more about my work and how we can collaborate."
-    ]
+      "Anytime! I enjoy helping people learn more about my work and how we can collaborate.",
+    ],
   },
   goodbye: {
     patterns: ['bye', 'goodbye', 'see you', 'later', 'exit', 'quit', 'end', 'done', 'farewell', 'take care'],
@@ -1336,12 +1338,11 @@ const geminiMockData = {
       "Take care! Feel free to reach out whenever you have questions or ideas to explore.",
       "See you later! Keep creating, keep learning, and keep pushing boundaries.",
       "Until next time! It was a pleasure connecting with you. Wishing you all the best.",
-      "Farewell! I hope you found our conversation helpful. Feel free to return anytime."
-    ]
-  }
+      "Farewell! I hope you found our conversation helpful. Feel free to return anytime.",
+    ],
+  },
 }
 
-// Default welcome messages
 const defaultMessages = [
   {
     from: 'bot',
@@ -1349,14 +1350,13 @@ const defaultMessages = [
   },
 ]
 
-// REDUCED SUGGESTIONS - Only 6 instead of 12
 const suggestions = [
   'Who are you?',
   'What services do you offer?',
   'What are your skills?',
   'Can we collaborate?',
   'How do I contact you?',
-   'What are your qualifications?',
+  'What are your qualifications?',
 ]
 
 const typingReplies = [
@@ -1373,7 +1373,7 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [typingText, setTypingText] = useState('')
-  const [voiceEnabled, setVoiceEnabled] = useState(true) // ALWAYS ON by default
+  const [voiceEnabled, setVoiceEnabled] = useState(true)
   const [speechSupported, setSpeechSupported] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [voicesLoaded, setVoicesLoaded] = useState(false)
@@ -1384,7 +1384,7 @@ export default function Chatbot() {
   const inputRef = useRef(null)
   const { darkMode } = useTheme()
 
-  // Initialize the neural network model
+  // Init neural net model
   useEffect(() => {
     const initModel = async () => {
       try {
@@ -1403,12 +1403,11 @@ export default function Chatbot() {
     initModel()
   }, [])
 
-  // Check speech support
+  // Speech support check (SSR-safe)
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    const isSupported = !!SpeechRecognition
-    setSpeechSupported(isSupported)
-    console.log('Speech recognition supported:', isSupported)
+    setSpeechSupported(!!SpeechRecognition)
   }, [])
 
   const toggleChat = () => {
@@ -1417,15 +1416,13 @@ export default function Chatbot() {
       setTimeout(() => inputRef.current?.focus(), 300)
     }
   }
-  
+
   const toggleMinimize = () => setIsMinimized(!isMinimized)
 
-  // Toggle voice on/off - user can still mute if they want
   const toggleVoice = () => {
+    if (typeof window === 'undefined') return
     if (voiceEnabled) {
-      if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel()
-      }
+      if (window.speechSynthesis.speaking) window.speechSynthesis.cancel()
       setVoiceEnabled(false)
     } else {
       setVoiceEnabled(true)
@@ -1442,74 +1439,60 @@ export default function Chatbot() {
     }
   }, [isTyping])
 
-  // Auto-open chat after 7 seconds
+  // Auto-open chat after 7s
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 7000)
+    const timer = setTimeout(() => setIsOpen(true), 7000)
     return () => clearTimeout(timer)
   }, [])
 
-  // Scroll to bottom when messages change
+  // Scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isTyping])
 
-  // Pre-load voices when component mounts
+  // Preload voices
   useEffect(() => {
-    if ('speechSynthesis' in window) {
-      const voices = window.speechSynthesis.getVoices()
-      if (voices.length > 0) {
-        setVoicesLoaded(true)
-        console.log('Voices loaded immediately:', voices.map(v => v.name))
-      }
-      
-      const handleVoicesChanged = () => {
-        const updatedVoices = window.speechSynthesis.getVoices()
-        setVoicesLoaded(true)
-        console.log('Voices changed event fired. Available voices:', updatedVoices.map(v => v.name))
-      }
-      
-      window.speechSynthesis.onvoiceschanged = handleVoicesChanged
-      
-      const timeoutId = setTimeout(() => {
-        const delayedVoices = window.speechSynthesis.getVoices()
-        if (delayedVoices.length > 0) {
-          setVoicesLoaded(true)
-        }
-      }, 1000)
-      
-      return () => {
-        window.speechSynthesis.onvoiceschanged = null
-        clearTimeout(timeoutId)
-      }
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return
+
+    const voices = window.speechSynthesis.getVoices()
+    if (voices.length > 0) {
+      setVoicesLoaded(true)
+      console.log('Voices loaded immediately:', voices.map((v) => v.name))
+    }
+
+    const handleVoicesChanged = () => {
+      const updatedVoices = window.speechSynthesis.getVoices()
+      setVoicesLoaded(true)
+      console.log('Voices changed event fired. Available voices:', updatedVoices.map((v) => v.name))
+    }
+
+    window.speechSynthesis.onvoiceschanged = handleVoicesChanged
+
+    const timeoutId = setTimeout(() => {
+      const delayedVoices = window.speechSynthesis.getVoices()
+      if (delayedVoices.length > 0) setVoicesLoaded(true)
+    }, 1000)
+
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null
+      clearTimeout(timeoutId)
     }
   }, [])
 
-  // Speak text with soothing male voice - ALWAYS tries male voice
+  // Speak text
   const speakText = (text) => {
-    if (!voiceEnabled) {
-      console.log('Voice is disabled')
-      return
-    }
-
-    if (!('speechSynthesis' in window)) {
-      console.warn('Speech synthesis not supported')
-      return
-    }
-
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel()
-    }
+    if (typeof window === 'undefined') return
+    if (!voiceEnabled) return
+    if (!('speechSynthesis' in window)) return
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel()
 
     const cleanText = text.replace(/\*\*/g, '').replace(/[•\n]/g, ' ').replace(/\s+/g, ' ').trim()
     const utterance = new SpeechSynthesisUtterance(cleanText)
-    
-    // Male voice settings
+
     utterance.pitch = 0.75
     utterance.rate = 1
     utterance.volume = 1
-    
+
     const voices = window.speechSynthesis.getVoices()
     const maleVoicePatterns = [
       'Google UK English Male',
@@ -1522,45 +1505,44 @@ export default function Chatbot() {
       'Mark',
       'Fred',
       'Alex',
-      'Male'
+      'Male',
     ]
-    
+
     let selectedVoice = null
     for (const pattern of maleVoicePatterns) {
-      const voice = voices.find(v => v.name === pattern || v.name.includes(pattern))
+      const voice = voices.find((v) => v.name === pattern || v.name.includes(pattern))
       if (voice) {
         selectedVoice = voice
         break
       }
     }
-    
+
     if (!selectedVoice) {
-      selectedVoice = voices.find(v => 
-        v.name.toLowerCase().includes('male') ||
-        v.name.toLowerCase().includes('david') ||
-        v.name.toLowerCase().includes('mark') ||
-        v.name.toLowerCase().includes('daniel')
+      selectedVoice = voices.find(
+        (v) =>
+          v.name.toLowerCase().includes('male') ||
+          v.name.toLowerCase().includes('david') ||
+          v.name.toLowerCase().includes('mark') ||
+          v.name.toLowerCase().includes('daniel')
       )
     }
-    
+
     if (!selectedVoice) {
-      selectedVoice = voices.find(v => v.lang.startsWith('en'))
+      selectedVoice = voices.find((v) => v.lang.startsWith('en'))
       if (selectedVoice) utterance.pitch = 0.6
     }
-    
+
     if (!selectedVoice && voices.length > 0) {
       selectedVoice = voices[0]
       utterance.pitch = 0.5
     }
-    
-    if (selectedVoice) {
-      utterance.voice = selectedVoice
-    }
-    
+
+    if (selectedVoice) utterance.voice = selectedVoice
+
     utterance.onstart = () => setVoiceEnabled(true)
     utterance.onend = () => setVoiceEnabled(true)
     utterance.onerror = () => setVoiceEnabled(true)
-    
+
     try {
       window.speechSynthesis.speak(utterance)
     } catch (error) {
@@ -1568,67 +1550,47 @@ export default function Chatbot() {
     }
   }
 
-  // Gemini AI response logic with improved matching (Fallback)
+  // Gemini-style mock reply (Tier 3 fallback)
   const getGeminiReply = (lower) => {
     const categories = Object.entries(geminiMockData)
     const sortedCategories = categories.sort((a, b) => {
-      const maxLenA = Math.max(...a[1].patterns.map(p => p.length))
-      const maxLenB = Math.max(...b[1].patterns.map(p => p.length))
+      const maxLenA = Math.max(...a[1].patterns.map((p) => p.length))
+      const maxLenB = Math.max(...b[1].patterns.map((p) => p.length))
       return maxLenB - maxLenA
     })
-    
-    for (const [category, data] of sortedCategories) {
-      const matched = data.patterns.some(pattern => lower.includes(pattern))
+
+    for (const [, data] of sortedCategories) {
+      const matched = data.patterns.some((pattern) => lower.includes(pattern))
       if (matched) {
         const responses = data.responses
         return responses[Math.floor(Math.random() * responses.length)]
       }
     }
-    
+
     return `I am not sure about that specific topic, but I would love to help! You can ask me about: Who I am, My services, Skills and expertise, Portfolio, Contact information, Collaboration, Education and teaching, or contact me directly via socials or via contact form message.`
   }
 
-  // Enhanced getReply — 3-tier fallback:
-//   1. chatcon (pretrained embeddings + intent + flows) ← BEST
-//   2. chatbotModel (keyword matcher)                   ← OK
-//   3. getGeminiReply (regex on mock data)              ← LAST RESORT
-const getReply = async (userMessage) => {
-  // ---- Tier 1: chatcon ----
-  try {
-    const loaded = chatcon.isLoaded || (await chatcon.load())
-    if (loaded) {
-      console.log('🤖 Using chatcon (embeddings)...')
-      const reply = await chatcon.predict(userMessage)
-      if (reply && reply.length > 0) {
-        console.log('✅ chatcon reply:', reply)
-        return reply
+  // 3-tier reply: chatcon (if available) → chatbotModel → mock
+  const getReply = async (userMessage) => {
+    // Tier 2: chatbotModel
+    if (useNeuralNet && modelReady) {
+      try {
+        console.log('Using chatbotModel (keyword)...')
+        const prediction = await chatbotModel.predict(userMessage.toLowerCase())
+        if (prediction && prediction.length > 0) {
+          console.log('chatbotModel reply:', prediction)
+          return prediction
+        }
+      } catch (error) {
+        console.error('chatbotModel failed:', error)
       }
     }
-  } catch (err) {
-    console.warn('⚠️ chatcon failed, falling through:', err)
+
+    // Tier 3: mock
+    console.log('Using getGeminiReply (mock data)...')
+    return getGeminiReply(userMessage.toLowerCase())
   }
 
-  // ---- Tier 2: chatbotModel (keyword matcher) ----
-  if (useNeuralNet && modelReady) {
-    try {
-      console.log('🧩 Using chatbotModel (keyword)...')
-      const prediction = await chatbotModel.predict(userMessage.toLowerCase())
-      if (prediction && prediction.length > 0) {
-        console.log('✅ chatbotModel reply:', prediction)
-        return prediction
-      }
-    } catch (error) {
-      console.error('❌ chatbotModel failed:', error)
-    }
-  }
-
-  // ---- Tier 3: mock regex fallback ----
-  console.log('📚 Using getGeminiReply (mock data)...')
-  return getGeminiReply(userMessage.toLowerCase())
-}
-
-
-  // Send message
   const handleSend = async (textOverride = null) => {
     const finalInput = textOverride || input.trim()
     if (!finalInput) return
@@ -1640,8 +1602,6 @@ const getReply = async (userMessage) => {
 
     try {
       const reply = await getReply(finalInput)
-      
-      // Slightly longer delay so user can see the message appear
       setTimeout(() => {
         setMessages((prev) => [...prev, { from: 'bot', text: reply }])
         setIsTyping(false)
@@ -1658,37 +1618,30 @@ const getReply = async (userMessage) => {
     }
   }
 
-  // Voice input - ALWAYS picks up voice when listening
+  // Voice input
   const startSpeechRecognition = () => {
-    if (isListening) {
-      console.log('Already listening...')
-      return
-    }
+    if (typeof window === 'undefined') return
+    if (isListening) return
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    
     if (!SpeechRecognition) {
       alert('Speech recognition is only supported in Chrome, Edge, or Safari browsers.')
       return
     }
 
-    // Request microphone permission first
-    navigator.mediaDevices.getUserMedia({ audio: true })
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
       .then(() => {
-        console.log('Microphone permission granted')
-        
         try {
           const recognition = new SpeechRecognition()
           recognition.lang = 'en-US'
           recognition.interimResults = true
           recognition.maxAlternatives = 1
           recognition.continuous = false
-          recognition.timeout = 5000
 
           recognition.onstart = () => {
-            console.log('Speech recognition started - Speak now!')
             setIsListening(true)
-            setInput('🎤 Listening...')
+            setInput('Listening...')
           }
 
           recognition.onresult = (event) => {
@@ -1697,59 +1650,46 @@ const getReply = async (userMessage) => {
 
             for (let i = event.resultIndex; i < event.results.length; i++) {
               const transcript = event.results[i][0].transcript
-              if (event.results[i].isFinal) {
-                finalTranscript += transcript
-              } else {
-                interimTranscript += transcript
-              }
+              if (event.results[i].isFinal) finalTranscript += transcript
+              else interimTranscript += transcript
             }
 
-            if (interimTranscript) {
-              setInput(interimTranscript)
-            }
+            if (interimTranscript) setInput(interimTranscript)
 
             if (finalTranscript) {
-              console.log('Final transcript:', finalTranscript)
               setInput(finalTranscript)
-              // Send the voice input immediately
-              setTimeout(() => {
-                handleSend(finalTranscript)
-              }, 300)
+              setTimeout(() => handleSend(finalTranscript), 300)
             }
           }
 
           recognition.onerror = (event) => {
             console.error('Speech recognition error:', event.error)
             setIsListening(false)
-            
+
             const errorMessages = {
               'not-allowed': 'Please allow microphone access in your browser settings.',
               'no-speech': 'No speech detected. Please try again.',
               'audio-capture': 'No microphone found. Please connect a microphone.',
-              'network': 'Network error. Please check your connection.',
-              'aborted': 'Speech recognition was cancelled.',
-              'language-not-supported': 'English (US) is not supported on this device.'
+              network: 'Network error. Please check your connection.',
+              aborted: 'Speech recognition was cancelled.',
+              'language-not-supported': 'English (US) is not supported on this device.',
             }
-            
+
             const message = errorMessages[event.error] || `Error: ${event.error}`
             if (event.error !== 'aborted' && event.error !== 'no-speech') {
               alert(message)
             }
-            
+
             setInput('')
           }
 
           recognition.onend = () => {
-            console.log('Speech recognition ended')
             setIsListening(false)
-            if (!input || input === '🎤 Listening...') {
-              setInput('')
-            }
+            if (!input || input === 'Listening...') setInput('')
           }
 
           recognitionRef.current = recognition
           recognition.start()
-          
         } catch (error) {
           console.error('Error creating speech recognition:', error)
           setIsListening(false)
@@ -1763,8 +1703,26 @@ const getReply = async (userMessage) => {
       })
   }
 
+  // Dynamic scrollbar colors injected as CSS variables (SSR-safe)
+  const scrollbarThumb = darkMode ? '#475569' : '#cbd5e1'
+  const scrollbarTrack = darkMode ? '#1e293b' : '#f1f5f9'
+  const scrollbarThumbHover = darkMode ? '#64748b' : '#94a3b8'
+
   return (
     <div className="fixed bottom-0 right-6 z-50">
+      {/* Inject scrollbar CSS once */}
+      <style>{`
+        .chatbot-scrollbar::-webkit-scrollbar { width: 6px; }
+        .chatbot-scrollbar::-webkit-scrollbar-track { background: ${scrollbarTrack}; }
+        .chatbot-scrollbar::-webkit-scrollbar-thumb {
+          background: ${scrollbarThumb};
+          border-radius: 3px;
+        }
+        .chatbot-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: ${scrollbarThumbHover};
+        }
+      `}</style>
+
       <AnimatePresence>
         {/* Toggle Button */}
         <motion.button
@@ -1789,11 +1747,11 @@ const getReply = async (userMessage) => {
           <motion.div
             key="chat-window"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ 
-              opacity: 1, 
-              y: 0, 
+            animate={{
+              opacity: 1,
+              y: 0,
               scale: 1,
-              height: isMinimized ? 'auto' : '600px'
+              height: isMinimized ? 'auto' : '600px',
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
@@ -1805,11 +1763,11 @@ const getReply = async (userMessage) => {
           >
             {!isMinimized ? (
               <>
-                {/* Header with Gradient */}
-                <motion.div 
+                {/* Header */}
+                <motion.div
                   initial={{ y: -50 }}
                   animate={{ y: 0 }}
-                  className={`px-4 py-4 bg-gradient-to-r from-blue-600 to-blue-600 text-white`}
+                  className="px-4 py-4 bg-gradient-to-r from-blue-600 to-blue-600 text-white"
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
@@ -1822,36 +1780,48 @@ const getReply = async (userMessage) => {
                       <div>
                         <h3 className="font-semibold">Sam Assistant</h3>
                         <div className="flex items-center gap-2 text-xs opacity-90">
-                          <div className={`w-2 h-2 rounded-full ${
-                            isTyping ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'
-                          }`} />
-                          <span>
-                            {isTyping ? 'Thinking...' : 
-                             voiceEnabled ? 'Voice ON 🔊' : 'Voice OFF 🔇'}
+                          <div
+                            className={`w-2 h-2 rounded-full ${
+                              isTyping ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'
+                            }`}
+                          />
+                          <span className="flex items-center gap-1">
+                            {isTyping ? (
+                              'Thinking...'
+                            ) : voiceEnabled ? (
+                              <>
+                                Voice ON <FiVolume2 size={12} />
+                              </>
+                            ) : (
+                              <>
+                                Voice OFF <FiVolumeX size={12} />
+                              </>
+                            )}
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      {/* Voice Toggle Button */}
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={toggleVoice}
                         className={`p-1.5 rounded-lg transition-colors ${
-                          voiceEnabled 
-                            ? 'bg-white/20 text-white' 
+                          voiceEnabled
+                            ? 'bg-white/20 text-white'
                             : 'bg-white/10 text-gray-300 hover:bg-white/20'
                         }`}
                         title={voiceEnabled ? 'Mute voice' : 'Enable voice'}
                       >
                         {voiceEnabled ? <FiVolume2 size={16} /> : <FiVolumeX size={16} />}
                       </motion.button>
+
                       {modelReady && (
-                        <div className="flex items-center gap-1 mr-1">
-                          <span className="text-xs" title="Neural Network Active">🧠</span>
+                        <div className="flex items-center gap-1 mr-1" title="Neural Network Active">
+                          <BsBrain size={14} className="text-white" />
                         </div>
                       )}
+
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
@@ -1872,13 +1842,10 @@ const getReply = async (userMessage) => {
                   </div>
                 </motion.div>
 
-                {/* Messages Area */}
-                <div 
-                  className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin"
-                  style={{
-                    scrollbarWidth: 'thin',
-                    scrollbarColor: darkMode ? '#475569 #1e293b' : '#cbd5e1 #f1f5f9',
-                  }}
+                {/* Messages */}
+                <div
+                  className="chatbot-scrollbar flex-1 overflow-y-auto p-4 space-y-4"
+                  style={{ scrollbarWidth: 'thin' }}
                 >
                   <AnimatePresence>
                     {messages.map((msg, i) => (
@@ -1887,7 +1854,9 @@ const getReply = async (userMessage) => {
                         initial={{ opacity: 0, x: msg.from === 'user' ? 20 : -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.3 }}
-                        className={`flex items-start gap-2 ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
+                        className={`flex items-start gap-2 ${
+                          msg.from === 'user' ? 'justify-end' : 'justify-start'
+                        }`}
                       >
                         {msg.from === 'bot' && (
                           <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-600 flex items-center justify-center text-white text-sm shrink-0">
@@ -1901,8 +1870,8 @@ const getReply = async (userMessage) => {
                                 ? 'bg-blue-600 text-white rounded-br-none'
                                 : 'bg-blue-500 text-white rounded-br-none'
                               : darkMode
-                                ? 'bg-slate-700 text-gray-200 rounded-bl-none'
-                                : 'bg-gray-100 text-gray-800 rounded-bl-none'
+                              ? 'bg-slate-700 text-gray-200 rounded-bl-none'
+                              : 'bg-gray-100 text-gray-800 rounded-bl-none'
                           }`}
                         >
                           {msg.text}
@@ -1915,13 +1884,9 @@ const getReply = async (userMessage) => {
                       </motion.div>
                     ))}
                   </AnimatePresence>
-                  
+
                   {isTyping && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="flex items-start gap-2"
-                    >
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-start gap-2">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-600 flex items-center justify-center text-white">
                         <BsRobot size={14} />
                       </div>
@@ -1931,20 +1896,16 @@ const getReply = async (userMessage) => {
                           <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                           <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 italic">
-                          {typingText}
-                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 italic">{typingText}</p>
                       </div>
                     </motion.div>
                   )}
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* REDUCED Suggestions - Only 6 buttons */}
+                {/* Suggestions */}
                 <div className="px-4 py-2 border-t dark:border-slate-700">
-                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
-                    Quick suggestions:
-                  </p>
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Quick suggestions:</p>
                   <div className="flex flex-wrap gap-1.5">
                     {suggestions.map((s, i) => (
                       <motion.button
@@ -1967,24 +1928,19 @@ const getReply = async (userMessage) => {
                   </div>
                 </div>
 
-                {/* Input Area */}
+                {/* Input */}
                 <div className="p-3 border-t dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
                   <div className="flex gap-2">
-                    <motion.div
-                      whileFocus={{ scale: 1.02 }}
-                      className="flex-1 relative"
-                    >
+                    <motion.div whileFocus={{ scale: 1.02 }} className="flex-1 relative">
                       <input
                         ref={inputRef}
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                        placeholder={isListening ? '🎤 Listening...' : 'Type your message...'}
+                        placeholder={isListening ? 'Listening...' : 'Type your message...'}
                         className={`w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 transition-all ${
-                          isListening
-                            ? 'ring-2 ring-red-500'
-                            : ''
+                          isListening ? 'ring-2 ring-red-500' : ''
                         } ${
                           darkMode
                             ? 'bg-slate-700 text-white placeholder-gray-400 focus:ring-blue-500'
@@ -2009,11 +1965,11 @@ const getReply = async (userMessage) => {
                         className={`p-2.5 rounded-xl transition-all ${
                           darkMode
                             ? input.trim() && !isListening
-                              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                              ? 'bg-blue-600 hover:bg-blue-700 text-white'
                               : 'bg-slate-700 text-gray-500 cursor-not-allowed'
                             : input.trim() && !isListening
-                              ? 'bg-blue-500 hover:bg-blue-600 text-white'
-                              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                         }`}
                       >
                         <FiSend size={18} />
@@ -2030,31 +1986,50 @@ const getReply = async (userMessage) => {
                               : isTyping
                               ? 'bg-gray-400 cursor-not-allowed text-gray-600'
                               : darkMode
-                                ? 'bg-slate-700 hover:bg-slate-600 text-gray-300'
-                                : 'bg-gray-200 hover:bg-gray-300 text-gray-600'
+                              ? 'bg-slate-700 hover:bg-slate-600 text-gray-300'
+                              : 'bg-gray-200 hover:bg-gray-300 text-gray-600'
                           }`}
                           title={isListening ? 'Listening...' : 'Voice input'}
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                          </svg>
+                          <FiMic size={18} />
                         </motion.button>
                       )}
                     </div>
                   </div>
+
                   <div className="flex justify-between items-center mt-1.5">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {isListening ? '🎤 Listening...' : 
-                       voiceEnabled ? '🔊 Male voice enabled' : '🔇 Voice muted'}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                      {isListening ? (
+                        <>
+                          <FiMic size={12} /> Listening...
+                        </>
+                      ) : voiceEnabled ? (
+                        <>
+                          <FiVolume2 size={12} /> Male voice enabled
+                        </>
+                      ) : (
+                        <>
+                          <FiVolumeX size={12} /> Voice muted
+                        </>
+                      )}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {modelReady ? '🧠 Neural AI' : '⏳ Loading...'}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                      {modelReady ? (
+                        <>
+                          <BsBrain size={12} /> Neural AI
+                        </>
+                      ) : (
+                        <>
+                          <span className="inline-block w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />{' '}
+                          Loading...
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
               </>
             ) : (
-              /* Minimized View */
+              /* Minimized */
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -2069,8 +2044,24 @@ const getReply = async (userMessage) => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-sm dark:text-white">Sam Assistant</h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {voiceEnabled ? '🔊 Voice ON' : '🔇 Voice OFF'} • {modelReady ? '🧠 AI' : 'Loading...'}
+                      <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                        {voiceEnabled ? (
+                          <>
+                            <FiVolume2 size={12} /> Voice ON
+                          </>
+                        ) : (
+                          <>
+                            <FiVolumeX size={12} /> Voice OFF
+                          </>
+                        )}
+                        {' • '}
+                        {modelReady ? (
+                          <>
+                            <BsBrain size={12} /> AI
+                          </>
+                        ) : (
+                          'Loading...'
+                        )}
                       </p>
                     </div>
                   </div>
@@ -2083,8 +2074,8 @@ const getReply = async (userMessage) => {
                         toggleVoice()
                       }}
                       className={`p-1.5 rounded-lg transition-colors ${
-                        voiceEnabled 
-                          ? 'text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700' 
+                        voiceEnabled
+                          ? 'text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700'
                           : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700'
                       }`}
                       title={voiceEnabled ? 'Mute voice' : 'Enable voice'}
@@ -2120,22 +2111,6 @@ const getReply = async (userMessage) => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style jsx>{`
-        .scrollbar-thin::-webkit-scrollbar {
-          width: 6px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-          background: ${darkMode ? '#475569' : '#cbd5e1'};
-          border-radius: 3px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-          background: ${darkMode ? '#64748b' : '#94a3b8'};
-        }
-      `}</style>
     </div>
   )
 }
