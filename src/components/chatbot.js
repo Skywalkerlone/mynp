@@ -1811,7 +1811,7 @@ const getReply = async (userMessage) => {
                           }`} />
                           <span>
                             {isTyping ? 'Thinking...' : 
-                             voiceEnabled ? 'Voice ON 🔊' : 'Voice OFF 🔇'}
+                             voiceEnabled ? 'Voice ON 1' : 'Voice OFF 0'}
                           </span>
                         </div>
                       </div>
@@ -1833,7 +1833,7 @@ const getReply = async (userMessage) => {
                       </motion.button>
                       {modelReady && (
                         <div className="flex items-center gap-1 mr-1">
-                          <span className="text-xs" title="Neural Network Active">🧠</span>
+                          <span className="text-xs" title="Neural Network Active">S</span>
                         </div>
                       )}
                       <motion.button
@@ -1964,7 +1964,7 @@ const getReply = async (userMessage) => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                        placeholder={isListening ? '🎤 Listening...' : 'Type your message...'}
+                        placeholder={isListening ? ' Listening...' : 'Type your message...'}
                         className={`w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 transition-all ${
                           isListening
                             ? 'ring-2 ring-red-500'
